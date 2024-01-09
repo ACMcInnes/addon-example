@@ -23,8 +23,8 @@ export default function Nav() {
           ["Dashboard", "/dashboard"],
           ["Projects", "/projects"],
           ["Reports", "/reports"],
-        ].map(([title, url]) => (
-          <li>
+        ].map(([title, url], index) => (
+          <li key={index}>
             <Link className={`hover:underline hover:underline-offset-4 ${pathname === url ? 'underline underline-offset-8' : ''}`} href={url}>{title}</Link>
           </li>
         ))}

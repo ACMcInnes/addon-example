@@ -18,8 +18,8 @@ export default function Footer() {
             ["Dashboard", "/dashboard"],
             ["Projects", "/projects"],
             ["Reports", "/reports"],
-          ].map(([title, url]) => (
-            <li>
+          ].map(([title, url], index) => (
+            <li key={index}>
               <Link
                 className="hover:underline hover:underline-offset-4"
                 href={url}
@@ -35,8 +35,8 @@ export default function Footer() {
             ["Dashboard", "/dashboard"],
             ["Projects", "/projects"],
             ["Reports", "/reports"],
-          ].map(([title, url]) => (
-            <li>
+          ].map(([title, url], index) => (
+            <li key={index}>
               <Link
                 className="hover:underline hover:underline-offset-4"
                 href={url}
@@ -52,8 +52,8 @@ export default function Footer() {
             ["Dashboard", "/dashboard"],
             ["Projects", "/projects"],
             ["Reports", "/reports"],
-          ].map(([title, url]) => (
-            <li>
+          ].map(([title, url], index) => (
+            <li key={index}>
               <Link
                 className="hover:underline hover:underline-offset-4"
                 href={url}

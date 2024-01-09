@@ -47,7 +47,7 @@ export default function NotFound() {
             </span>
           </h2>
           <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Don't have access? Login first
+            Don&apos;t have access? Login first
           </p>
         </Link>
         <a
