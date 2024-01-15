@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 import { cookies } from "next/headers";
 
 const redirectURL = "https://addon-example.vercel.app/neto/callback";
-const localRedirectURL = "http://localhost:3000/neto/callback";
+// const localRedirectURL = "http://localhost:3000/neto/callback";
 const tokenURL = "https://api.netodev.com/oauth/v2/token?version=2";
 const codeURL = "https://api.netodev.com/oauth/v2/auth?version=2";
 
@@ -18,7 +18,7 @@ export async function POST(code: String, grantType: String) {
 
   params.append("client_id", `${process.env.CLIENT_ID}`);
   params.append("client_secret", `${process.env.CLIENT_SECRET}`);
-  params.append("redirect_uri", `${localRedirectURL}`);
+  params.append("redirect_uri", `${redirectURL}`);
   params.append("grant_type", `${grantType}`);
   if (grantType === "authorization_code") {
     params.append("code", `${code}`);
@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
     const webstoreURL = searchParams.get("store_domain");
     console.log(`store_domain: ${webstoreURL}`);
     redirect(
-      `${codeURL}&client_id=${process.env.CLIENT_ID}&redirect_uri=${localRedirectURL}&response_type=code&store_domain=${webstoreURL}&state=test`
+      `${codeURL}&client_id=${process.env.CLIENT_ID}&redirect_uri=${redirectURL}&response_type=code&store_domain=${webstoreURL}&state=test`
     );
   } else if (hasCode) {
     const code = searchParams.get("code") ?? "";
