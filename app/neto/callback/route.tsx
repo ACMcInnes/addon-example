@@ -12,7 +12,7 @@ async function createCookie(name: string, data: any) {
   cookies().set(name, data, { secure: true });
 }
 
-export async function POST(code: String, grantType: String) {
+export async function POST(request: NextRequest, code: String, grantType: String) {
   // const requestURL=`${tokenURL}&client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}&redirect_uri=${localRedirectURL}&grant_type=authorization_code&code=${code}`
   const params = new URLSearchParams();
 
@@ -76,7 +76,7 @@ export async function GET(request: NextRequest) {
     const code = searchParams.get("code") ?? "";
     console.log(`code: ${code}`);
 
-    const oauthRes = await POST(code, "authorization_code");
+    const oauthRes = await POST(request, code, "authorization_code");
 
     if (oauthRes.status === 201) {
       console.log(`oauth complete, redirecting to dashboard`);
@@ -89,7 +89,7 @@ export async function GET(request: NextRequest) {
     const cookieStore = cookies();
     const refreshCookie = cookieStore.get("neto_refresh_token");
     const refreshToken = refreshCookie?.value ?? "";
-    const refreshRes = await POST(refreshToken, "refresh_token");
+    const refreshRes = await POST(request, refreshToken, "refresh_token");
 
     if (refreshRes.status === 201) {
       console.log(`oauth complete, redirecting to dashboard`);
