@@ -1,6 +1,8 @@
 import Link from "next/link";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+
+import decodeJWT from "@/components/helper/decodeJWT";
+import getCookie from "@/components/helper/getCookie";
 
 const apiEndpoint = "https://api.netodev.com/v2/stores/";
 
@@ -9,10 +11,10 @@ async function getWebstoreDets(
   authType: string = "",
   webstore: string = ""
 ) {
-  console.log(`API Call Creds:`);
-  //console.log(`authorization: ${authorization}`)
-  console.log(`authType: ${authType}`);
-  console.log(`webstore: ${webstore}`);
+  // console.log(`API Call Creds:`);
+  // console.log(`authorization: ${authorization}`)
+  // console.log(`authType: ${authType}`);
+  // console.log(`webstore: ${webstore}`);
 
   try {
     const res = await fetch(`${apiEndpoint}${webstore}/properties`, {
@@ -24,17 +26,15 @@ async function getWebstoreDets(
       //body: `{}`,
     });
 
-    console.log(`RESPONSE:`);
-    console.log(res.ok);
-    console.log(res.status);
-    console.log(res.statusText);
+    console.log(`API RESPONSE:`);
+    console.log(`${res.status} - ${res.statusText}`);
 
     if (!res.ok || res.status !== 200) {
       console.log(`issue with API call`);
-      
+
       if (res.statusText === "Unauthorized") {
         console.log(`need to refresh token`);
-        return res.statusText
+        return res.statusText;
       } else {
         // This will activate the closest `error.js` Error Boundary
         throw new Error(`Failed to fetch data: ${res.statusText}`);
@@ -42,8 +42,8 @@ async function getWebstoreDets(
     }
 
     const webstoreProperties = await res.json();
-    console.log(`FETCH DATA:`);
-    console.log(webstoreProperties);
+    // console.log(`FETCH DATA:`);
+    // console.log(webstoreProperties);
 
     return webstoreProperties;
   } catch (e) {
@@ -52,32 +52,41 @@ async function getWebstoreDets(
 }
 
 export default async function Dashboard() {
-  const cookieStore = cookies();
-  const webstoreHash = cookieStore.get("neto_api_id");
 
-  if (webstoreHash) {
-    const oauthType = cookieStore.get("neto_token_type");
-    const oauthAccess = cookieStore.get("neto_access_token");
-    const oauthRefresh = cookieStore.get("neto_refresh_token");
+  interface JwtPayload {
+    scope: string;
+    api_id: string;
+    token_type: string;
+    expires_in: number;
+    access_token: string;
+    refresh_token: string;
+    iat: number;
+    exp: number;
+  }
 
-    //console.log(`COOKIES:`)
-    //console.log(`hash: ${webstoreHash.value}`)
-    //console.log(`type: ${oauthType?.value}`)
-    //console.log(`access: ${oauthAccess?.value}`)
-    //console.log(`refresh: ${oauthRefresh?.value}`)
+  const jwtCookie = getCookie("neto_oauth");
+
+  if (jwtCookie) {
+    // console.log(`COOKIE:`);
+    // console.log(jwtCookie);
+    const oauth = (await decodeJWT(jwtCookie)) as JwtPayload;
+
+    // console.log(`DECODED COOKIE:`);
+    // console.log(decodedCookie)
+    // console.log(oauth.scope);
+    // console.log(oauth.access_token);
 
     const details = await getWebstoreDets(
-      oauthAccess?.value,
-      oauthType?.value,
-      webstoreHash.value
+      oauth.access_token,
+      oauth.token_type,
+      oauth.api_id
     );
 
-    console.log(`WEBSTORE DETAILS:`);
-
+    // console.log(`WEBSTORE DETAILS:`);
 
     if (details === "Unauthorized") {
-        console.log(`redirecting...`)
-        redirect(`/neto/callback?refresh=y`);
+      console.log(`token refresh - redirecting...`);
+      redirect(`/neto/callback?refresh=y`);
     } else if (details.success === true) {
       return (
         <>
@@ -85,7 +94,7 @@ export default async function Dashboard() {
             <p>Your dashboard</p>
 
             <p>Your Details:</p>
-            <p>webstore - {details.result.domain} {webstoreHash.value}</p>
+            <p>webstore - {details.result.domain} {oauth.api_id}</p>
             <p>timezone - {details.result.timezone} {details.result.country}</p>
           </div>
           <div>
@@ -100,28 +109,24 @@ export default async function Dashboard() {
             <p>Your dashboard</p>
 
             <p>Your Details:</p>
-            <p>webstore hash - {webstoreHash.value}</p>
+            <p>webstore hash - {oauth.api_id}</p>
             <p>Addon Credentials *KEEP THESE SECURE:</p>
 
-            <details
-              className="open:bg-white dark:open:bg-slate-900 open:ring-1 open:ring-black/5 dark:open:ring-white/10 open:shadow-lg p-6 rounded-lg"
-            >
+            <details className="open:bg-white dark:open:bg-slate-900 open:ring-1 open:ring-black/5 dark:open:ring-white/10 open:shadow-lg p-6 rounded-lg">
               <summary className="text-sm leading-6 text-slate-900 dark:text-white font-semibold select-none">
                 oAuth Access Token
               </summary>
               <div className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                <p className="break-words">{oauthAccess?.value}</p>
+                <p className="break-words">{oauth.access_token}</p>
               </div>
             </details>
 
-            <details
-              className="open:bg-white dark:open:bg-slate-900 open:ring-1 open:ring-black/5 dark:open:ring-white/10 open:shadow-lg p-6 rounded-lg"
-            >
+            <details className="open:bg-white dark:open:bg-slate-900 open:ring-1 open:ring-black/5 dark:open:ring-white/10 open:shadow-lg p-6 rounded-lg">
               <summary className="text-sm leading-6 text-slate-900 dark:text-white font-semibold select-none">
                 oAuth Refresh Token
               </summary>
               <div className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
-                <p className="break-words">{oauthRefresh?.value}</p>
+                <p className="break-words">{oauth.refresh_token}</p>
               </div>
             </details>
           </div>
@@ -135,7 +140,10 @@ export default async function Dashboard() {
     return (
       <div>
         <p>Your dashboard data could not be loaded</p>
-        <p>Return to <Link href="/">Home</Link> or <Link href="/dashboard/login">Login</Link>.</p>
+        <p>
+          Return to <Link href="/">Home</Link> or{" "}
+          <Link href="/dashboard/login">Login</Link>.
+        </p>
       </div>
     );
   }

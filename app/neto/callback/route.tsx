@@ -3,8 +3,12 @@ import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 import { cookies } from "next/headers";
 
+import encodeJWT from "@/components/helper/encodeJWT";
+import decodeJWT from "@/components/helper/decodeJWT";
+import getCookie from "@/components/helper/getCookie";
+
 const redirectURL = "https://addon-example.vercel.app/neto/callback";
-// const localRedirectURL = "http://localhost:3000/neto/callback";
+const localRedirectURL = "http://localhost:3000/neto/callback";
 const tokenURL = "https://api.netodev.com/oauth/v2/token?version=2";
 const codeURL = "https://api.netodev.com/oauth/v2/auth?version=2";
 
@@ -18,7 +22,11 @@ export async function POST(request: NextRequest, code: String, grantType: String
 
   params.append("client_id", `${process.env.CLIENT_ID}`);
   params.append("client_secret", `${process.env.CLIENT_SECRET}`);
-  params.append("redirect_uri", `${redirectURL}`);
+  if (process.env.VERCEL_ENV === "development") {
+    params.append("redirect_uri", `${localRedirectURL}`);
+  } else {
+    params.append("redirect_uri", `${redirectURL}`);
+  }
   params.append("grant_type", `${grantType}`);
   if (grantType === "authorization_code") {
     params.append("code", `${code}`);
@@ -40,15 +48,20 @@ export async function POST(request: NextRequest, code: String, grantType: String
     });
 
     const data = await res.json();
-    console.log(`FETCH DATA:`);
-    console.log(data);
+    // console.log(`FETCH DATA:`);
+    // console.log(data);
     const oauthHash = data.api_id;
 
     if (oauthHash) {
-      createCookie("neto_api_id", oauthHash);
-      createCookie("neto_token_type", data.token_type);
-      createCookie("neto_access_token", data.access_token);
-      createCookie("neto_refresh_token", data.refresh_token);
+
+      // encode whole data object
+      const jwtCookie = await encodeJWT(data);
+      createCookie("neto_oauth", jwtCookie);
+
+      // createCookie("neto_api_id", oauthHash);
+      // createCookie("neto_token_type", data.token_type);
+      // createCookie("neto_access_token", data.access_token);
+      // createCookie("neto_refresh_token", data.refresh_token);
       return NextResponse.json({ oauth: "success" }, { status: 201 });
     } else {
       return NextResponse.json({ oauth: "error" }, { status: 500 });
@@ -69,12 +82,16 @@ export async function GET(request: NextRequest) {
   if (hasWebstore) {
     const webstoreURL = searchParams.get("store_domain");
     console.log(`store_domain: ${webstoreURL}`);
-    redirect(
-      `${codeURL}&client_id=${process.env.CLIENT_ID}&redirect_uri=${redirectURL}&response_type=code&store_domain=${webstoreURL}&state=test`
-    );
+
+    if (process.env.VERCEL_ENV === "development") {
+      redirect(`${codeURL}&client_id=${process.env.CLIENT_ID}&redirect_uri=${localRedirectURL}&response_type=code&store_domain=${webstoreURL}&state=test`);
+    } else {
+      redirect(`${codeURL}&client_id=${process.env.CLIENT_ID}&redirect_uri=${redirectURL}&response_type=code&store_domain=${webstoreURL}&state=test`);
+
+    }
   } else if (hasCode) {
     const code = searchParams.get("code") ?? "";
-    console.log(`code: ${code}`);
+    // console.log(`code: ${code}`);
 
     const oauthRes = await POST(request, code, "authorization_code");
 
@@ -86,19 +103,41 @@ export async function GET(request: NextRequest) {
       redirect(`/neto/login?type=webstore`);
     }
   } else if (hasRefresh) {
-    const cookieStore = cookies();
-    const refreshCookie = cookieStore.get("neto_refresh_token");
-    const refreshToken = refreshCookie?.value ?? "";
-    const refreshRes = await POST(request, refreshToken, "refresh_token");
 
-    if (refreshRes.status === 201) {
-      console.log(`oauth complete, redirecting to dashboard`);
-      redirect(`/dashboard`);
-    } else {
-      console.log(`oauth error, redirecting to login`);
-      redirect(`/neto/login?type=webstore`);
+    interface JwtPayload {
+      scope: string;
+      api_id: string;
+      token_type: string;
+      expires_in: number;
+      access_token: string;
+      refresh_token: string;
+      iat: number;
+      exp: number;
     }
-    
+   
+    const jwtCookie = getCookie("neto_oauth");
+
+    if (jwtCookie) {
+
+      console.log(`refresh token found`);
+
+      const oauth = (await decodeJWT(jwtCookie)) as JwtPayload;
+  
+      console.log(`refresh token decoded`);
+
+      const refreshToken = oauth.refresh_token;
+      const refreshRes = await POST(request, refreshToken, "refresh_token");
+
+      console.log(`grabbing new oauth details`);
+
+      if (refreshRes.status === 201) {
+        console.log(`oauth complete, redirecting to dashboard`);
+        redirect(`/dashboard`);
+      } else {
+        console.log(`oauth error, redirecting to login`);
+        redirect(`/neto/login?type=webstore`);
+      }
+    }
   } else {
     console.log(`oauth error, redirecting to login`);
     redirect(`/neto/login?type=webstore`);
