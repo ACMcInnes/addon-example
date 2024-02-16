@@ -18,7 +18,7 @@ export const ThemeSwitcher = () => {
         return null;
     }
     return (
-        <button className={`z-20 w-fit absolute right-5 top-1 p-2 rounded-md hover:scale-110 active:scale=100 duration-200 bg-slate-200 dark:bg-[#212933]`} onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+        <button className={`z-20 w-fit absolute right-2 top-1 p-2 rounded-md hover:scale-110 active:scale=100 duration-200 bg-slate-200 dark:bg-[#212933]`} onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
             {theme === "light" ? "Dark " : "Light "}
             {theme === "light" ? <FontAwesomeIcon icon={faMoon} /> : <FontAwesomeIcon icon={faSun} />}
         </button>

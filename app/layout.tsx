@@ -23,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} duration-200`}>
+      <body className={`${inter.className} flex flex-col min-h-screen justify-between bg-slate-100 dark:bg-slate-900 duration-200`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ThemeSwitcher/>
           {children}

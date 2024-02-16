@@ -1,22 +1,18 @@
+import Banner from "@/components/dashboard/banner";
+import Footer from "@/components/dashboard/footer";
+import Nav from "@/components/dashboard/nav";
 import Image from "next/image";
 import Link from 'next/link'
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between text-sm lg:flex">
-        <div className="galaxy-bg fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 pb-3 pt-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit">
-          <a
-            className="pointer-events-none lg:pointer-events-auto"
-            href="https://developers.maropost.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Built for Neto
-          </a>
-        </div>
-      </div>
 
+    <>
+      <header>
+        <Banner/>
+        <Nav/>
+      </header>
+      <main className="flex flex-col items-center px-5">
       <div className="relative flex place-items-center pb-8">
         <h1 className="text-3xl text-center font-semibold">404 | We could not find the page you are looking for. <br/> Take me <Link href="/" className="text-sky-500">Home</Link>.</h1>
       </div>
@@ -83,60 +79,8 @@ export default function NotFound() {
           </p>
         </a>
       </div>
-
-      <div className="flex flex-col w-full items-center justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
-        <a
-          className="pointer-events-none flex flex-col md:flex-row place-items-center gap-2 p-8 lg:pointer-events-auto"
-          href="https://acmcinnes.au/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          By{" "}
-          <Image
-            src="/am_logo.svg"
-            alt="AM Logo"
-            className="dark:invert"
-            width={100}
-            height={24}
-            priority
-          />
-        </a>
-        <div className="flex flex-col md:flex-row w-full items-center justify-center">
-          <a
-            className="pointer-events-none flex flex-col md:flex-row h-28 place-items-center gap-2 p-8 pb-2 md:pr-2 md:pb-8 lg:pointer-events-auto"
-            href="https://nextjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Built using{" "}
-            <Image
-              className="dark:invert"
-              src="/next.svg"
-              alt="Next.js Logo"
-              width={180}
-              height={37}
-            />
-          </a>
-          <a
-            className="pointer-events-none flex flex-col md:flex-row h-28 place-items-center gap-2 p-8 pt-2 md:pl-2 md:pt-8 lg:pointer-events-auto"
-            href="https://vercel.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            and deployed on{" "}
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              width={180}
-              height={37}
-            />
-          </a>
-        </div>
-        <div className="flex flex-col w-full items-center justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
-          <p>&copy; {new Date().getFullYear()}</p>
-        </div>
-      </div>
-    </main>
+      </main>
+      <Footer/>
+    </>
   );
 }

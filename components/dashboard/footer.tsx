@@ -1,27 +1,37 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUpRightFromSquare, faLocationDot, faPhone, faCircle} from "@fortawesome/free-solid-svg-icons";
+import { faYoutube, faInstagram ,faLinkedinIn, faTwitter} from "@fortawesome/free-brands-svg-icons";
+import {faCircle as faCircleR} from "@fortawesome/free-regular-svg-icons";
+
+import SubscriberForm from "@/components/dashboard/subscriber-form";
+
 export default function Footer() {
+  const displayDay = new Intl.DateTimeFormat("en-AU", { weekday: "long", timeZone: "Australia/Brisbane" }).format(new Date());
+  const displayTime = new Intl.DateTimeFormat("en-AU", { timeStyle: "short", timeZone: "Australia/Brisbane" }).format(new Date());
+  const openHours = new Intl.DateTimeFormat("en-AU", { timeStyle: "medium", timeZone: "Australia/Brisbane", hourCycle: "h24" }).format(new Date('01/01/2024 9:00 am'));
+  const closingHours = new Intl.DateTimeFormat("en-AU", { timeStyle: "medium", timeZone: "Australia/Brisbane", hourCycle: "h24" }).format(new Date('01/01/2024 5:00 pm'));
+  const timestamp = new Intl.DateTimeFormat("en-AU", { timeStyle: "medium", timeZone: "Australia/Brisbane", hourCycle: "h24" }).format(new Date());
+
   return (
     <footer>
-      <nav className="w-full items-center justify-center gap-8 mt-12 py-8 text-sm flex bg-gray-300 dark:bg-slate-800">
-        <Image
-          src="/am_logo.svg"
-          alt="AM Logo"
-          className="dark:invert"
-          width={100}
-          height={24}
-        />
-        <ul className="flex flex-col gap-x-8 gap-y-2">
+      <section className="flex flex-col md:flex-row">
+      <nav className="w-full md:w-6/12 flex flex-col lg:flex-row items-start justify-center gap-8 mt-12 p-12 md:p-8 text-sm bg-indigo-100 dark:bg-slate-800">
+      <ul className="flex flex-col w-full flex-auto lg:flex-initial lg:basis-24 gap-x-8 gap-y-2">
+        <li key="footer" className="text-lg border-b-2">
+          Menu
+        </li>
           {[
-            ["Home", "/"],
             ["Dashboard", "/dashboard"],
-            ["Projects", "/projects"],
-            ["Reports", "/reports"],
+            ["About Us", "/about"],
+            ["FAQ", "/faq"],
+            ["Contact", "/contact"],
           ].map(([title, url], index) => (
-            <li key={index}>
+            <li key={index} className="self-end lg:self-auto">
               <Link
-                className="hover:underline hover:underline-offset-4"
+                className="text-sky-500 hover:text-sky-600"
                 href={url}
               >
                 {title}
@@ -29,16 +39,18 @@ export default function Footer() {
             </li>
           ))}
         </ul>
-        <ul className="flex flex-col gap-x-8 gap-y-2">
+        <ul className="flex flex-col w-full flex-auto lg:flex-initial lg:basis-28 gap-x-8 gap-y-2">
+        <li key="resources" className="text-lg border-b-2">
+          Resources
+        </li>
           {[
-            ["Home", "/"],
-            ["Dashboard", "/dashboard"],
-            ["Projects", "/projects"],
-            ["Reports", "/reports"],
+            ["Assets", "/assets"],
+            ["Case studies", "/cases"],
+            ["Terms of use", "/terms"],
           ].map(([title, url], index) => (
-            <li key={index}>
+            <li key={index} className="self-end lg:self-auto">
               <Link
-                className="hover:underline hover:underline-offset-4"
+                className="text-sky-500 hover:text-sky-600"
                 href={url}
               >
                 {title}
@@ -46,26 +58,45 @@ export default function Footer() {
             </li>
           ))}
         </ul>
-        <ul className="flex flex-col gap-x-8 gap-y-2">
+        <ul className="flex flex-col w-full flex-auto lg:flex-initial lg:basis-44 gap-x-8 gap-y-2">
+        <li key="Neto" className="text-lg border-b-2">
+          Neto
+        </li>
           {[
-            ["Home", "/"],
-            ["Dashboard", "/dashboard"],
-            ["Projects", "/projects"],
-            ["Reports", "/reports"],
+            ["What is Neto", "//maropost.com/platform/neto-by-maropost/"],
+            ["API Documentation", "//developers.maropost.com/documentation/engineers/api-documentation"],
+            ["Status", "//status.netohq.com/"],
           ].map(([title, url], index) => (
-            <li key={index}>
+            <li key={index} className="self-end lg:self-auto">
               <Link
-                className="hover:underline hover:underline-offset-4"
+                className="text-sky-500 hover:text-sky-600"
                 href={url}
               >
-                {title}
+                {title} <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
               </Link>
             </li>
           ))}
         </ul>
       </nav>
+      <section className="w-full md:w-6/12 flex flex-col items-end justify-center gap-2 md:mt-12 p-12 md:p-8 text-sm dark:bg-indigo-100 bg-slate-800 text-white dark:text-slate-800">
+            
+            <SubscriberForm/>
+            
+            <p className="mt-4 flex justify-center gap-1"><FontAwesomeIcon icon={faLocationDot} className="text-xl" /> Brisbane &#124; Meanjin, Australia</p>
+            <p>{displayDay} {displayTime} {timestamp > openHours && timestamp < closingHours ? <FontAwesomeIcon icon={faCircle} className="text-green-500" /> : <FontAwesomeIcon icon={faCircleR} className="text-yellow-500" />} {timestamp > openHours && timestamp < closingHours ? "available" : "gone for the day"}</p>
+            
+            <p className="flex justify-center gap-1"><FontAwesomeIcon icon={faPhone} className="text-xl" /> 1800 975 709</p>
+            
+            <div className="flex items-center justify-center gap-4 text-xl pt-8">
+              <FontAwesomeIcon icon={faYoutube} />
+              <FontAwesomeIcon icon={faInstagram} />
+              <FontAwesomeIcon icon={faTwitter} />
+              <FontAwesomeIcon icon={faLinkedinIn} />
+            </div>
+      </section>
+      </section>
 
-      <div className="flex flex-col w-full items-center justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
+      <div className="flex flex-col w-full items-center justify-center bg-indigo-300 dark:bg-indigo-800">
         <a
           className="pointer-events-none flex flex-col md:flex-row place-items-center gap-2 p-8 pb-2 lg:pointer-events-auto"
           href="https://acmcinnes.au/"
@@ -79,17 +110,18 @@ export default function Footer() {
             className="dark:invert"
             width={100}
             height={24}
-            priority
           />
         </a>
         <div className="flex flex-col md:flex-row w-full items-center justify-center">
+        <p className="flex flex-col md:flex-row h-20 place-items-center gap-2 p-8 pb-2 md:pr-1 md:pb-8">
+          Built using{" "}
           <a
-            className="pointer-events-none flex flex-col md:flex-row h-20 place-items-center gap-2 p-8 pb-2 md:pr-1 md:pb-8 lg:pointer-events-auto"
+            className="pointer-events-none lg:pointer-events-auto"
             href="https://nextjs.org/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Built using{" "}
+            
             <Image
               className="dark:invert"
               src="/next.svg"
@@ -98,13 +130,15 @@ export default function Footer() {
               height={15}
             />
           </a>
-          <a
-            className="pointer-events-none flex flex-col md:flex-row h-20 place-items-center gap-2 p-8 pt-2 md:pl-1 md:pt-8 lg:pointer-events-auto"
+            </p>
+          <p className="flex flex-col md:flex-row h-20 place-items-center gap-2 p-8 pt-2 md:pl-1 md:pt-8">
+            deployed on{" "}
+            <a
+            className="pointer-events-none lg:pointer-events-auto"
             href="https://vercel.com/"
             target="_blank"
             rel="noopener noreferrer"
-          >
-            and deployed on{" "}
+            >
             <Image
               className="dark:invert"
               src="/vercel.svg"
@@ -112,10 +146,23 @@ export default function Footer() {
               width={75}
               height={15}
             />
-          </a>
+            </a>
+          </p>
+
+            
+
         </div>
-        <div className="flex flex-col w-full pb-4 items-center justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black">
-          <p>&copy; {new Date().getFullYear()}</p>
+        <div className="flex flex-col w-full pt-4 md:pb-4 items-center justify-center text-white bg-indigo-800 dark:bg-indigo-950">
+          <p>&copy; {new Date().getFullYear()} &#124; McInnes Design</p>
+        </div>
+        <div className="md:hidden max-h-24 overflow-hidden flex flex-col w-full items-center justify-start text-white bg-indigo-800 dark:bg-indigo-950">
+          <Image
+            src="/am_logo.svg"
+            alt="AM Logo"
+            className="invert"
+            width={414}
+            height={200}
+          />
         </div>
       </div>
     </footer>

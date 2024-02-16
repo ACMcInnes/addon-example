@@ -4,8 +4,8 @@ import Nav from "@/components/dashboard/nav";
 import Footer from "@/components/dashboard/footer";
 
 export const metadata: Metadata = {
-  title: "Addon Dashboard",
-  description: "A webstore addon dashboard",
+  title: "Addon Contact",
+  description: "Contact Us Form",
 };
 
 export default function DashboardLayout({
@@ -20,7 +20,7 @@ export default function DashboardLayout({
         <Nav/>
       </header>
       <main className="flex flex-col items-center px-5">
-        <h1 className="text-3xl font-semibold">Dashboard</h1>
+        <h1 className="text-3xl font-semibold">Contact Us</h1>
         {children}
       </main>
       <Footer/>
