@@ -7,21 +7,13 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark, faBars, faArrowUpRightFromSquare, faCircle } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faBars, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { faYoutube, faInstagram, faTwitter, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
-import {faCircle as faCircleR} from "@fortawesome/free-regular-svg-icons";
+import OfficeHours from "@/components/shared/office-hours";
 
 export default function Nav() {
   const pathname = usePathname();
   const [nav, setNav] = useState(false);
-
-
-  const displayDay = new Intl.DateTimeFormat("en-AU", { weekday: "long", timeZone: "Australia/Brisbane" }).format(new Date());
-  const displayTime = new Intl.DateTimeFormat("en-AU", { timeStyle: "short", timeZone: "Australia/Brisbane" }).format(new Date());
-  const openHours = new Intl.DateTimeFormat("en-AU", { timeStyle: "medium", timeZone: "Australia/Brisbane", hourCycle: "h24" }).format(new Date('01/01/2024 9:00 am'));
-  const closingHours = new Intl.DateTimeFormat("en-AU", { timeStyle: "medium", timeZone: "Australia/Brisbane", hourCycle: "h24" }).format(new Date('01/01/2024 5:00 pm'));
-  const timestamp = new Intl.DateTimeFormat("en-AU", { timeStyle: "medium", timeZone: "Australia/Brisbane", hourCycle: "h24" }).format(new Date());
-
 
   if (typeof window !== 'undefined') {
     // stop scroll when mobile menu is open
@@ -49,10 +41,10 @@ export default function Nav() {
   }, []);
 
   const links = [
-    ["Home", "/"],
     ["Dashboard", "/dashboard"],
-    ["Projects", "/projects"],
-    ["Reports", "/reports"],
+    ["About Us", "/about-us"],
+    ["Contact", "/contact"],
+    ["Assets", "/resources/assets"],
   ];
 
   return (
@@ -77,19 +69,19 @@ export default function Nav() {
 
       <div
         onClick={() => setNav(!nav)}
-        className={`flex items-center gap-2 text-lg cursor-pointer pr-4 z-10 md:hidden ${nav ? 'text-white' : ''}`}
+        className={`flex items-center gap-2 text-lg cursor-pointer px-4 z-10 md:hidden ${nav ? 'text-white bg-black py-2' : ''}`}
       >
         Menu {nav ? <FontAwesomeIcon icon={faXmark} className="text-xl" /> : <FontAwesomeIcon icon={faBars} />}
       </div>
 
       {nav && (
-        <ul className="z-[1] flex flex-col justify-center items-start flex-auto gap-x-8 gap-y-2 p-12 text-base absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-black to-gray-800 text-white">
-        <li key="footer" className="text-lg border-b-2 w-full">
+        <ul className="z-[1] flex flex-col justify-start items-start flex-auto gap-x-8 gap-y-2 p-12 overflow-y-auto text-base absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-black to-gray-800 text-white">
+        <li key="footer" className="text-lg border-b-2 w-full pt-20">
           Menu
         </li>
           {[
             ["Dashboard", "/dashboard"],
-            ["About Us", "/about"],
+            ["About Us", "/about-us"],
             ["FAQ", "/faq"],
             ["Contact", "/contact"],
           ].map(([title, url], index) => (
@@ -107,9 +99,9 @@ export default function Nav() {
           Resources
         </li>
           {[
-            ["Assets", "/assets"],
-            ["Case studies", "/cases"],
-            ["Terms of use", "/terms"],
+            ["Assets", "/resources/assets"],
+            ["Case studies", "/resources/case-studies"],
+            ["Terms of use", "/resources/terms-of-use"],
           ].map(([title, url], index) => (
             <li key={index} className="self-end lg:self-auto">
               <Link
@@ -133,6 +125,7 @@ export default function Nav() {
               <Link
                 className="text-sky-500 hover:text-sky-600"
                 href={url}
+                target="_blank"
               >
                 {title} <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
               </Link>
@@ -145,7 +138,7 @@ export default function Nav() {
               <FontAwesomeIcon icon={faLinkedinIn} />
           </li>
           <li key="open">
-            <p className="text-sm">{displayDay} {displayTime} {timestamp > openHours && timestamp < closingHours ? <FontAwesomeIcon icon={faCircle} className="text-green-500" /> : <FontAwesomeIcon icon={faCircleR} className="text-yellow-500" />} {timestamp > openHours && timestamp < closingHours ? "available" : "gone for the day"}</p>
+            <OfficeHours />
           </li>
         </ul>
       )}

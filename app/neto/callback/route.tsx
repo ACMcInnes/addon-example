@@ -13,7 +13,16 @@ const tokenURL = "https://api.netodev.com/oauth/v2/token?version=2";
 const codeURL = "https://api.netodev.com/oauth/v2/auth?version=2";
 
 async function createCookie(name: string, data: any) {
-  cookies().set(name, data, { secure: true });
+  if (process.env.VERCEL_ENV === "development") {
+    cookies().set(name, data, { sameSite: "lax", secure: false });
+    console.log(`SETTING COOKIE: ${name}`);
+  } else {
+    cookies().set(name, data, { secure: true });
+  }
+}
+
+async function deleteCookie(name: string) {
+  cookies().delete(name);
 }
 
 export async function POST(request: NextRequest, code: String, grantType: String) {
@@ -48,20 +57,19 @@ export async function POST(request: NextRequest, code: String, grantType: String
     });
 
     const data = await res.json();
-    // console.log(`FETCH DATA:`);
+    // console.log(`FETCH OAUTH DATA:`);
     // console.log(data);
     const oauthHash = data.api_id;
 
     if (oauthHash) {
-
       // encode whole data object
       const jwtCookie = await encodeJWT(data);
-      createCookie("neto_oauth", jwtCookie);
+      const cookieChuckA = jwtCookie.slice(0, jwtCookie.length / 2);
+      const cookieChuckB = jwtCookie.slice(jwtCookie.length / 2);
 
-      // createCookie("neto_api_id", oauthHash);
-      // createCookie("neto_token_type", data.token_type);
-      // createCookie("neto_access_token", data.access_token);
-      // createCookie("neto_refresh_token", data.refresh_token);
+      await createCookie("neto_oauth_a", cookieChuckA);
+      await createCookie("neto_oauth_b", cookieChuckB);
+
       return NextResponse.json({ oauth: "success" }, { status: 201 });
     } else {
       return NextResponse.json({ oauth: "error" }, { status: 500 });
@@ -78,10 +86,12 @@ export async function GET(request: NextRequest) {
   const hasWebstore = searchParams.has("store_domain");
   const hasCode = searchParams.has("code");
   const hasRefresh = searchParams.has("refresh");
+  const hasLogout = searchParams.has("logout");
+  const hasError = searchParams.has("error");
 
   if (hasWebstore) {
     const webstoreURL = searchParams.get("store_domain");
-    console.log(`store_domain: ${webstoreURL}`);
+    // console.log(`store_domain: ${webstoreURL}`);
 
     if (process.env.VERCEL_ENV === "development") {
       redirect(`${codeURL}&client_id=${process.env.CLIENT_ID}&redirect_uri=${localRedirectURL}&response_type=code&store_domain=${webstoreURL}&state=test`);
@@ -115,20 +125,14 @@ export async function GET(request: NextRequest) {
       exp: number;
     }
    
-    const jwtCookie = getCookie("neto_oauth");
+    const jwtCookieChunkA = getCookie("neto_oauth_a");
+    const jwtCookieChunkB = getCookie("neto_oauth_b");
+    const jwtCookie = `${jwtCookieChunkA}${jwtCookieChunkB}`;
 
     if (jwtCookie) {
-
-      console.log(`refresh token found`);
-
       const oauth = (await decodeJWT(jwtCookie)) as JwtPayload;
-  
-      console.log(`refresh token decoded`);
-
       const refreshToken = oauth.refresh_token;
       const refreshRes = await POST(request, refreshToken, "refresh_token");
-
-      console.log(`grabbing new oauth details`);
 
       if (refreshRes.status === 201) {
         console.log(`oauth complete, redirecting to dashboard`);
@@ -138,6 +142,22 @@ export async function GET(request: NextRequest) {
         redirect(`/neto/login?type=webstore`);
       }
     }
+  } else if (hasLogout) {
+    deleteCookie("neto_oauth_a");
+    deleteCookie("neto_oauth_b");
+    console.log(`logout successful, redirecting to login`);
+    redirect(`/neto/login?type=webstore`);
+  } else if (hasError) {
+    const errorDesc = searchParams.get("error_description") ?? "";
+    const errorHint = searchParams.get("hint") ?? "";
+    const errorMessage = searchParams.get("message") ?? "";
+
+    console.log(`oauth error:`);
+    console.log(`description: ${errorDesc}`);
+    console.log(`hint: ${errorHint}`);
+    console.log(`message: ${errorMessage}`);
+    console.log(`redirecting to login...`);
+    redirect(`/neto/login?type=webstore`);
   } else {
     console.log(`oauth error, redirecting to login`);
     redirect(`/neto/login?type=webstore`);

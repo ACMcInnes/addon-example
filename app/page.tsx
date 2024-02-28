@@ -12,16 +12,16 @@ export default function Home() {
         <Banner/>
         <Nav />
       </header>
-      <main className="flex flex-col items-center justify-between p-24">
+      <main className="flex flex-col items-center justify-between p-12 lg:p-24">
         <div className="relative flex flex-col place-items-center pb-8">
-          <h1 className="text-xl md:text-2xl lg:text-5xl font-semibold">
+          <h1 className="text-4xl lg:text-5xl font-semibold">
             A Neto Addon Example <span className="text-xs text-gray-500">*in development</span>
           </h1>
           <h2 className="text-lg md:text-xl lg:text-3xl font-semibold">
             Select an option below to get started
           </h2>
         </div>
-        <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
+        <div className="mb-4 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
           <Link
             href="/dashboard"
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"

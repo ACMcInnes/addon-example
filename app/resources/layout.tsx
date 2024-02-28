@@ -4,11 +4,11 @@ import Nav from "@/components/dashboard/nav";
 import Footer from "@/components/dashboard/footer";
 
 export const metadata: Metadata = {
-  title: "Addon Contact",
-  description: "Contact Us Form",
+  title: "Resources",
+  description: "Addon Resources",
 };
 
-export default function ContactLayout({
+export default function ResourcesLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -20,7 +20,7 @@ export default function ContactLayout({
         <Nav/>
       </header>
       <main className="flex flex-col items-center px-5">
-        <h1 className="text-3xl font-semibold">Contact Us</h1>
+        <h1 className="text-3xl font-semibold">Resources</h1>
         {children}
       </main>
       <Footer/>

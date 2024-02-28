@@ -64,7 +64,9 @@ export default async function Dashboard() {
     exp: number;
   }
 
-  const jwtCookie = getCookie("neto_oauth");
+  const jwtCookieChunkA = getCookie("neto_oauth_a");
+  const jwtCookieChunkB = getCookie("neto_oauth_b");
+  const jwtCookie = `${jwtCookieChunkA}${jwtCookieChunkB}`;
 
   if (jwtCookie) {
     // console.log(`COOKIE:`);
@@ -90,15 +92,15 @@ export default async function Dashboard() {
     } else if (details.success === true) {
       return (
         <>
-          <div>
-            <p>Your dashboard</p>
-
+          <div className="mt-6">
             <p>Your Details:</p>
             <p>webstore - {details.result.domain} {oauth.api_id}</p>
             <p>timezone - {details.result.timezone} {details.result.country}</p>
           </div>
+          <Link href="/dashboard/products" className="mt-6 py-2 px-4 rounded-md text-gray-100 bg-sky-500 border-transparent">Products</Link>
           <div>
             <p>Return to <Link href="/">Home</Link>.</p>
+            <p>Return to <Link href={`/neto/callback?logout=true`}>Logout</Link>.</p>
           </div>
         </>
       );

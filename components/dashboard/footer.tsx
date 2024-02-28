@@ -2,19 +2,14 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpRightFromSquare, faLocationDot, faPhone, faCircle} from "@fortawesome/free-solid-svg-icons";
-import { faYoutube, faInstagram ,faLinkedinIn, faTwitter} from "@fortawesome/free-brands-svg-icons";
-import {faCircle as faCircleR} from "@fortawesome/free-regular-svg-icons";
+import { faArrowUpRightFromSquare, faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faYoutube, faInstagram ,faLinkedinIn, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 import SubscriberForm from "@/components/dashboard/subscriber-form";
+import OfficeHours from "@/components/shared/office-hours";
+import MobileTop from "@/components/shared/mobile-top";
 
 export default function Footer() {
-  const displayDay = new Intl.DateTimeFormat("en-AU", { weekday: "long", timeZone: "Australia/Brisbane" }).format(new Date());
-  const displayTime = new Intl.DateTimeFormat("en-AU", { timeStyle: "short", timeZone: "Australia/Brisbane" }).format(new Date());
-  const openHours = new Intl.DateTimeFormat("en-AU", { timeStyle: "medium", timeZone: "Australia/Brisbane", hourCycle: "h24" }).format(new Date('01/01/2024 9:00 am'));
-  const closingHours = new Intl.DateTimeFormat("en-AU", { timeStyle: "medium", timeZone: "Australia/Brisbane", hourCycle: "h24" }).format(new Date('01/01/2024 5:00 pm'));
-  const timestamp = new Intl.DateTimeFormat("en-AU", { timeStyle: "medium", timeZone: "Australia/Brisbane", hourCycle: "h24" }).format(new Date());
-
   return (
     <footer>
       <section className="flex flex-col md:flex-row">
@@ -25,7 +20,7 @@ export default function Footer() {
         </li>
           {[
             ["Dashboard", "/dashboard"],
-            ["About Us", "/about"],
+            ["About Us", "/about-us"],
             ["FAQ", "/faq"],
             ["Contact", "/contact"],
           ].map(([title, url], index) => (
@@ -44,9 +39,9 @@ export default function Footer() {
           Resources
         </li>
           {[
-            ["Assets", "/assets"],
-            ["Case studies", "/cases"],
-            ["Terms of use", "/terms"],
+            ["Assets", "/resources/assets"],
+            ["Case studies", "/resources/case-studies"],
+            ["Terms of use", "/resources/terms-of-use"],
           ].map(([title, url], index) => (
             <li key={index} className="self-end lg:self-auto">
               <Link
@@ -71,6 +66,7 @@ export default function Footer() {
               <Link
                 className="text-sky-500 hover:text-sky-600"
                 href={url}
+                target="_blank"
               >
                 {title} <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
               </Link>
@@ -83,7 +79,8 @@ export default function Footer() {
             <SubscriberForm/>
             
             <p className="mt-4 flex justify-center gap-1"><FontAwesomeIcon icon={faLocationDot} className="text-xl" /> Brisbane &#124; Meanjin, Australia</p>
-            <p>{displayDay} {displayTime} {timestamp > openHours && timestamp < closingHours ? <FontAwesomeIcon icon={faCircle} className="text-green-500" /> : <FontAwesomeIcon icon={faCircleR} className="text-yellow-500" />} {timestamp > openHours && timestamp < closingHours ? "available" : "gone for the day"}</p>
+            
+            <OfficeHours />
             
             <p className="flex justify-center gap-1"><FontAwesomeIcon icon={faPhone} className="text-xl" /> 1800 975 709</p>
             
@@ -93,6 +90,10 @@ export default function Footer() {
               <FontAwesomeIcon icon={faTwitter} />
               <FontAwesomeIcon icon={faLinkedinIn} />
             </div>
+
+            <MobileTop />
+
+
       </section>
       </section>
 

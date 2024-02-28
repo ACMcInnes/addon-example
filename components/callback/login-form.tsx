@@ -1,27 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 
 import { useFormState } from "react-dom";
-import { useFormStatus } from "react-dom";
 
 import { getWebstore } from "@/components/callback/form-action-webstore";
+import { SubmitButton } from "@/components/callback/submit-button";
 
 const initialState = {
   message: "",
   webstore: "",
 };
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <button type="submit" aria-disabled={pending} className="inline-block ml-1 py-2 px-4 rounded-md text-gray-100 bg-sky-500 border-transparent">
-      Submit
-    </button>
-  );
-}
 
 export default function LoginForm() {
   const [formState, formAction] = useFormState(getWebstore, initialState);
@@ -34,18 +24,8 @@ export default function LoginForm() {
 
     if (loginType == "webstore") {
       if (formState?.webstore) {
-        return (
-          <>
-            <p>Webstore confirmed</p>
-
-                <Link
-                  href={`/neto/callback/?store_domain=${formState?.webstore}`}
-                  className="text-sky-500"
-                >
-                  Start oAuth?
-                </Link>
-          </>
-        );
+        console.log(`webstore confirmed, redirecting...`);
+        redirect(`/neto/callback/?store_domain=${formState?.webstore}`);
       } else {
         return (
           <>

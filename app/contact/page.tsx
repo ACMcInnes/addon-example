@@ -1,7 +1,5 @@
 import Link from 'next/link'
 import ContactForm from "@/components/dashboard/contact-form";
-import Banner from '@/components/dashboard/banner';
-import Footer from '@/components/dashboard/footer';
 
 export default function Login() {
   return (

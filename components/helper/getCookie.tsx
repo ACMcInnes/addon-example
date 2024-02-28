@@ -6,6 +6,6 @@ export default function getCookie(name: string) {
     if (cookie) {
         return cookie.value;
     } else {
-        throw new Error(`Unable to access cookie: ${name}. Please authenticate again`)
+        throw new Error(`Unable to access cookie. Please authenticate again`)
     }
 }
