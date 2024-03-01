@@ -1,144 +1,48 @@
+"use client"
+
 import Link from "next/link";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
-import decodeJWT from "@/components/helper/decodeJWT";
-import getCookie from "@/components/helper/getCookie";
+import getWebstore from "@/components/helper/getWebstore";
+import getProducts from "@/components/helper/getProducts";
+import getAuthenticated from "@/components/helper/getAuthenticated";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+// import { useEffect, useState } from "react";
 
-const apiEndpointv2 = "https://api.netodev.com/v2/stores/";
-/* legacy call example */
-const apiEndpointv1 = "https://api.netodev.com/v1/stores/";
-
-async function getWebstoreDets(
-  authorization: string = "",
-  authType: string = "",
-  webstore: string = ""
-) {
-  try {
-    const res = await fetch(`${apiEndpointv2}${webstore}/properties`, {
-      method: "GET",
-      headers: {
-        Authorization: `${authType} ${authorization}`,
-        "Content-Type": "application/json",
-      },
-      //body: `{}`,
-    });
-
-    console.log(`WEBSTORE PROPERTIES RESPONSE:`);
-    console.log(`${res.status} - ${res.statusText}`);
-
-    if (!res.ok || res.status !== 200) {
-      console.log(`issue with API call`);
-
-      if (res.statusText === "Unauthorized") {
-        console.log(`need to refresh token`);
-        return res.statusText;
-      } else {
-        throw new Error(`Failed to fetch data: ${res.statusText}`);
-      }
-    }
-
-    const webstoreProperties = await res.json();
-    return webstoreProperties;
-  } catch (e) {
-    return `Could not get webstore properties. ${e}`;
-  }
-}
-
-async function getProducts(
-  authorization: string = "",
-  authType: string = "",
-  webstore: string = ""
-) {
-  try {
-    const res = await fetch(`${apiEndpointv1}${webstore}/do/WS/NetoAPI`, {
-      method: "POST",
-      headers: {
-        Authorization: `${authType} ${authorization}`,
-        "Content-Type": "application/json",
-        NETOAPI_ACTION: "GetItem",
-      },
-      body: `{
-        "Filter": {
-            "Approved": [
-                "True"
-            ],
-            "Visible": [
-                "True"
-            ],
-            "ParentSKU": "",
-            "Page": "0",
-            "Limit": "20",
-            "OutputSelector": [
-                "Model",
-                "Brand",
-                "ShortDescription",
-                "DefaultPrice",
-                "Images",
-                "ItemURL",
-                "ParentSKU",
-                "VariantInventoryIDs"
-            ]
-        }
-    }`,
-    });
-
-    console.log(`GET PRODUCT RESPONSE:`);
-    console.log(`${res.status} - ${res.statusText}`);
-
-    if (!res.ok || res.status !== 200) {
-      console.log(`issue with API call`);
-
-      if (res.statusText === "Unauthorized") {
-        console.log(`need to refresh token`);
-        return res.statusText;
-      } else {
-        throw new Error(`Failed to fetch data: ${res.statusText}`);
-      }
-    }
-
-    const webstoreProducts = await res.json();
-    return webstoreProducts;
-  } catch (e) {
-    return `Could not get products. ${e}`;
-  }
-}
 
 export default async function Products() {
-  interface JwtPayload {
-    scope: string;
-    api_id: string;
-    token_type: string;
-    expires_in: number;
-    access_token: string;
-    refresh_token: string;
-    iat: number;
-    exp: number;
-  }
+  /*
+  const [productData, setProductData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(20);
+*/
 
-  const jwtCookieChunkA = getCookie("neto_oauth_a");
-  const jwtCookieChunkB = getCookie("neto_oauth_b");
-  const jwtCookie = `${jwtCookieChunkA}${jwtCookieChunkB}`;
 
-  if (jwtCookie) {
+
+// SOMETHING HERE IS BROKEN - INFINITE LOOP
+
+
     // console.log(`COOKIE:`);
     // console.log(jwtCookie);
     let webstore = '';
-    const oauth = (await decodeJWT(jwtCookie)) as JwtPayload;
+    const oauth = await getAuthenticated();
 
-    // console.log(`DECODED COOKIE:`);
-    // console.log(oauth)
+     console.log(`OAUTH COOKIE:`);
+     console.log(oauth)
     // console.log(oauth.scope);
     // console.log(oauth.access_token);
 
-    const details = await getWebstoreDets(
+    const details = await getWebstore(
       oauth.access_token,
       oauth.token_type,
       oauth.api_id
     );
+
+    console.log(`WEBSTORE DETAILS:`);
+    console.log(details)
 
     if (details === "Unauthorized") {
       console.log(`token refresh - redirecting...`);
@@ -149,6 +53,30 @@ export default async function Products() {
       console.log(`could not retreive webstore`);
     }
 
+
+    return (
+      <div>
+        <p>Could not load your products, have some webstore details:</p>
+        <p>{details}</p>
+      </div>
+    );
+
+    /*
+    useEffect(() => {
+      const currentProducts = async () => {
+        const products = await getProducts(
+          oauth.access_token,
+          oauth.token_type,
+          oauth.api_id
+        );
+        setProductData(products);
+      }
+      currentProducts();
+    }, [currentPage, itemsPerPage]);
+*/
+
+
+    /*
     const products = await getProducts(
       oauth.access_token,
       oauth.token_type,
@@ -246,15 +174,5 @@ export default async function Products() {
         </div>
       );
     }
-  } else {
-    return (
-      <div>
-        <p>Your session has expired</p>
-        <p>
-          Return to <Link href="/">Home</Link> or{" "}
-          <Link href="/dashboard/login">Login</Link>.
-        </p>
-      </div>
-    );
-  }
+    */
 }

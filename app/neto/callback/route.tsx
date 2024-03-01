@@ -125,8 +125,8 @@ export async function GET(request: NextRequest) {
       exp: number;
     }
    
-    const jwtCookieChunkA = getCookie("neto_oauth_a");
-    const jwtCookieChunkB = getCookie("neto_oauth_b");
+    const jwtCookieChunkA = await getCookie("neto_oauth_a");
+    const jwtCookieChunkB = await getCookie("neto_oauth_b");
     const jwtCookie = `${jwtCookieChunkA}${jwtCookieChunkB}`;
 
     if (jwtCookie) {

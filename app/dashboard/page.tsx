@@ -3,88 +3,27 @@ import { redirect } from "next/navigation";
 
 import decodeJWT from "@/components/helper/decodeJWT";
 import getCookie from "@/components/helper/getCookie";
-
-const apiEndpoint = "https://api.netodev.com/v2/stores/";
-
-async function getWebstoreDets(
-  authorization: string = "",
-  authType: string = "",
-  webstore: string = ""
-) {
-  // console.log(`API Call Creds:`);
-  // console.log(`authorization: ${authorization}`)
-  // console.log(`authType: ${authType}`);
-  // console.log(`webstore: ${webstore}`);
-
-  try {
-    const res = await fetch(`${apiEndpoint}${webstore}/properties`, {
-      method: "GET",
-      headers: {
-        Authorization: `${authType} ${authorization}`,
-        "Content-Type": "application/json",
-      },
-      //body: `{}`,
-    });
-
-    console.log(`API RESPONSE:`);
-    console.log(`${res.status} - ${res.statusText}`);
-
-    if (!res.ok || res.status !== 200) {
-      console.log(`issue with API call`);
-
-      if (res.statusText === "Unauthorized") {
-        console.log(`need to refresh token`);
-        return res.statusText;
-      } else {
-        // This will activate the closest `error.js` Error Boundary
-        throw new Error(`Failed to fetch data: ${res.statusText}`);
-      }
-    }
-
-    const webstoreProperties = await res.json();
-    // console.log(`FETCH DATA:`);
-    // console.log(webstoreProperties);
-
-    return webstoreProperties;
-  } catch (e) {
-    return `Could not get webstore properties. ${e}`;
-  }
-}
+import getWebstore from "@/components/helper/getWebstore";
+import getAuthenticated from "@/components/helper/getAuthenticated";
 
 export default async function Dashboard() {
-
-  interface JwtPayload {
-    scope: string;
-    api_id: string;
-    token_type: string;
-    expires_in: number;
-    access_token: string;
-    refresh_token: string;
-    iat: number;
-    exp: number;
-  }
-
-  const jwtCookieChunkA = getCookie("neto_oauth_a");
-  const jwtCookieChunkB = getCookie("neto_oauth_b");
-  const jwtCookie = `${jwtCookieChunkA}${jwtCookieChunkB}`;
-
-  if (jwtCookie) {
     // console.log(`COOKIE:`);
     // console.log(jwtCookie);
-    const oauth = (await decodeJWT(jwtCookie)) as JwtPayload;
+    const oauth = await getAuthenticated();
 
-    // console.log(`DECODED COOKIE:`);
-    // console.log(decodedCookie)
+     console.log(`DECODED COOKIE:`);
+     console.log(oauth);
     // console.log(oauth.scope);
     // console.log(oauth.access_token);
 
-    const details = await getWebstoreDets(
+    const details = await getWebstore(
       oauth.access_token,
       oauth.token_type,
       oauth.api_id
     );
 
-    // console.log(`WEBSTORE DETAILS:`);
+    console.log(`WEBSTORE DETAILS:`);
+    console.log(details);
 
     if (details === "Unauthorized") {
       console.log(`token refresh - redirecting...`);
@@ -138,15 +77,4 @@ export default async function Dashboard() {
         </>
       );
     }
-  } else {
-    return (
-      <div>
-        <p>Your dashboard data could not be loaded</p>
-        <p>
-          Return to <Link href="/">Home</Link> or{" "}
-          <Link href="/dashboard/login">Login</Link>.
-        </p>
-      </div>
-    );
-  }
 }
