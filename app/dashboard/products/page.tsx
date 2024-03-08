@@ -142,7 +142,7 @@ export default async function Products() {
 
     if (details === "Unauthorized") {
       console.log(`token refresh - redirecting...`);
-      redirect(`/neto/callback?refresh=y`);
+      redirect(`/neto/callback?refresh=y&referrer=products`);
     } else if (details.success === true) {
       webstore = details.result.domain;
     } else {
@@ -164,7 +164,7 @@ export default async function Products() {
     ) {
       console.log(`Error: ${products.Messages[0].Error.Message}`);
       console.log(`refreshing token - redirecting...`);
-      redirect(`/neto/callback?refresh=y`);
+      redirect(`/neto/callback?refresh=y&referrer=products`);
     } else if (products.Ack === "Success") {
       //console.log(`products:`);
       //console.log(products);

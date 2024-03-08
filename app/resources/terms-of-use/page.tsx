@@ -4,7 +4,7 @@ export default function TermsOfUse() {
   return (
     <>
       <h2 className="text-2xl font-semibold">- Terms Of Use -</h2>
-      <section className="align-start px-12 lg:px-24 py-6 max-w-screen-xl">
+      <section className="align-start px-3 lg:px-24 py-6 max-w-screen-xl">
       <p>This application is currently in development, by entering any personal or identifiable information you consent to said information being used for the purposes and functions of this application.</p>
       <p className="mt-2">This includes but is not limited to:</p>
         

@@ -125,6 +125,7 @@ export async function GET(request: NextRequest) {
       exp: number;
     }
    
+    const referrer = searchParams.get("referrer") ?? "";
     const jwtCookieChunkA = getCookie("neto_oauth_a");
     const jwtCookieChunkB = getCookie("neto_oauth_b");
     const jwtCookie = `${jwtCookieChunkA}${jwtCookieChunkB}`;
@@ -135,10 +136,15 @@ export async function GET(request: NextRequest) {
       const refreshRes = await POST(request, refreshToken, "refresh_token");
 
       if (refreshRes.status === 201) {
-        console.log(`oauth complete, redirecting to dashboard`);
-        redirect(`/dashboard`);
+        if (referrer) {
+          console.log(`oauth refreshed, redirecting to ${referrer}`);
+          redirect(`/dashboard/${referrer}`);
+        } else {
+          console.log(`oauth refreshed, redirecting to dashboard`);
+          redirect(`/dashboard`);
+        }
       } else {
-        console.log(`oauth error, redirecting to login`);
+        console.log(`oauth refresh error, redirecting to login`);
         redirect(`/neto/login?type=webstore`);
       }
     }
