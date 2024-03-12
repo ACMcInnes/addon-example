@@ -1,26 +1,39 @@
 import { redirect } from "next/navigation";
 import getAuthenticated from "@/components/helper/getAuthenticated";
 
-const API_ENDPOINT = "https://api.netodev.com/v2/stores/";
+const API_ENDPOINT = "https://api.netodev.com/v1/stores/";
+const MAX_LIMIT = 10000;
 
-export default async function getWebstore(referrer?: string) {
+export default async function getProductTotal() {
   const oauth = await getAuthenticated();
 
   if (oauth.api_id) {
     let needsRedirect = false;
-    let webstoreProperties;
+    let webstoreProducts;
 
     try {
-      const res = await fetch(`${API_ENDPOINT}${oauth.api_id}/properties`, {
-        method: "GET",
+      const res = await fetch(`${API_ENDPOINT}${oauth.api_id}/do/WS/NetoAPI`, {
+        method: "POST",
         headers: {
           Authorization: `${oauth.token_type} ${oauth.access_token}`,
           "Content-Type": "application/json",
+          NETOAPI_ACTION: "GetItem",
         },
-        //body: `{}`,
+        body: `{
+            "Filter": {
+                "Approved": [
+                    "True"
+                ],
+                "Visible": [
+                    "True"
+                ],
+                "ParentSKU": "",
+                "Limit": "${MAX_LIMIT}"
+            }
+        }`,
       });
 
-      console.log(`GET WEBSTORE RESPONSE:`);
+      console.log(`GET PRODUCT TOTAL RESPONSE:`);
       console.log(`${res.status} - ${res.statusText}`);
 
       if (!res.ok || res.status !== 200) {
@@ -34,18 +47,19 @@ export default async function getWebstore(referrer?: string) {
         }
       }
 
-      webstoreProperties = await res.json();
+      webstoreProducts = await res.json();
       // console.log(`FETCH DATA:`);
       // console.log(webstoreProperties);
     } catch (e) {
-      return `Could not get webstore properties. ${e}`;
+      return `Could not get webstore products. ${e}`;
     }
 
     if (needsRedirect) {
       console.log(`token refreshing...`);
-      redirect(`/refresh?referrer=${referrer ?? ""}`);
+      redirect(`/refresh?referrer=products`);
     } else {
-      return webstoreProperties;
+        const totalProducts = webstoreProducts.Item.length;
+      return totalProducts;
     }
   } else {
     console.log(`oauth error - redirecting to login`);

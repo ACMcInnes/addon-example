@@ -36,14 +36,14 @@ export default function LoginForm() {
                 {formState?.message}
               </p>
             </form>
-            <div className="w-full md:w-7/12 mt-4 h-40 text-center">
+            <div className="w-full md:w-7/12 mt-4 h-80 md:h-40 text-center">
             <details className="open:bg-white dark:open:bg-slate-900 open:ring-1 open:ring-black/5 dark:open:ring-white/10 open:shadow-lg p-6 rounded-lg">
               <summary className="text-sm leading-6 text-slate-900 dark:text-white font-semibold select-none">
                 Cookie Policy
               </summary>
               <div className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400 text-left">
                 <p>This app uses cookies to keep track of your login status. These cookies are not used for tracking or advertising and all information is securely encoded.</p>
-                <p className="mt-2">By entered your Neto webstore domain above you consent to your webstore data being collected. See our full terms of use for full details.</p>
+                <p className="mt-2">By entered your Neto webstore domain above you consent to your webstore data being collected. See our full <Link href={`/resources/terms-of-use`} className="text-sky-500">terms of use</Link> for full details.</p>
               </div>
             </details>
             </div>

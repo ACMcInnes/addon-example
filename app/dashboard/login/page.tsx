@@ -1,18 +1,39 @@
-import Link from 'next/link'
-import LoginForm from "@/components/callback/login-form";
+import { redirect } from "next/navigation";
+import Link from "next/link";
 
-export default function Login() {
-  return (
-    <>
-    <div>
-      <p>Login Page</p>
-      <p>You cannot login at this time. Fill in your details below, or return <Link href="/">Home</Link>.</p>
-      <br/>
-      <LoginForm />
-    </div>
-    <div>
-      <p>Want to provide feedback? (to do)</p>
-    </div>
-    </>
-  );
+import LoginForm from "@/components/callback/login-form";
+import getAuthenticated from "@/components/helper/getAuthenticated";
+
+export default async function Login() {
+  const oauth = await getAuthenticated();
+
+  if (oauth.api_id) {
+    console.log(`already logged in, redirecting to dashboard`);
+    redirect(`/dashboard`);
+  } else {
+    return (
+      <>
+        <div>
+          <h2 className="text-center text-2xl font-semibold">- Login -</h2>
+          <p className="mt-4">
+            Enter your webstore to get started, or return{" "}
+            <Link href="/" className="text-sky-500">
+              Home
+            </Link>
+            .
+          </p>
+          <br />
+          <LoginForm />
+        </div>
+        <div>
+          <p>
+            Want to provide feedback?{" "}
+            <Link href="/contact" className="text-sky-500">
+              Contact Us
+            </Link>
+          </p>
+        </div>
+      </>
+    );
+  }
 }

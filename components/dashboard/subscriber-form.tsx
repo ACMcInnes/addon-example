@@ -2,7 +2,7 @@
 
 import { useForm, ValidationError } from "@formspree/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane} from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 export default function SubscriberForm() {
     const [state, handleSubmit] = useForm(`${process.env.NEXT_PUBLIC_FORM}`);
