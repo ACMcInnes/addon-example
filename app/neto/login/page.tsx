@@ -2,11 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import LoginForm from "@/components/callback/login-form";
 import Banner from "@/components/dashboard/banner";
+import { Suspense } from "react";
 
 export default function Login() {
   return (
 <>
-    <header>
+  <header>
     <Banner/>
   </header>
   <main className="flex flex-col items-center justify-between p-24">
@@ -15,7 +16,9 @@ export default function Login() {
           Error | Looks like we are missing some information
         </h1>
         <p>Please fill in your details below or return <Link href="/" className="text-sky-500">Home</Link>.</p>
-        <LoginForm />
+        <Suspense>
+          <LoginForm />
+        </Suspense>
       </div>
     </main>
     <footer>

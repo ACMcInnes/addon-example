@@ -11,7 +11,7 @@ export default function Refresh({
   //console.log(referrer);
 
   if (referrer) {
-    console.log(`referrer found, setting`);
+    console.log(`referrer found, setting: ${referrer}`);
     redirect(`/neto/callback?refresh=y&referrer=${referrer}`);
   } else {
     console.log(`no referrer, setting default`);

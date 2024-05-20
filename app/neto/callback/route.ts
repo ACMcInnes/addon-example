@@ -64,11 +64,11 @@ export async function POST(request: NextRequest, code: String, grantType: String
     if (oauthHash) {
       // encode whole data object
       const jwtCookie = await encodeJWT(data);
-      const cookieChuckA = jwtCookie.slice(0, jwtCookie.length / 2);
-      const cookieChuckB = jwtCookie.slice(jwtCookie.length / 2);
+      const cookieChunkA = jwtCookie.slice(0, jwtCookie.length / 2);
+      const cookieChunkB = jwtCookie.slice(jwtCookie.length / 2);
 
-      await createCookie("neto_oauth_a", cookieChuckA);
-      await createCookie("neto_oauth_b", cookieChuckB);
+      await createCookie("neto_oauth_a", cookieChunkA);
+      await createCookie("neto_oauth_b", cookieChunkB);
 
       return NextResponse.json({ oauth: "success" }, { status: 201 });
     } else {

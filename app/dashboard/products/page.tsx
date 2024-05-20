@@ -30,7 +30,7 @@ export default async function Products({
     ) {
       console.log(`Error: ${products.Messages[0].Error.Message}`);
       console.log(`refreshing token - redirecting...`);
-      redirect(`/refresh&referrer=products`);
+      redirect(`/refresh?referrer=products`);
     } else if (products.Ack === "Success") {
       // console.log(`products:`);
       // console.log(products);
@@ -83,10 +83,16 @@ export default async function Products({
   
                       <div className="flex">
                         <Link 
+                          href={`/dashboard/products/${result.SKU}`}
+                          className="mr-3 font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"
+                        >
+                          View In App
+                        </Link>
+                        <Link 
                           href={`//${webstore}/${result.ItemURL}`}
                           className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"
                         >
-                          View <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                          View On Webstore <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
                         </Link>
                       </div>
                     </div>

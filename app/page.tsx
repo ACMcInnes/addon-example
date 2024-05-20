@@ -5,6 +5,9 @@ import Banner from "@/components/dashboard/banner";
 import Footer from "@/components/dashboard/footer";
 import Nav from "@/components/dashboard/nav";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+
 export default function Home() {
   return (
     <>
@@ -54,7 +57,7 @@ export default function Home() {
           >
             <h2 className={`mb-3 text-2xl font-semibold`}>
               Best Practices{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span>
+              <FontAwesomeIcon className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none" icon={faArrowUpRightFromSquare} />
             </h2>
             <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
               Working with our API efficiently.
@@ -68,7 +71,7 @@ export default function Home() {
           >
             <h2 className={`mb-3 text-2xl font-semibold`}>
               Tutorials{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span>
+              <FontAwesomeIcon className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none" icon={faArrowUpRightFromSquare} />
             </h2>
             <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
               Take a look at a similar Addon setup.
