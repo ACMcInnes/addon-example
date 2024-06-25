@@ -24,8 +24,8 @@ export default function LoginForm() {
 
     if (loginType == "webstore") {
       if (formState?.webstore) {
-        console.log(`webstore confirmed, redirecting...`);
-        redirect(`/neto/callback/?store_domain=${formState?.webstore}`);
+        console.log(`webstore confirmed, authenticating...`);
+        redirect(`/neto/callback/?store_domain=${formState.webstore}`);
       } else {
         return (
           <>
