@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     // console.log(`store_domain: ${webstoreURL}`);
 
     //try {
-      await signIn('neto', {}, { store_domain: webstoreURL });
+      await signIn('neto', { callbackUrl: '/dashboard' }, { store_domain: webstoreURL });
 
       // console.log(`AUTH RESPONSE:`);
       // console.log(auth);
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     //  return NextResponse.json({ oauth: `Authentication failed. ${e}` }, { status: 500 });
     //}
 
-    redirect(`/dashboard`);
+    //redirect(`/dashboard`);
 
   } else {
     console.log(`oauth error, redirecting to login`);
