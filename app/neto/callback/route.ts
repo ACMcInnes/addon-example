@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     console.log(`redirect branch url: //${process.env.VERCEL_BRANCH_URL}/dashboard`);
 
     //try {
-      await signIn('neto', { callbackUrl: `/rerouter` }, { store_domain: webstoreURL });
+      await signIn('neto', { callbackUrl: `https://addon-example-git-feature-oauth-update-acmcinnes-projects.vercel.app//rerouter` }, { store_domain: webstoreURL });
 
       // console.log(`AUTH RESPONSE:`);
       // console.log(auth);
