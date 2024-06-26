@@ -74,6 +74,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         //   if (pathname === "/middleware-example") return !!auth
         //   return true
         // },
+        async redirect({ url, baseUrl }) {
+            console.log(`url: ${url}`)
+            console.log(`base url: ${baseUrl}`)
+            // Allows relative callback URLs
+            if (url.startsWith("/")) return `${baseUrl}${url}`
+         
+            // Allows callback URLs on the same origin
+            if (new URL(url).origin === baseUrl) return url
+         
+            return baseUrl
+        },
         async jwt({ token, trigger, session, account }) {
           //if (trigger === "update") token.name = session.user.name
           if (account?.provider === "neto") {

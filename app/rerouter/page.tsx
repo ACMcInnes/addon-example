@@ -18,10 +18,10 @@ export default async function ReRouter({
       redirect(`/${referrer}`);
     } else {
       console.log(`no referrer, redirecting to dashboard`);
-      redirect(`/dashboard`);
+      redirect(`/dashboard?routed=true`);
     }
   } else {
     console.log(`no session, redirecting to login...`);
-    redirect(`/neto/login?type=webstore`);
+    redirect(`/neto/login?type=webstore&routed=true`);
   }
 }

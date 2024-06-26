@@ -11,8 +11,11 @@ export async function GET(request: NextRequest) {
     console.log(`redirect production url: //${process.env.VERCEL_PROJECT_PRODUCTION_URL}/dashboard`);
     console.log(`redirect branch url: //${process.env.VERCEL_BRANCH_URL}/dashboard`);
 
+    // https://addon-example-git-feature-oauth-update-acmcinnes-projects.vercel.app//rerouter
+
+
     //try {
-      await signIn('neto', { callbackUrl: `https://addon-example-git-feature-oauth-update-acmcinnes-projects.vercel.app//rerouter` }, { store_domain: webstoreURL });
+      await signIn('neto', { redirectTo: `/rerouter` }, { store_domain: webstoreURL });
 
       // console.log(`AUTH RESPONSE:`);
       // console.log(auth);
