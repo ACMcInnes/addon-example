@@ -22,16 +22,6 @@ export default async function Login() {
         </header>
         <main className="flex flex-col items-center justify-between p-24">
           <div className="flex flex-col place-items-center pb-8">
-            <h1 className="text-3xl font-semibold mb-4">
-              Looks like we are missing some information
-            </h1>
-            <p>
-              Please fill in your details below or return{" "}
-              <Link href="/" className="text-sky-500">
-                Home
-              </Link>
-              .
-            </p>
             <Suspense>
               <LoginForm />
             </Suspense>

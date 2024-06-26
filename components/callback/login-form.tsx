@@ -29,6 +29,16 @@ export default function LoginForm() {
       } else {
         return (
           <>
+            <h1 className="text-3xl font-semibold mb-4">
+              Login
+            </h1>
+            <p>
+              Please enter your webstore to get started, or return{" "}
+              <Link href="/" className="text-sky-500">
+                Home
+              </Link>
+              .
+            </p>
             <form action={formAction}>
               <input type="text" id="webstore" name="webstore" className="mt-1 w-8/12 inline-block rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 dark:bg-gray-600 dark:focus:border-gray-100 dark:focus:bg-zinc-900"/>
               <SubmitButton />
@@ -50,18 +60,40 @@ export default function LoginForm() {
           </>
         );
       }
-    } else {
+    } else if (loginType == "signout") {
       return (
         <>
+          <h1 className="text-3xl font-semibold mb-4">
+            You have logged out successfully
+          </h1>
           <p>
-            Login type issue, please try again or return{" "}
+            Return{" "}
             <Link href={`/`} className="text-sky-500">
               Home
             </Link>
           </p>
           <p>
-            <Link href="/neto/callback" className="text-sky-500">
-              Restart oAuth?
+            <Link href="/neto/login?type=webstore" className="block mt-2 py-2 px-4 rounded-md text-gray-100 bg-sky-500 border-transparent">
+              Log in
+            </Link>
+          </p>
+        </>
+      );   
+    } else {
+      return (
+        <>
+          <h1 className="text-3xl font-semibold mb-4">
+            Looks like we are missing some information
+          </h1>
+          <p>
+            Please try again or return{" "}
+            <Link href={`/`} className="text-sky-500">
+              Home
+            </Link>
+          </p>
+          <p>
+            <Link href="/neto/login?type=webstore" className="block mt-2 py-2 px-4 rounded-md text-gray-100 bg-sky-500 border-transparent">
+              Log in
             </Link>
           </p>
         </>
@@ -70,6 +102,9 @@ export default function LoginForm() {
   } else {
     return (
       <>
+        <h1 className="text-3xl font-semibold mb-4">
+          Looks like we are missing some information
+        </h1>      
         <p>
           Could not log you in at this time, return{" "}
           <Link href={`/`} className="text-sky-500">
@@ -77,8 +112,8 @@ export default function LoginForm() {
           </Link>
         </p>
         <p>
-          <Link href="/neto/callback" className="text-sky-500">
-            Restart oAuth?
+          <Link href="/neto/login?type=webstore" className="block mt-2 py-2 px-4 rounded-md text-gray-100 bg-sky-500 border-transparent">
+            Log in
           </Link>
         </p>
       </>

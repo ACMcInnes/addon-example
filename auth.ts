@@ -74,9 +74,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         //   if (pathname === "/middleware-example") return !!auth
         //   return true
         // },
-        jwt({ token, trigger, session, account }) {
+        async jwt({ token, trigger, session, account }) {
           //if (trigger === "update") token.name = session.user.name
           if (account?.provider === "neto") {
+            console.log(`auth token expires: ${account.expires_at}`)
             return { ...token, access_token: account.access_token, expires_at: account.expires_at, refresh_token: account.refresh_token, webstore_api_id: account.api_id }
           }
           return token
@@ -94,6 +95,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           if (token?.refresh_token) {
             session.refresh_token = token.refresh_token as string
           }
+
+          console.log(`auth session created`)
+
           return session
         },
       },

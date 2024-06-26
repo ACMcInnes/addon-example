@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     console.log(`redirect branch url: //${process.env.VERCEL_BRANCH_URL}/dashboard`);
 
     //try {
-      await signIn('neto', { callbackUrl: `//${process.env.VERCEL_BRANCH_URL}/dashboard` }, { store_domain: webstoreURL });
+      await signIn('neto', { callbackUrl: `/rerouter` }, { store_domain: webstoreURL });
 
       // console.log(`AUTH RESPONSE:`);
       // console.log(auth);

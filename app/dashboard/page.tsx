@@ -42,13 +42,13 @@ export default async function Dashboard() {
       const webstore = await getWebstoreProperties(session?.webstore_api_id as string, session?.access_token as string);
       return (
         <>
-          <div className="flex flex-col md:flex-row gap-4 mt-6">
+          <div className="flex flex-col md:flex-row gap-4 p-6 border-b-2 border-sky-500">
             <img
               src={
                 session.user?.image ??
                 "https://source.boringavatars.com/beam/120"
               }
-              className=""
+              className="md:self-start"
             />
             <div className="flex flex-col">
               <p className="text-2xl font-semibold">Profile:</p>
@@ -63,7 +63,7 @@ export default async function Dashboard() {
             
   
           </div>
-          <div className="flex flex-col items-center mt-6">
+          <div className="flex flex-col items-center mt-8">
             <p>Return to <Link href="/" className="text-sky-500">Home</Link></p>
             <p className="m-2">or</p>
             <SignOut />
@@ -95,7 +95,7 @@ export default async function Dashboard() {
         <div className="flex flex-col items-center mt-6">
           <p>Return to <Link href="/" className="text-sky-500">Home</Link></p>
           <p className="m-2">or</p>
-          <Link href={`/neto/login?type=webstore`} className="block ml-1 py-2 px-4 rounded-md text-gray-100 bg-sky-500 border-transparent">Log In</Link>
+          <Link href={`/neto/login?type=webstore`} className="block py-2 px-4 rounded-md text-gray-100 bg-sky-500 border-transparent">Log In</Link>
         </div>
       </>
   ); 

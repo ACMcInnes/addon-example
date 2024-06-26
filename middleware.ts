@@ -1,8 +1,7 @@
 // export { auth as middleware } from "@/auth"
 
-import { auth } from "@/auth"
 import { NextResponse, type NextMiddleware, type NextRequest } from "next/server";
-import { encode, getToken, type JWT } from "@auth/core/jwt";
+import { encode, decode, getToken, type JWT } from "@auth/core/jwt";
 
 const BASE_URL = "https://api.netodev.com/oauth/v2";
 const SIGNIN_SUB_URL = "/neto/login?type=webstore";
@@ -15,7 +14,8 @@ let isRefreshing = false;
 
 export function shouldUpdateToken(token: JWT): boolean {
 	const timeInSeconds = Math.floor(Date.now() / 1000);
-    console.log(`${timeInSeconds} >= (${token?.expires_at as number} - ${TOKEN_REFRESH_BUFFER_SECONDS});`);
+    // console.log(`${new Date()} >= (${new Date((token?.expires_at as number - TOKEN_REFRESH_BUFFER_SECONDS) * 1000)}`);
+    console.log(`${timeInSeconds} >= ${token?.expires_at as number - TOKEN_REFRESH_BUFFER_SECONDS} (${token?.expires_at as number} - ${TOKEN_REFRESH_BUFFER_SECONDS})`);
 	return timeInSeconds >= (token?.expires_at as number - TOKEN_REFRESH_BUFFER_SECONDS);
 }
 
@@ -41,6 +41,13 @@ export async function refreshAccessToken(token: JWT): Promise<JWT> {
 
 		const newTokens = await response.json();
 
+        /*
+        console.log(`------------------`)
+        console.log(`new token:`)
+        console.log(newTokens)
+        console.log(`------------------`)
+          */
+
 		if (!response.ok) {
 			throw new Error(`Token refresh failed with status: ${response.status}`);
 		}
@@ -48,7 +55,7 @@ export async function refreshAccessToken(token: JWT): Promise<JWT> {
 		return {
 			...token,
 			access_token: newTokens?.access_token ?? token?.access_token,
-			expires_at: newTokens?.expires_at ?? timeInSeconds,
+			expires_at: newTokens?.expires_in + timeInSeconds,
 			refresh_token: newTokens?.refresh_token ?? token?.refresh_token
 		};
 	} catch (e) {
@@ -76,7 +83,7 @@ export function updateCookie(
 	if (sessionToken) {
 
 
-        const size = 4096; // maximum size of each chunk
+        const size = 4000; // maximum size of each chunk
         const regex = new RegExp('.{1,' + size + '}', 'g');
     
         // split the string into an array of strings
@@ -84,7 +91,7 @@ export function updateCookie(
     
         if (tokenChunks) {
             tokenChunks.forEach((tokenChunk, index) => {
-                console.log(`session cookie chunked: ${index} index`)
+                // console.log(`session cookie chunked: ${index} index`)
                 request.cookies.set(`${SESSION_COOKIE}.${index}`, tokenChunk);
             });
         } else {
@@ -103,6 +110,8 @@ export function updateCookie(
 
         if (tokenChunks) {
             tokenChunks.forEach((tokenChunk, index) => {
+
+                // console.log(`cookie: ${SESSION_COOKIE}.${index}`)
                 response.cookies.set(`${SESSION_COOKIE}.${index}`, tokenChunk, {
                   httpOnly: true,
                   maxAge: SESSION_TIMEOUT,
@@ -119,6 +128,14 @@ export function updateCookie(
             });
         }
 
+        const allReqCookies = request.cookies.getAll()
+        // console.log(`REQUEST COOKIES:`)
+        // console.log(allReqCookies)
+
+        const allResCookies = response.cookies.getAll()
+        // console.log(`RESPONSE COOKIES:`)
+        // console.log(allResCookies)
+
         console.log(`TOKEN REFRESH SUCCESSFUL...`);
 
 	} else {
@@ -133,15 +150,19 @@ export function updateCookie(
 	return response;
 }
 
-export default auth(async (request) => {
+
+export const middleware: NextMiddleware = async (request: NextRequest) => {
+
+    console.log(`middleware running`)
+
 	const token = await getToken({
         req: request,
         salt: SESSION_COOKIE,
 		secret: `${process.env.AUTH_SECRET}`,
     });
 
-    console.log(`AUTH TOKEN:`)
-    console.log(token)
+    // console.log(`OLD AUTH TOKEN:`)
+    // console.log(token)
 
 	let response = NextResponse.next();
 
@@ -160,16 +181,27 @@ export default auth(async (request) => {
 				token: await refreshAccessToken(token),
 				maxAge: SESSION_TIMEOUT
 			});
-
+    
+            const decodeTest = await decode({
+                salt: SESSION_COOKIE,
+                secret: `${process.env.AUTH_SECRET}`,
+                token: newSessionToken,
+            });
+    
+        
 			response = updateCookie(newSessionToken, request, response);
+
+            console.log(`middleware cookies updated`)
+            console.log(decodeTest)
+
 		} catch (error) {
-			console.log("Error refreshing token: ", error);
+			// console.log("Error refreshing token: ", error);
 			return updateCookie(null, request, response);
 		}
 	}
 
 	return response;
-});
+};
 
 export const config = {
 	matcher: ["/dashboard/:path*"]
