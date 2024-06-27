@@ -163,20 +163,20 @@ export const middleware: NextMiddleware = async (request: NextRequest) => {
 
     const path = request.nextUrl.pathname;
 
-    console.log(`PATH:`)
-    console.log(path)
-    console.log(`request URL: ${request.nextUrl.origin} | ${request.url}`)
+    console.log(`PATH: ${path}`)
 
-    // console.log(`OLD AUTH TOKEN:`)
-    // console.log(token)
+    console.log(`OLD AUTH TOKEN:`)
+    console.log(token)
 
 	let response = NextResponse.next();
 
-    if (!token && path === SIGNIN_SUB_URL) {
-        return NextResponse.redirect(new URL('/', request.nextUrl.origin));
+    if (!token && path !== SIGNIN_SUB_URL) {
+        console.log(`Token missing, redirecting to login`)
+        return NextResponse.redirect(new URL(SIGNIN_SUB_URL, request.nextUrl.origin));
     }
 	if (!token) {
-		return NextResponse.redirect(new URL(SIGNIN_SUB_URL, request.nextUrl.origin));
+        console.log(`Token missing and already on login, redirect home`)
+		return NextResponse.redirect(new URL('/', request.nextUrl.origin));
 	}
 
     console.log(`is token updating: ${shouldUpdateToken(token)}`)
@@ -209,6 +209,7 @@ export const middleware: NextMiddleware = async (request: NextRequest) => {
 		}
 	}
 
+    console.log(`middleware finished`)
 	return response;
 };
 
