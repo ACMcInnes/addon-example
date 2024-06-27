@@ -154,6 +154,7 @@ export function updateCookie(
 export const middleware: NextMiddleware = async (request: NextRequest) => {
 
     console.log(`middleware running`)
+    console.log(`session cookie: ${SESSION_COOKIE}`)
 
 	const token = await getToken({
         req: request,
