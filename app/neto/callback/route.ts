@@ -8,11 +8,8 @@ export async function GET(request: NextRequest) {
 
   if (hasWebstore) {
     const webstoreURL = searchParams.get("store_domain") as string;
-    console.log(`redirect production url: //${process.env.VERCEL_PROJECT_PRODUCTION_URL}/dashboard`);
-    console.log(`redirect branch url: //${process.env.VERCEL_BRANCH_URL}/dashboard`);
-
-    // https://addon-example-git-feature-oauth-update-acmcinnes-projects.vercel.app//rerouter
-
+    // console.log(`redirect production url: //${process.env.VERCEL_PROJECT_PRODUCTION_URL}/dashboard`);
+    // console.log(`redirect branch url: //${process.env.VERCEL_BRANCH_URL}/dashboard`);
 
     //try {
       await signIn('neto', { redirectTo: `/rerouter` }, { store_domain: webstoreURL });

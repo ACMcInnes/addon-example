@@ -14,8 +14,6 @@ let isRefreshing = false;
 
 export function shouldUpdateToken(token: JWT): boolean {
 	const timeInSeconds = Math.floor(Date.now() / 1000);
-    // console.log(`${new Date()} >= (${new Date((token?.expires_at as number - TOKEN_REFRESH_BUFFER_SECONDS) * 1000)}`);
-    console.log(`${timeInSeconds} >= ${token?.expires_at as number - TOKEN_REFRESH_BUFFER_SECONDS} (${token?.expires_at as number} - ${TOKEN_REFRESH_BUFFER_SECONDS})`);
 	return timeInSeconds >= (token?.expires_at as number - TOKEN_REFRESH_BUFFER_SECONDS);
 }
 
@@ -41,13 +39,6 @@ export async function refreshAccessToken(token: JWT): Promise<JWT> {
 
 		const newTokens = await response.json();
 
-        /*
-        console.log(`------------------`)
-        console.log(`new token:`)
-        console.log(newTokens)
-        console.log(`------------------`)
-          */
-
 		if (!response.ok) {
 			throw new Error(`Token refresh failed with status: ${response.status}`);
 		}
@@ -72,36 +63,22 @@ export function updateCookie(
 	request: NextRequest,
 	response: NextResponse
 ): NextResponse<unknown> {
-	/*
-	 * BASIC IDEA:
-	 *
-	 * 1. Set request cookies for the incoming getServerSession to read new session
-	 * 2. Updated request cookie can only be passed to server if it's passed down here after setting its updates
-	 * 3. Set response cookies to send back to browser
-	 */
 
 	if (sessionToken) {
-
-
+        // Set the session token in the request and response cookies for a valid session
+        // split session into chunks if needed
         const size = 4000; // maximum size of each chunk
         const regex = new RegExp('.{1,' + size + '}', 'g');
-    
-        // split the string into an array of strings
         const tokenChunks = sessionToken.match(regex);
     
         if (tokenChunks) {
             tokenChunks.forEach((tokenChunk, index) => {
-                // console.log(`session cookie chunked: ${index} index`)
                 request.cookies.set(`${SESSION_COOKIE}.${index}`, tokenChunk);
             });
         } else {
             request.cookies.set(SESSION_COOKIE, sessionToken);
         }
 
-
-
-
-		// Set the session token in the request and response cookies for a valid session
 		response = NextResponse.next({
 			request: {
 				headers: request.headers
@@ -110,8 +87,6 @@ export function updateCookie(
 
         if (tokenChunks) {
             tokenChunks.forEach((tokenChunk, index) => {
-
-                // console.log(`cookie: ${SESSION_COOKIE}.${index}`)
                 response.cookies.set(`${SESSION_COOKIE}.${index}`, tokenChunk, {
                   httpOnly: true,
                   maxAge: SESSION_TIMEOUT,
@@ -127,15 +102,6 @@ export function updateCookie(
                 sameSite: SESSION_SECURE ? "strict" : "lax"
             });
         }
-
-        const allReqCookies = request.cookies.getAll()
-        // console.log(`REQUEST COOKIES:`)
-        // console.log(allReqCookies)
-
-        const allResCookies = response.cookies.getAll()
-        // console.log(`RESPONSE COOKIES:`)
-        // console.log(allResCookies)
-
         console.log(`TOKEN REFRESH SUCCESSFUL...`);
 
 	} else {
@@ -163,12 +129,6 @@ export const middleware: NextMiddleware = async (request: NextRequest) => {
     });
 
     const path = request.nextUrl.pathname;
-
-    console.log(`PATH: ${path}`)
-
-    console.log(`OLD AUTH TOKEN:`)
-    console.log(token)
-
 	let response = NextResponse.next();
 
     if (!token && path !== SIGNIN_SUB_URL) {
@@ -176,11 +136,12 @@ export const middleware: NextMiddleware = async (request: NextRequest) => {
         return NextResponse.redirect(new URL(SIGNIN_SUB_URL, request.nextUrl.origin));
     }
 	if (!token) {
+        // fallback - this probably won't ever run as login doesn't run through middleware
         console.log(`Token missing and already on login, redirect home`)
 		return NextResponse.redirect(new URL('/', request.nextUrl.origin));
 	}
 
-    console.log(`is token updating: ${shouldUpdateToken(token)}`)
+    console.log(`AuthJS token updating: ${shouldUpdateToken(token)}`)
 
 	if (shouldUpdateToken(token)) {
 		try {
@@ -191,21 +152,12 @@ export const middleware: NextMiddleware = async (request: NextRequest) => {
 				token: await refreshAccessToken(token),
 				maxAge: SESSION_TIMEOUT
 			});
-    
-            const decodeTest = await decode({
-                salt: SESSION_COOKIE,
-                secret: `${process.env.AUTH_SECRET}`,
-                token: newSessionToken,
-            });
-    
-        
+     
 			response = updateCookie(newSessionToken, request, response);
-
             console.log(`middleware cookies updated`)
-            console.log(decodeTest)
 
 		} catch (error) {
-			// console.log("Error refreshing token: ", error);
+			console.log("middleware cookie error: ", error);
 			return updateCookie(null, request, response);
 		}
 	}

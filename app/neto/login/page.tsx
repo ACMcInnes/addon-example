@@ -11,10 +11,8 @@ export default async function Login() {
 
   if (session) {
     console.log(`auth session already exists:`);
-    console.log(session);
-    // redirect to `/dashboard` once redirect loop is fixed
-    console.log(`redirecting to home....`);
-    redirect(`/`);
+    console.log(`redirecting to dashboard....`);
+    redirect(`/dashboard`);
   } else {
     return (
       <>
