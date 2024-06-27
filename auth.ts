@@ -3,7 +3,7 @@ import NextAuth, { DefaultSession } from "next-auth"
 const BASE_URL = "https://api.netodev.com/oauth/v2";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-    debug: process.env.NODE_ENV !== "production",
+    debug: true,
     providers: [{
         id: "neto",
         name: "Neto",
