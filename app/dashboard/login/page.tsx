@@ -2,12 +2,12 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 
 import LoginForm from "@/components/callback/login-form";
-import getAuthenticated from "@/components/helper/getAuthenticated";
+import { auth } from "@/auth";
 
 export default async function Login() {
-  const oauth = await getAuthenticated();
+  const session = await auth();
 
-  if (oauth.api_id) {
+  if (session) {
     console.log(`already logged in, redirecting to dashboard`);
     redirect(`/dashboard`);
   } else {

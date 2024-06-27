@@ -9,29 +9,24 @@ import getWebstore from "@/components/helper/getWebstore";
 import getProducts from "@/components/helper/getProducts";
 import getProductTotal from "@/components/helper/getProductTotal";
 import Pagination from "@/components/dashboard/pagination";
+import { auth } from "@/auth";
 
 export default async function Products({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-    const details = await getWebstore("products");
-    const productTotal = await getProductTotal();
-    const webstore = details.result.domain;
+    const session = await auth();
 
-    let page = searchParams.page ? +searchParams.page : 0;
-    let limit = 20;
-    
-    const products = await getProducts(page, limit);
+    if (session) {
+      const details = await getWebstore(session?.webstore_api_id as string, session?.access_token as string);
+      const productTotal = await getProductTotal(session?.webstore_api_id as string, session?.access_token as string);
+      const webstore = details.result.domain;
 
-    if (
-      products.Ack === "Error" &&
-      products.Messages[0].Error.Message.includes("Invalid token")
-    ) {
-      console.log(`Error: ${products.Messages[0].Error.Message}`);
-      console.log(`refreshing token - redirecting...`);
-      redirect(`/refresh?referrer=products`);
-    } else if (products.Ack === "Success") {
+      let page = searchParams.page ? +searchParams.page : 0;
+      let limit = 20;
+      
+      const products = await getProducts(session?.webstore_api_id as string, session?.access_token as string, page, limit);
       // console.log(`products:`);
       // console.log(products);
       const results = products.Item;
@@ -122,13 +117,16 @@ export default async function Products({
       }
     } else {
       return (
-        <div>
-          <p>Could not load your products</p>
-          <p>
-            Return to <Link href="/" className="text-sky-500">Home</Link> or{" "}
-            <Link href="/dashboard/login" className="text-sky-500">Login</Link>.
-          </p>
-        </div>
-      );
+        <>
+          <div className="mt-6">
+            <p>You are not logged in</p>
+          </div>
+          <div className="flex flex-col items-center mt-6">
+            <p>Return to <Link href="/" className="text-sky-500">Home</Link></p>
+            <p className="m-2">or</p>
+            <Link href={`/neto/login?type=webstore`} className="block ml-1 py-2 px-4 rounded-md text-gray-100 bg-sky-500 border-transparent">Log In</Link>
+          </div>
+        </>
+    ); 
     }
 }

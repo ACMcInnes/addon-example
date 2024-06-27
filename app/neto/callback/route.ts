@@ -1,3 +1,39 @@
+import { signIn } from "@/auth";
+import { redirect } from "next/navigation";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const hasWebstore = searchParams.has("store_domain");
+
+  if (hasWebstore) {
+    const webstoreURL = searchParams.get("store_domain") as string;
+    console.log(`redirect production url: //${process.env.VERCEL_PROJECT_PRODUCTION_URL}/dashboard`);
+    console.log(`redirect branch url: //${process.env.VERCEL_BRANCH_URL}/dashboard`);
+
+    // https://addon-example-git-feature-oauth-update-acmcinnes-projects.vercel.app//rerouter
+
+
+    //try {
+      await signIn('neto', { redirectTo: `/rerouter` }, { store_domain: webstoreURL });
+
+      // console.log(`AUTH RESPONSE:`);
+      // console.log(auth);
+
+    //} catch (e) {
+    //  return NextResponse.json({ oauth: `Authentication failed. ${e}` }, { status: 500 });
+    //}
+
+    //redirect(`/dashboard`);
+
+  } else {
+    console.log(`oauth error, redirecting to login`);
+    redirect(`/neto/login?type=webstore`);
+  }
+}
+
+/*
+
 import { NextResponse } from "next/server";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
@@ -169,3 +205,5 @@ export async function GET(request: NextRequest) {
     redirect(`/neto/login?type=webstore`);
   }
 }
+
+*/
