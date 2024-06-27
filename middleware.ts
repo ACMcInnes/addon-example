@@ -161,11 +161,20 @@ export const middleware: NextMiddleware = async (request: NextRequest) => {
 		secret: `${process.env.AUTH_SECRET}`,
     });
 
+    const path = request.nextUrl.pathname;
+
+    console.log(`PATH:`)
+    console.log(path)
+    console.log(`request URL: ${request.nextUrl.origin} | ${request.url}`)
+
     // console.log(`OLD AUTH TOKEN:`)
     // console.log(token)
 
 	let response = NextResponse.next();
 
+    if (!token && path === SIGNIN_SUB_URL) {
+        return NextResponse.redirect(new URL('/', request.nextUrl.origin));
+    }
 	if (!token) {
 		return NextResponse.redirect(new URL(SIGNIN_SUB_URL, request.nextUrl.origin));
 	}
