@@ -1,13 +1,13 @@
 // export { auth as middleware } from "@/auth"
 
 import { NextResponse, type NextMiddleware, type NextRequest } from "next/server";
-import { encode, decode, getToken, type JWT } from "@auth/core/jwt";
+import { encode, getToken, type JWT } from "@auth/core/jwt";
 
 const BASE_URL = "https://api.netodev.com/oauth/v2";
 const SIGNIN_SUB_URL = "/neto/login?type=webstore";
 const SESSION_TIMEOUT = 600; // 10 minutes
 const TOKEN_REFRESH_BUFFER_SECONDS = 100; // 1 minute
-const SESSION_SECURE = process.env.NODE_ENV === "production";
+const SESSION_SECURE = process.env.NODE_ENV !== "development";
 const SESSION_COOKIE = SESSION_SECURE ? "__Secure-authjs.session-token" : "authjs.session-token";
 
 let isRefreshing = false;
@@ -126,7 +126,24 @@ export const middleware: NextMiddleware = async (request: NextRequest) => {
         req: request,
         salt: SESSION_COOKIE,
 		secret: `${process.env.AUTH_SECRET}`,
+        secureCookie: SESSION_SECURE,
+        cookieName: SESSION_COOKIE
     });
+
+    console.log(`--- DEBUGGER ---`)
+    console.log(`request:`)
+    console.log(request)
+    console.log(`AuthJS url: ${process.env.AUTH_URL}`)
+    console.log(`AuthJS secret! ${process.env.AUTH_SECRET}`)
+    console.log(`Neto OAuth url: ${BASE_URL}`)
+    console.log(`signin url: ${SIGNIN_SUB_URL}`)
+    console.log(`session timeout (seconds): ${SESSION_TIMEOUT}`)
+    console.log(`refresh buffer (seconds): ${TOKEN_REFRESH_BUFFER_SECONDS}`)
+    console.log(`session secure? ${SESSION_SECURE}`)
+    console.log(`session cookie: ${SESSION_COOKIE}`)
+    console.log(`token:`)
+    console.log(token)
+    console.log(`---------------`)
 
     const path = request.nextUrl.pathname;
 	let response = NextResponse.next();
