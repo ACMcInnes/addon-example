@@ -14,7 +14,9 @@ let isRefreshing = false;
 
 export function shouldUpdateToken(token: JWT): boolean {
 	const timeInSeconds = Math.floor(Date.now() / 1000);
-	return timeInSeconds >= (token?.expires_at as number - TOKEN_REFRESH_BUFFER_SECONDS);
+    const expiryInSeconds = token?.expires_at as number - TOKEN_REFRESH_BUFFER_SECONDS;
+    console.log(`token valid for ${expiryInSeconds - timeInSeconds} seconds`)
+	return timeInSeconds >= expiryInSeconds;
 }
 
 export async function refreshAccessToken(token: JWT): Promise<JWT> {
@@ -129,21 +131,6 @@ export const middleware: NextMiddleware = async (request: NextRequest) => {
         secureCookie: SESSION_SECURE,
         cookieName: SESSION_COOKIE
     });
-
-    console.log(`--- DEBUGGER ---`)
-    console.log(`request:`)
-    console.log(request)
-    console.log(`AuthJS url: ${process.env.AUTH_URL}`)
-    console.log(`AuthJS secret! ${process.env.AUTH_SECRET}`)
-    console.log(`Neto OAuth url: ${BASE_URL}`)
-    console.log(`signin url: ${SIGNIN_SUB_URL}`)
-    console.log(`session timeout (seconds): ${SESSION_TIMEOUT}`)
-    console.log(`refresh buffer (seconds): ${TOKEN_REFRESH_BUFFER_SECONDS}`)
-    console.log(`session secure? ${SESSION_SECURE}`)
-    console.log(`session cookie: ${SESSION_COOKIE}`)
-    console.log(`token:`)
-    console.log(token)
-    console.log(`---------------`)
 
     const path = request.nextUrl.pathname;
 	let response = NextResponse.next();
