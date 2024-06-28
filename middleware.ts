@@ -1,20 +1,22 @@
 // export { auth as middleware } from "@/auth"
 
 import { NextResponse, type NextMiddleware, type NextRequest } from "next/server";
-import { encode, decode, getToken, type JWT } from "@auth/core/jwt";
+import { encode, getToken, type JWT } from "@auth/core/jwt";
 
 const BASE_URL = "https://api.netodev.com/oauth/v2";
 const SIGNIN_SUB_URL = "/neto/login?type=webstore";
 const SESSION_TIMEOUT = 600; // 10 minutes
 const TOKEN_REFRESH_BUFFER_SECONDS = 100; // 1 minute
-const SESSION_SECURE = process.env.NODE_ENV === "production";
+const SESSION_SECURE = process.env.NODE_ENV !== "development";
 const SESSION_COOKIE = SESSION_SECURE ? "__Secure-authjs.session-token" : "authjs.session-token";
 
 let isRefreshing = false;
 
 export function shouldUpdateToken(token: JWT): boolean {
 	const timeInSeconds = Math.floor(Date.now() / 1000);
-	return timeInSeconds >= (token?.expires_at as number - TOKEN_REFRESH_BUFFER_SECONDS);
+    const expiryInSeconds = token?.expires_at as number - TOKEN_REFRESH_BUFFER_SECONDS;
+    console.log(`token valid for ${expiryInSeconds - timeInSeconds} seconds`)
+	return timeInSeconds >= expiryInSeconds;
 }
 
 export async function refreshAccessToken(token: JWT): Promise<JWT> {
@@ -126,6 +128,8 @@ export const middleware: NextMiddleware = async (request: NextRequest) => {
         req: request,
         salt: SESSION_COOKIE,
 		secret: `${process.env.AUTH_SECRET}`,
+        secureCookie: SESSION_SECURE,
+        cookieName: SESSION_COOKIE
     });
 
     const path = request.nextUrl.pathname;
