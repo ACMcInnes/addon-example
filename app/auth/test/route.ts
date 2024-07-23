@@ -211,6 +211,7 @@ export async function GET(request: NextRequest) {
     } else if (hasCode) {
         const code = searchParams.get("code") ?? "";
         // console.log(`code: ${code}`);
+        // return NextResponse.json({ OAuthResponse: `${code}` }, { status: 201 });
 
         const oauthRes = await POST(request, code, "authorization_code");
 

@@ -1,15 +1,25 @@
 import Link from "next/link";
-import Image from "next/image";
-import { redirect } from "next/navigation";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { Suspense, cache } from "react";
+import { auth } from "@/auth";
 
 import getWebstore from "@/components/helper/getWebstore";
 import getProducts from "@/components/helper/getProducts";
 import getProductTotal from "@/components/helper/getProductTotal";
 import Pagination from "@/components/dashboard/pagination";
-import { auth } from "@/auth";
+import Thumbnail from "@/components/dashboard/thumbnail";
+import ThumbLoader from "@/components/dashboard/thumb-loader";
+
+const webstoreDetails = cache(async (webstore_api_id : string, access_token: string) => {
+	return await getWebstore(webstore_api_id, access_token);
+});
+
+const productTotalDetails = cache(async (webstore_api_id : string, access_token: string) => {
+	return await getProductTotal(webstore_api_id, access_token);
+});
+
+const productDetails = cache(async (webstore_api_id : string, access_token: string, page: number, limit: number) => {
+	return await getProducts(webstore_api_id, access_token, page, limit);
+});
 
 export default async function Products({
   searchParams,
@@ -19,14 +29,14 @@ export default async function Products({
     const session = await auth();
 
     if (session) {
-      const details = await getWebstore(session?.webstore_api_id as string, session?.access_token as string);
-      const productTotal = await getProductTotal(session?.webstore_api_id as string, session?.access_token as string);
+      const details = await webstoreDetails(session?.webstore_api_id as string, session?.access_token as string);
+      const productTotal = await productTotalDetails(session?.webstore_api_id as string, session?.access_token as string);
       const webstore = details.result.domain;
 
       let page = searchParams.page ? +searchParams.page : 0;
       let limit = 20;
       
-      const products = await getProducts(session?.webstore_api_id as string, session?.access_token as string, page, limit);
+      const products = await productDetails(session?.webstore_api_id as string, session?.access_token as string, page, limit);
       // console.log(`products:`);
       // console.log(products);
       const results = products.Item;
@@ -50,49 +60,9 @@ export default async function Products({
                 },
                 index: number
               ) => (
-                <section key={index} className="flex flex-col md:flex-row py-6">
-                  <div className="h-auto w-full md:h-[400px] md:w-[267px] flex-shrink-0 overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
-                    <Image
-                      src={
-                        result.Images[0]
-                          ? result.Images[0].MediumThumbURL
-                          : "/am_logo.svg"
-                      }
-                      alt={`${result.SKU} product image`}
-                      width={533}
-                      height={800}
-                      className="h-full w-full object-contain object-center"
-                    />
-                  </div>
-  
-                  <div className="mt-4 md:mt-0 mx-4 flex flex-1 flex-col">
-                    <div>
-                      <div className="flex justify-between text-base font-medium text-gray-900 dark:text-gray-100">
-                        <h3>{result.Model}</h3>
-                        <p className="ml-4">${result.DefaultPrice}</p>
-                      </div>
-                      <p className="mt-1 text-sm text-gray-500">{result.SKU}</p>
-                    </div>
-                    <div className="flex flex-1 items-end justify-between text-sm">
-                      <p className="text-gray-500">{result.InventoryID}</p>
-  
-                      <div className="flex">
-                        <Link 
-                          href={`/dashboard/products/${result.SKU}`}
-                          className="mr-3 font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"
-                        >
-                          View In App
-                        </Link>
-                        <Link 
-                          href={`//${webstore}/${result.ItemURL}`}
-                          className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"
-                        >
-                          View On Webstore <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </section>
+                <Suspense fallback={<ThumbLoader index={index} />}>
+                  <Thumbnail index={index} result={result} webstore={webstore} />
+                </Suspense>
               )
             )}
   
