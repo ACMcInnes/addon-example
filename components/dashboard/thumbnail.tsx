@@ -13,13 +13,13 @@ interface Thumbnail {
     SKU: string;
   }
 
-  export default function Thumbnail({ index, result, webstore }: {
-    index: number;
+  export default function Thumbnail({ key, result, webstore }: {
+    key: string;
     result: Thumbnail;
     webstore: string;
   }) {
     return (
-        <section key={index} className="flex flex-col md:flex-row py-6">
+        <section key={key} className="flex flex-col md:flex-row py-6">
         <div className="h-auto w-full md:h-[400px] md:w-[267px] flex-shrink-0 overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
         <Image
             src={

@@ -60,8 +60,8 @@ export default async function Products({
                 },
                 index: number
               ) => (
-                <Suspense fallback={<ThumbLoader index={index} />}>
-                  <Thumbnail index={index} result={result} webstore={webstore} />
+                <Suspense key={`suspense-${index}`} fallback={<ThumbLoader key={`fallback-${index}`} />}>
+                  <Thumbnail key={`thumbnail-${index}`} result={result} webstore={webstore} />
                 </Suspense>
               )
             )}
