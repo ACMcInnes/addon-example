@@ -18,7 +18,8 @@ async function getDemoProducts() {
     },
     body: `{
         "Filter": {
-            "CategoryID": 468
+            "CategoryID": 468,
+            "ParentSKU": ""
         }
     }`,
   });
