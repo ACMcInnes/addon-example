@@ -78,6 +78,10 @@ export default function Home() {
             </p>
           </a>
         </div>
+        <div className="relative flex flex-col place-items-center mt-4 pb-8">
+          <p>or take a look around</p>
+          <Link href={`/demo`} className="block mt-2 py-2 px-4 rounded-md text-gray-100 bg-sky-500 border-transparent">Demo</Link>
+        </div>
       </main>
       <Footer/>
     </>

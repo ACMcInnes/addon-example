@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { auth } from "@/auth";
 import SignOut from "@/components/callback/auth-sign-out";
+import Avatar from "boring-avatars";
 
 //import getWebstore from "@/components/helper/getWebstore";
 
@@ -43,13 +44,9 @@ export default async function Dashboard() {
       return (
         <>
           <div className="flex flex-col md:flex-row gap-4 p-6 border-b-2 border-sky-500">
-            <img
-              src={
-                session.user?.image ??
-                "https://source.boringavatars.com/beam/120"
-              }
-              className="md:self-start"
-            />
+            <div className="md:self-start">
+              <Avatar variant="beam" size={80}/>
+            </div>
             <div className="flex flex-col">
               <p className="text-2xl font-semibold">Profile:</p>
               <p>{session.user?.name}</p>
@@ -59,6 +56,7 @@ export default async function Dashboard() {
               {session?.access_token ? <p className="text-green-500 mt-1">You are able to make API calls</p> : <p className="text-red-500 mt-1">You are unable to make API calls</p> }
               {" "}
               <Link href="/dashboard/products" className="mt-6 py-2 px-4 rounded-md text-gray-100 text-center bg-sky-500 border-transparent">View Products</Link>
+              <Link href="/dashboard/products-test" className="mt-6 py-2 px-4 rounded-md text-gray-100 text-center bg-sky-500 border-transparent">View Products Test</Link>
             </div>
             
   
