@@ -4,25 +4,12 @@ import { auth } from "@/auth";
 
 import getWebstore from "@/components/helper/getWebstore";
 import getProducts from "@/components/helper/getProducts";
-import getProductTotal from "@/components/helper/getProductTotal";
-import Pagination from "@/components/dashboard/pagination";
-import Thumbnail from "@/components/dashboard/thumbnail";
+import getProductTotalTest from "@/components/helper/getProductTotalTest";
+import PaginationTest from "@/components/dashboard/paginationTest";
+import ThumbnailTest from "@/components/dashboard/thumbnailTest";
 import ThumbLoader from "@/components/dashboard/thumb-loader";
-import User from "@/components/dashboard/user";
 
-const webstoreDetails = cache(async (webstore_api_id : string, access_token: string) => {
-	return await getWebstore(webstore_api_id, access_token);
-});
-
-const productTotalDetails = cache(async (webstore_api_id : string, access_token: string) => {
-	return await getProductTotal(webstore_api_id, access_token);
-});
-
-const productDetails = cache(async (webstore_api_id : string, access_token: string, page: number, limit: number) => {
-	return await getProducts(webstore_api_id, access_token, page, limit);
-});
-
-export default async function Products({
+export default async function ProductsTest({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -30,40 +17,36 @@ export default async function Products({
     const session = await auth();
 
     if (session) {
-      const details = await webstoreDetails(session?.webstore_api_id as string, session?.access_token as string);
-      const productTotal = await productTotalDetails(session?.webstore_api_id as string, session?.access_token as string);
+      const details = await getWebstore(session?.webstore_api_id as string, session?.access_token as string);
+      const webstoreProducts = await getProductTotalTest(session?.webstore_api_id as string, session?.access_token as string);
       const webstore = details.result.domain;
+      const productTotal = webstoreProducts.Item.length
 
       let page = searchParams.page ? +searchParams.page : 0;
       let limit = 20;
       
-      const products = await productDetails(session?.webstore_api_id as string, session?.access_token as string, page, limit);
       // console.log(`products:`);
       // console.log(products);
-      const results = products.Item;
-       // console.log(`products result: ${results.length}`);
-       // console.log(results);
+      const results = webstoreProducts.Item;
+      const currentProducts = results.slice((page * limit), (page * limit) + 20);
+       console.log(`products result: ${currentProducts.length}`);
+       console.log(currentProducts);
       // console.log(`results type: ${typeof products}`);
-      if (results.length) {
+      if (currentProducts.length) {
         return (
           <section className="max-w-screen-lg">
-            <User />
             <p>Your products - page {page}:</p>
   
-            {results.map(
+            {currentProducts.map(
               (
-                result: {
+                product: {
                   InventoryID: string;
-                  ItemURL: string;
-                  DefaultPrice: string;
-                  Images: any;
-                  Model: string;
                   SKU: string;
                 },
                 index: number
               ) => (
                 <Suspense key={`suspense-${index}`} fallback={<ThumbLoader key={`fallback-${index}`} />}>
-                  <Thumbnail key={`thumbnail-${index}`} result={result} webstore={webstore} />
+                  <ThumbnailTest key={`thumbnail-${index}`} sku={product.SKU} webstore={webstore} />
                 </Suspense>
               )
             )}
@@ -73,7 +56,7 @@ export default async function Products({
                 Return to <Link href="/dashboard" className="text-sky-500">Dashboard</Link>
               </p>
             </div>
-            <Pagination currentPage={page} limit={limit} total={productTotal} />
+            <PaginationTest currentPage={page} limit={limit} total={productTotal} />
           </section>
         );
       } else {
@@ -81,7 +64,7 @@ export default async function Products({
           <div>
             <p className="mt-6">No more products.</p>
             <p>
-              <Link href={`/dashboard/products?page=${--page}`} className="text-sky-500">Go back</Link> or{" "}
+              <Link href={`/dashboard/products-test?page=${--page}`} className="text-sky-500">Go back</Link> or{" "}
               return to <Link href="/" className="text-sky-500">Home</Link>
             </p>
           </div>

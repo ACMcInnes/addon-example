@@ -18,7 +18,7 @@ export default function Assets() {
           </Link>
         </p>
         <p>
-          Icons generated using{" "} 
+          Icon library: {" "} 
           <Link
             className="text-sky-500 hover:text-sky-600"
             href="https://fontawesome.com/"
