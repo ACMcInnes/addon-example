@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const hasWebstore = searchParams.has("store_domain");
+  const hasStoreId = searchParams.has("store_id");
 
   if (hasWebstore) {
     const webstoreURL = searchParams.get("store_domain") as string;
@@ -23,9 +24,39 @@ export async function GET(request: NextRequest) {
 
     //redirect(`/dashboard`);
 
+  } else if (hasStoreId) {
+    const webstoreId = searchParams.get("store_id") as string;
+    console.log(`this should be an uninstall request for: ${webstoreId}`);
+    console.log(searchParams);
+    return NextResponse.json({ oauth: `Uninstall Request failed, check logs for details` }, { status: 500 });
+  
   } else {
     console.log(`oauth error, redirecting to login`);
     redirect(`/neto/login?type=webstore`);
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    // Process the webhook payload
+    console.log(`UNINSTALL POST RECEIVED:`);
+    console.log(request);
+
+    const text = await request.text();
+    if (text) {
+
+      console.log(`UNINSTALL TEXT:`);
+      console.log(text);
+    } else {
+      return new NextResponse(`Uninstall error: no request body`, {
+        status: 400,
+      });
+    }
+  } catch (error) {
+    // issue receiving uninstall request
+    return new NextResponse(`Uninstall error: ${error}`, {
+      status: 400,
+    });
   }
 }
 

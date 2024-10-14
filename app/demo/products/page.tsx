@@ -6,8 +6,13 @@ import DemoThumbnail from "@/components/dashboard/demoThumbnail";
 import User from "@/components/dashboard/user";
 
 const WEBSTORE = "https://keylime.neto.com.au";
+const CONTENT_ID = 468;
 
-async function getDemoProducts() {
+const cacheDemoProducts = cache(async (content_id : number) => {
+	return await getDemoProducts(content_id);
+});
+
+async function getDemoProducts(content_id: number) {
   // webstore and secret passed from AuthJS
   const res = await fetch(`${WEBSTORE}/do/WS/NetoAPI`, {
     method: "POST",
@@ -18,7 +23,7 @@ async function getDemoProducts() {
     },
     body: `{
         "Filter": {
-            "CategoryID": 468,
+            "CategoryID": ${content_id},
             "ParentSKU": ""
         }
     }`,
@@ -40,13 +45,13 @@ async function getDemoProducts() {
 
 export default async function DemoProducts() {
 
-      const demoData = await getDemoProducts();
+      const demoData = await cacheDemoProducts(CONTENT_ID);
       const productTotal = demoData.Item.length
       const products = demoData.Item;
 
 
-       console.log(`products result: ${products.length}`);
-       console.log(products);
+       // console.log(`products result: ${products.length}`);
+       // console.log(products);
       // console.log(`results type: ${typeof products}`);
       if (productTotal) {
         return (
@@ -62,8 +67,8 @@ export default async function DemoProducts() {
                 },
                 index: number
               ) => (
-                <Suspense key={`suspense-${index}`} fallback={<ThumbLoader key={`fallback-${index}`} />}>
-                  <DemoThumbnail key={`thumbnail-${index}`} sku={product.SKU} />
+                <Suspense key={`suspense-${index}-${product.SKU}`} fallback={<ThumbLoader />}>
+                  <DemoThumbnail sku={product.SKU} />
                 </Suspense>
               )
             )}

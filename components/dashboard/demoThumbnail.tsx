@@ -7,7 +7,7 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 const WEBSTORE = "https://keylime.neto.com.au";
 
 async function getDemoProduct(sku: string) {
-  console.log(`SKU: ${sku}`);
+  // console.log(`SKU: ${sku}`);
   // webstore and secret passed from AuthJS
   const res = await fetch(`${WEBSTORE}/do/WS/NetoAPI`, {
     method: "POST",
@@ -35,8 +35,7 @@ async function getDemoProduct(sku: string) {
   }`,
   });
  
-  console.log(`GET DEMO PRODUCT RESPONSE - ${sku}:`);
-  console.log(`${res.status == 200 ? 'OK' : 'ERROR'}`);
+  console.log(`SKU: ${sku}: ${res.status == 200 ? 'OK' : 'ERROR'}`);
 
   if (!res.ok || res.status !== 200) {
     console.log('Failed to fetch demo product')
@@ -47,8 +46,7 @@ async function getDemoProduct(sku: string) {
 }
 
 
-  export default async function DemoThumbnail({ key, sku }: {
-    key: string;
+  export default async function DemoThumbnail({ sku }: {
     sku: string;
   }) {
       const webstoreProduct = await getDemoProduct(sku);
@@ -67,7 +65,7 @@ async function getDemoProduct(sku: string) {
               },
               index: number
             ) => (
-                <section key={`inventory-${result.InventoryID}`} className="flex flex-col md:flex-row py-6">
+                <section key={`inventory-${index}-${result.InventoryID}`} className="flex flex-col md:flex-row py-6">
                     <div className="h-auto w-full md:h-[400px] md:w-[267px] flex-shrink-0 overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
                         <Link href={`/demo/products/${result.SKU}`}>
                             <Image
@@ -104,7 +102,8 @@ async function getDemoProduct(sku: string) {
                                     View In App
                                 </Link>
                                 <Link 
-                                    href={`//${WEBSTORE}/${result.ItemURL}`}
+                                    href={`${WEBSTORE}/${result.ItemURL}`}
+                                    target="_blank"
                                     className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"
                                 >
                                     View On Webstore <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
