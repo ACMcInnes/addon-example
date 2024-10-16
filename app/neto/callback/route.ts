@@ -1,6 +1,7 @@
 import { signIn } from "@/auth";
 import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
+import { headers } from "next/headers";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -42,11 +43,26 @@ export async function POST(request: NextRequest) {
     console.log(`UNINSTALL POST RECEIVED:`);
     console.log(request);
 
-    const text = await request.text();
+    const text = await request.json();
     if (text) {
 
       console.log(`UNINSTALL TEXT:`);
       console.log(text);
+
+      console.log(`Uninstall Code: ${text.code}`);
+      console.log(`Client: ${text.client_id}`);
+      console.log(`Store: ${text.store_id}`);
+
+      const headersList = headers();
+      console.log(`headers:`);
+      console.log(headersList);
+      const verification_key = headersList.get("neto_verification_key");
+      console.log(`verification key: ${verification_key}`);
+
+      return new NextResponse(`Uninstall successful: ${text.store_id}`, {
+        status: 200,
+      });
+
     } else {
       return new NextResponse(`Uninstall error: no request body`, {
         status: 400,
