@@ -1,5 +1,8 @@
 import { signOut } from "@/auth";
 
+// NOTE: does not sign out of Neto or run OAuth deauthorisation - only destroys AuthJS session in browser
+// TODO: look at federated signout options, either extending signOut function or wrapping it in a custom function
+
 export default function SignOut() {
   return (
     <form

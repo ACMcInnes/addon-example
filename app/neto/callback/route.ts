@@ -1,5 +1,4 @@
-import { signIn } from "@/auth";
-import { redirect } from "next/navigation";
+import { signIn, signOut } from "@/auth";
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 
@@ -14,44 +13,51 @@ export async function GET(request: NextRequest) {
     // console.log(`redirect branch url: //${process.env.VERCEL_BRANCH_URL}/dashboard`);
 
     //try {
-      await signIn('neto', { redirectTo: `/rerouter` }, { store_domain: webstoreURL });
+    await signIn(
+      "neto",
+      { redirectTo: `/rerouter` },
+      { store_domain: webstoreURL }
+    );
 
-      // console.log(`AUTH RESPONSE:`);
-      // console.log(auth);
+    // console.log(`AUTH RESPONSE:`);
+    // console.log(auth);
 
     //} catch (e) {
     //  return NextResponse.json({ oauth: `Authentication failed. ${e}` }, { status: 500 });
     //}
 
     //redirect(`/dashboard`);
-
   } else if (hasStoreId) {
     const webstoreId = searchParams.get("store_id") as string;
     console.log(`this should be an uninstall request for: ${webstoreId}`);
     console.log(searchParams);
-    return NextResponse.json({ oauth: `Uninstall Request failed, check logs for details` }, { status: 500 });
-  
+    return NextResponse.json(
+      { oauth: `Uninstall Request failed, check logs for details` },
+      { status: 500 }
+    );
   } else {
     console.log(`oauth error, redirecting to login`);
-    redirect(`/neto/login?type=webstore`);
+    await signOut({redirectTo: '/neto/login?type=webstore'});
   }
 }
 
+// FORCE LOGOUT URL:
+// https://api.netodev.com/oauth/v2/auth
+
 export async function POST(request: NextRequest) {
+  console.log(`UNINSTALL POST RECEIVED:`);
+  console.log(request);
   try {
     // Process the webhook payload
-    console.log(`UNINSTALL POST RECEIVED:`);
-    console.log(request);
-
     const text = await request.json();
     if (text) {
-
       console.log(`UNINSTALL TEXT:`);
       console.log(text);
 
       console.log(`Uninstall Code: ${text.code}`);
       console.log(`Client: ${text.client_id}`);
       console.log(`Store: ${text.store_id}`);
+      console.log(`Hash: ${text.api_id}`);
 
       const headersList = headers();
       console.log(`headers:`);
@@ -59,10 +65,58 @@ export async function POST(request: NextRequest) {
       const verification_key = headersList.get("neto_verification_key");
       console.log(`verification key: ${verification_key}`);
 
-      return new NextResponse(`Uninstall successful: ${text.store_id}`, {
-        status: 200,
-      });
+      // confirm uninstall request, POST deauth code to Neto Token endpoint
 
+      if (text.client_id === process.env.CLIENT_ID) {
+        const deauthURL = `https://api.netodev.com/oauth/v2/token?version=2`;
+        const redirectURL = `https://addon-example.vercel.app/neto/callback`;
+        const localRedirectURL = `http://localhost:3000/neto/callback`;
+        const params = new URLSearchParams();
+
+        params.append("client_id", `${process.env.CLIENT_ID}`);
+        params.append("client_secret", `${process.env.CLIENT_SECRET}`);
+        if (process.env.VERCEL_ENV === "development") {
+          params.append("redirect_uri", `${localRedirectURL}`);
+        } else {
+          params.append("redirect_uri", `${redirectURL}`);
+        }
+        params.append("grant_type", `authorization_code`);
+        params.append("code", `${text.code}`);
+
+        console.log(`running deauth request...`)
+
+        try {
+          const res = await fetch(deauthURL, {
+            method: "POST",
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+              "Access-Control-Allow-Headers": "Content-Type, Authorization",
+              //'Content-Type': 'multipart/form-data',
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: params,
+          });
+
+          const data = await res.text();
+          console.log(`FETCH DEAUTH DATA:`);
+          console.log(data);
+
+          return new NextResponse(`Uninstall successful: ${text.store_id}`, {
+            status: 200,
+          });
+        } catch (e) {
+          console.log(e);
+          return NextResponse.json({ error: e }, { status: 500 });
+        }
+      } else {
+        return new NextResponse(
+          `Uninstall error: Uninstall Client does not match application Client`,
+          {
+            status: 400,
+          }
+        );
+      }
     } else {
       return new NextResponse(`Uninstall error: no request body`, {
         status: 400,
