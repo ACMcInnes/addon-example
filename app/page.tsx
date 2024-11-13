@@ -6,7 +6,7 @@ import Footer from "@/components/dashboard/footer";
 import Nav from "@/components/dashboard/nav";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpRightFromSquare, faCode } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
   return (
@@ -80,7 +80,8 @@ export default function Home() {
         </div>
         <div className="relative flex flex-col place-items-center mt-4 pb-8">
           <p>or take a look around</p>
-          <Link href={`/demo`} className="block mt-2 py-2 px-4 rounded-md text-gray-100 bg-sky-500 border-transparent">Demo</Link>
+          <Link href={`/demo`} className="block mt-2 py-2 px-4 rounded-md text-gray-100 bg-indigo-600 hover:bg-indigo-500 dark:bg-sky-500 dark:hover:bg-sky-400 border-transparent">Demo</Link>
+          <Link href={`/documentation`} className="mt-2 py-2 text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"><FontAwesomeIcon icon={faCode} />{" "}Documentation</Link>
         </div>
       </main>
       <Footer/>

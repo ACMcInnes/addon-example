@@ -16,7 +16,7 @@ export default function SubscriberForm() {
       <label htmlFor="email">Email Address</label>
       <div className="flex mt-1">
       <input className="inline-flex flex-grow rounded-md bg-gray-200 border-transparent text-black dark:text-white focus:border-gray-500 focus:bg-white focus:ring-0 dark:bg-gray-600 dark:focus:border-gray-100 dark:focus:bg-zinc-900 dark:placeholder:text-gray-400" id="email" type="text" name="email" placeholder="email@domain" required />
-      <button className="inline-flex items-center ml-1 py-2 px-4 rounded-md text-gray-100 bg-sky-500 border-transparent" type="submit" disabled={state.submitting}>
+      <button className="inline-flex items-center ml-1 py-2 px-4 rounded-md text-gray-100 bg-sky-500 hover:bg-sky-400 border-transparent" type="submit" disabled={state.submitting}>
       <FontAwesomeIcon icon={faPaperPlane} className="text-lg" />
       </button>
       </div>

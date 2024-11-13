@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import ContactForm from "@/components/dashboard/contact-form";
 
-export default function Login() {
+export default function Contact() {
   return (
     <>
       <p>Please note, this contact form is not currently monitored and is for testing purposes only</p>

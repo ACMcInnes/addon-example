@@ -102,6 +102,7 @@ export default function Nav() {
             ["Assets", "/resources/assets"],
             ["Case studies", "/resources/case-studies"],
             ["Terms of use", "/resources/terms-of-use"],
+            ["Documentation", "/documentation"],
           ].map(([title, url], index) => (
             <li key={index} className="self-end lg:self-auto">
               <Link

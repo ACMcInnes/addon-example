@@ -1,6 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react';
 
 import { ThemeProvider } from "./theme-provider"
 import { ThemeSwitcher } from "./ThemeSwitcher"
@@ -27,6 +28,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ThemeSwitcher/>
           {children}
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>

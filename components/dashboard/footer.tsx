@@ -15,7 +15,7 @@ export default function Footer() {
       <section className="flex flex-col md:flex-row">
       <nav className="w-full md:w-6/12 flex flex-col lg:flex-row items-start justify-center gap-8 mt-12 p-12 md:p-8 text-sm bg-indigo-100 dark:bg-slate-800">
       <ul className="flex flex-col w-full flex-auto lg:flex-initial lg:basis-24 gap-x-8 gap-y-2">
-        <li key="footer" className="text-lg border-b-2">
+        <li key="footer" className="text-lg border-b-2 border-black dark:border-inherit">
           Menu
         </li>
           {[
@@ -26,7 +26,7 @@ export default function Footer() {
           ].map(([title, url], index) => (
             <li key={index} className="self-end lg:self-auto">
               <Link
-                className="text-sky-500 hover:text-sky-600"
+                className="text-sky-500 hover:text-sky-400"
                 href={url}
               >
                 {title}
@@ -35,17 +35,18 @@ export default function Footer() {
           ))}
         </ul>
         <ul className="flex flex-col w-full flex-auto lg:flex-initial lg:basis-28 gap-x-8 gap-y-2">
-        <li key="resources" className="text-lg border-b-2">
+        <li key="resources" className="text-lg border-b-2 border-black dark:border-inherit">
           Resources
         </li>
           {[
             ["Assets", "/resources/assets"],
             ["Case studies", "/resources/case-studies"],
             ["Terms of use", "/resources/terms-of-use"],
+            ["Documentation", "/documentation"],
           ].map(([title, url], index) => (
             <li key={index} className="self-end lg:self-auto">
               <Link
-                className="text-sky-500 hover:text-sky-600"
+                className="text-sky-500 hover:text-sky-400"
                 href={url}
               >
                 {title}
@@ -54,7 +55,7 @@ export default function Footer() {
           ))}
         </ul>
         <ul className="flex flex-col w-full flex-auto lg:flex-initial lg:basis-44 gap-x-8 gap-y-2">
-        <li key="Neto" className="text-lg border-b-2">
+        <li key="Neto" className="text-lg border-b-2 border-black dark:border-inherit">
           Neto
         </li>
           {[
@@ -64,7 +65,7 @@ export default function Footer() {
           ].map(([title, url], index) => (
             <li key={index} className="self-end lg:self-auto">
               <Link
-                className="text-sky-500 hover:text-sky-600"
+                className="text-sky-500 hover:text-sky-400"
                 href={url}
                 target="_blank"
               >

@@ -43,9 +43,9 @@ export default async function Dashboard() {
       const webstore = await getWebstoreProperties(session?.webstore_api_id as string, session?.access_token as string);
       return (
         <>
-          <div className="flex flex-col md:flex-row gap-4 p-6 border-b-2 border-sky-500">
+          <div className="flex flex-col md:flex-row gap-4 p-6 border-b-2 border-indigo-600 dark:border-sky-500">
             <div className="md:self-start">
-              <Avatar variant="beam" size={80}/>
+              <Avatar name="{session.user?.name}" variant="beam" size={80} />
             </div>
             <div className="flex flex-col">
               <p className="text-2xl font-semibold">Profile:</p>
@@ -55,14 +55,13 @@ export default async function Dashboard() {
               <p>{webstore ? `${webstore.result?.timezone} ${webstore.result?.country}` : ""}</p>
               {session?.access_token ? <p className="text-green-500 mt-1">You are able to make API calls</p> : <p className="text-red-500 mt-1">You are unable to make API calls</p> }
               {" "}
-              <Link href="/dashboard/products" className="mt-6 py-2 px-4 rounded-md text-gray-100 text-center bg-sky-500 border-transparent">View Products</Link>
-              <Link href="/dashboard/products-test" className="mt-6 py-2 px-4 rounded-md text-gray-100 text-center bg-sky-500 border-transparent">View Products Test</Link>
+              <Link href="/dashboard/products?page=0" className="mt-6 py-2 px-4 rounded-md text-gray-100 text-center bg-indigo-600 hover:bg-indigo-500 dark:bg-sky-500 dark:hover:bg-sky-400 border-transparent">View Products</Link>
             </div>
             
   
           </div>
           <div className="flex flex-col items-center mt-8">
-            <p>Return to <Link href="/" className="text-sky-500">Home</Link></p>
+            <p>Return to <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400">Home</Link></p>
             <p className="m-2">or</p>
             <SignOut />
           </div>
@@ -98,6 +97,4 @@ export default async function Dashboard() {
       </>
   ); 
   }
-
-
 }

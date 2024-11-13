@@ -7,6 +7,12 @@ export async function GET(request: NextRequest) {
   const hasWebstore = searchParams.has("store_domain");
   const hasStoreId = searchParams.has("store_id");
 
+  console.log(`GET REQUEST`);
+  // console.log(request);
+  console.log(request.text);
+
+  console.log(searchParams.toString());
+
   if (hasWebstore) {
     const webstoreURL = searchParams.get("store_domain") as string;
     // console.log(`redirect production url: //${process.env.VERCEL_PROJECT_PRODUCTION_URL}/dashboard`);
@@ -37,7 +43,7 @@ export async function GET(request: NextRequest) {
     );
   } else {
     console.log(`oauth error, redirecting to login`);
-    await signOut({redirectTo: '/neto/login?type=webstore'});
+    await signOut({redirectTo: '/neto/login?type=signout'});
   }
 }
 

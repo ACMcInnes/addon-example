@@ -65,7 +65,7 @@ export default function Pagination({ currentPage, limit, total }: {
           id="products"
           max={++lastPage}
           value={++currentPage}
-          className="w-full h-1 [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-value]:rounded-lg   [&::-webkit-progress-bar]:bg-slate-300 [&::-webkit-progress-value]:bg-sky-500 [&::-moz-progress-bar]:bg-sky-500"
+          className="w-full h-1 [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-bar]:bg-slate-300 [&::-webkit-progress-value]:bg-sky-500 [&::-moz-progress-bar]:bg-sky-500"
         ></progress>
         <label htmlFor="products" className="block w-full text-center">
           Page {currentPage} of {lastPage}
