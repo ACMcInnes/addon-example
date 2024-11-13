@@ -4,6 +4,8 @@ import { Suspense, cache } from "react";
 import ThumbLoader from "@/components/dashboard/thumb-loader";
 import DemoThumbnail from "@/components/dashboard/demoThumbnail";
 import User from "@/components/dashboard/user";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const WEBSTORE = "https://keylime.neto.com.au";
 const CONTENT_ID = 468;
@@ -57,8 +59,11 @@ export default async function DemoProducts() {
         return (
           <section className="max-w-screen-lg">
             <User />
-            <p>Products:</p>
-  
+            <h2 className="text-2xl font-semibold pt-4 pb-2">Products</h2>
+            <Link href="/demo" className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400">
+              <FontAwesomeIcon icon={faArrowLeft} />{" "}Demo Dashboard
+            </Link>
+
             {products.map(
               (
                 product: {

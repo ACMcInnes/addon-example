@@ -39,7 +39,7 @@ export async function generateStaticParams() {
 
     return (
       <>
-      <Link href="/documentation" className="text-sky-500"><FontAwesomeIcon icon={faArrowLeft} />{" "}Documentation</Link>
+      <Link href="/documentation" className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"><FontAwesomeIcon icon={faArrowLeft} />{" "}Documentation</Link>
         <h1 className="title font-semibold text-5xl mt-8">
           {page.metadata.title}
         </h1>
@@ -51,7 +51,7 @@ export async function generateStaticParams() {
         <div className="max-w-full lg:max-w-screen-sm xl:max-w-screen-lg 2xl:max-w-screen-xl prose dark:prose-invert prose-headings:mt-8 prose-headings:font-semibold prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-xl prose-h6:text-lg">
           {renderedContent}
         </div>
-        <Link href="/documentation" className="text-sky-500"><FontAwesomeIcon icon={faArrowLeft} />{" "}Documentation</Link>
+        <Link href="/documentation" className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"><FontAwesomeIcon icon={faArrowLeft} />{" "}Documentation</Link>
       </>
     )
   }  

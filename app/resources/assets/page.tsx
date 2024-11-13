@@ -10,7 +10,7 @@ export default function Assets() {
         <p>
           Profile images generated using{" "} 
           <Link
-            className="text-sky-500 hover:text-sky-600"
+            className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"
             href="https://boringavatars.com/"
             target="_blank"
           >
@@ -20,13 +20,33 @@ export default function Assets() {
         <p>
           Icon library: {" "} 
           <Link
-            className="text-sky-500 hover:text-sky-600"
+            className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"
             href="https://fontawesome.com/"
             target="_blank"
           >
             Font Awesome <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
           </Link>
         </p>
+        <p>
+          OAuth implemented through: {" "} 
+          <Link
+            className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"
+            href="https://authjs.dev/"
+            target="_blank"
+          >
+            Auth.js <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </Link>
+        </p>        
+        <p>
+          Markdown renderer: {" "} 
+          <Link
+            className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"
+            href="https://markdoc.dev/"
+            target="_blank"
+          >
+            Markdoc <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </Link>
+        </p>        
       </section>
     </>
   );

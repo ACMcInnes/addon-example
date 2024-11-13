@@ -35,7 +35,7 @@ export default async function Products({
     if (currentProducts.length) {
       return (
         <section className="max-w-screen-lg">
-          <h2>Products</h2>
+          <h2 className="text-2xl font-semibold">Products</h2>
           <p>page {page + 1}</p>
           <Link href="/dashboard" className="text-sky-500">
             Dashboard

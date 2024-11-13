@@ -23,7 +23,7 @@ export default function DocumentationLayout({
       <main className="flex flex-wrap items-center px-5">
         <h1 className="text-3xl basis-full grow-0 shrink-0 text-center font-semibold">Documentation</h1>
         <Sidebar />
-        <section className="!self-stretch basis-full lg:basis-2/3 xl:basis-3/4 grow-1 shrink-0 p-2 max-w-screen-xl">
+        <section className="w-full break-words text-pretty !self-stretch basis-full lg:basis-2/3 xl:basis-3/4 grow-1 shrink-0 p-2 max-w-screen-xl">
           {children}
         </section>
       </main>
