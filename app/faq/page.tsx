@@ -82,7 +82,7 @@ export default function Faq() {
               transition
               className="mt-4 text-sm/5 text-black/50 dark:text-white/50 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
             >
-              The space is there so that if you expanded all of the FAQs at once they won't shift the location of the footer down. It also stops the footer moving up as you close the FAQs
+              The space is there so that if you expanded all of the FAQs at once they won&apos;t shift the location of the footer down. It also stops the footer moving up as you close the FAQs
             </DisclosurePanel>
           </Disclosure>          
 
@@ -90,7 +90,7 @@ export default function Faq() {
       </div>
 
       <div className="relative flex flex-col place-items-center mt-4 py-8 border-t-2 border-indigo-600 dark:border-sky-500">
-        <p>Have a question that isn't listed above?</p>
+        <p>Have a question that isn&apos;t listed above?</p>
         <Link href={`/contact`} className="block mt-2 py-2 px-4 rounded-md text-gray-100 bg-indigo-600 hover:bg-indigo-500 dark:bg-sky-500 dark:hover:bg-sky-400 border-transparent">
           Contact Us
         </Link>
