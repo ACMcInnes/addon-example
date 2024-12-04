@@ -41,7 +41,7 @@ export default async function SignOut() {
           await deauth(webstore.result?.domain);
         }}
       >
-        <button className="block mt-2 py-2 px-4 rounded-md text-gray-100 bg-indigo-600 hover:bg-indigo-500 dark:bg-sky-500 dark:hover:bg-sky-400 border-transparent">
+        <button className="block mt-2 py-2 px-4 rounded-md text-gray-100 bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 border-transparent">
           Sign Out
         </button>
       </form>
@@ -50,7 +50,7 @@ export default async function SignOut() {
     return (
       <button
         disabled
-        className="block mt-2 py-2 px-4 rounded-md text-gray-100 bg-indigo-900 dark:bg-sky-900 border-transparent"
+        className="block mt-2 py-2 px-4 rounded-md text-gray-100 bg-indigo-900 border-transparent"
       >
         Sign Out
       </button>

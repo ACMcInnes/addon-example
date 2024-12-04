@@ -8,7 +8,7 @@ import Image from "next/image";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faBars, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-import { faYoutube, faInstagram, faTwitter, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
+import { faYoutube, faInstagram, faTwitter, faLinkedinIn, faBluesky, faGithub, faMastodon } from "@fortawesome/free-brands-svg-icons";
 import OfficeHours from "@/components/shared/office-hours";
 
 export default function Nav() {
@@ -48,12 +48,12 @@ export default function Nav() {
   ];
 
   return (
-    <nav className="w-full items-center justify-between md:justify-center gap-8 mb-12 py-2 text-sm flex bg-gray-300 dark:bg-slate-800">
+    <nav className="w-full items-center justify-between md:justify-center gap-8 mb-12 py-2 text-sm flex bg-slate-800 text-white">
       <Link href="/">
       <Image
         src="/am_logo.svg"
         alt="AM Logo"
-        className="dark:invert ml-4"
+        className="invert ml-4"
         width={100}
         height={24}
         priority
@@ -76,7 +76,7 @@ export default function Nav() {
 
       {nav && (
         <ul className="z-[1] flex flex-col justify-start items-start flex-auto gap-x-8 gap-y-2 p-12 overflow-y-auto text-base absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-black to-gray-800 text-white">
-        <li key="footer" className="text-lg border-b-2 w-full pt-20">
+        <li key="footer" className="text-lg border-b-2 mb-2 w-full pt-20">
           Menu
         </li>
           {[
@@ -85,9 +85,9 @@ export default function Nav() {
             ["FAQ", "/faq"],
             ["Contact", "/contact"],
           ].map(([title, url], index) => (
-            <li key={index} className="self-end">
+            <li key={index} className="self-end py-2">
               <Link
-                className="text-sky-500 hover:text-sky-600"
+                className="text-sky-400"
                 href={url}
               >
                 {title}
@@ -95,18 +95,18 @@ export default function Nav() {
             </li>
           ))}
 
-        <li key="resources" className="text-lg border-b-2 w-full">
+        <li key="resources" className="text-lg border-b-2 mb-2 w-full">
           Resources
         </li>
           {[
             ["Assets", "/resources/assets"],
-            ["Case studies", "/resources/case-studies"],
             ["Terms of use", "/resources/terms-of-use"],
+            ["Plans", "/resources/plans"],
             ["Documentation", "/documentation"],
           ].map(([title, url], index) => (
-            <li key={index} className="self-end lg:self-auto">
+            <li key={index} className="self-end py-2">
               <Link
-                className="text-sky-500 hover:text-sky-600"
+                className="text-sky-400"
                 href={url}
               >
                 {title}
@@ -114,7 +114,7 @@ export default function Nav() {
             </li>
           ))}
 
-        <li key="neto" className="text-lg border-b-2 w-full">
+        <li key="neto" className="text-lg border-b-2 mb-2 w-full">
           Neto
         </li>
           {[
@@ -122,9 +122,9 @@ export default function Nav() {
             ["API Documentation", "//developers.maropost.com/documentation/engineers/api-documentation"],
             ["Status", "//status.netohq.com/"],
           ].map(([title, url], index) => (
-            <li key={index} className="self-end">
+            <li key={index} className="self-end py-2">
               <Link
-                className="text-sky-500 hover:text-sky-600"
+                className="text-sky-400"
                 href={url}
                 target="_blank"
               >
@@ -132,11 +132,14 @@ export default function Nav() {
               </Link>
             </li>
           ))}
-          <li key="socials" className="flex items-center justify-start gap-4 text-xl mt-8 pt-4 border-t-2 w-full">
-              <FontAwesomeIcon icon={faYoutube} />
-              <FontAwesomeIcon icon={faInstagram} />
-              <FontAwesomeIcon icon={faTwitter} />
-              <FontAwesomeIcon icon={faLinkedinIn} />
+          <li key="socials" className="flex items-center justify-start gap-3 text-xl mt-8 pt-4 border-t-2 w-full">
+            <FontAwesomeIcon icon={faYoutube} className="w-[24px] !h-[24px]" />
+            <FontAwesomeIcon icon={faInstagram} className="w-[24px] !h-[24px]" />
+            <FontAwesomeIcon icon={faTwitter} className="w-[24px] !h-[24px]" />
+            <FontAwesomeIcon icon={faLinkedinIn} className="w-[24px] !h-[24px]" />
+            <FontAwesomeIcon icon={faMastodon} className="w-[24px] !h-[24px]" />
+            <FontAwesomeIcon icon={faBluesky} className="w-[24px] !h-[24px]" />
+            <FontAwesomeIcon icon={faGithub} className="w-[24px] !h-[24px]" />
           </li>
           <li key="open">
             <OfficeHours />

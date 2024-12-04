@@ -75,13 +75,13 @@ export default async function Thumbnail({
                 <div className="flex">
                   <Link
                     href={`/dashboard/products/${result.SKU}`}
-                    className="mr-3 font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"
+                    className="mr-3 font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
                   >
                     View In App
                   </Link>
                   <Link
                     href={`//${webstore}/${result.ItemURL}`}
-                    className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"
+                    className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
                   >
                     View On Webstore{" "}
                     <FontAwesomeIcon icon={faArrowUpRightFromSquare} />

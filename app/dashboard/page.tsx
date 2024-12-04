@@ -43,9 +43,9 @@ export default async function Dashboard() {
       const webstore = await getWebstoreProperties(session?.webstore_api_id as string, session?.access_token as string);
       return (
         <>
-          <div className="flex flex-col md:flex-row gap-4 p-6 border-b-2 border-indigo-600 dark:border-sky-500">
+          <div className="flex flex-col md:flex-row gap-4 p-6 pb-16 border-b-2 border-indigo-600 dark:border-indigo-500">
             <div className="md:self-start">
-              <Avatar name="{session.user?.name}" variant="beam" size={80} />
+              <Avatar name={`${session.user?.name}`} variant="beam" size={80} colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]} />
             </div>
             <div className="flex flex-col">
               <p className="text-2xl font-semibold">Profile:</p>
@@ -55,14 +55,10 @@ export default async function Dashboard() {
               <p>{webstore ? `${webstore.result?.timezone} ${webstore.result?.country}` : ""}</p>
               {session?.access_token ? <p className="text-green-500 mt-1">You are able to make API calls</p> : <p className="text-red-500 mt-1">You are unable to make API calls</p> }
               {" "}
-              <Link href="/dashboard/products?page=0" className="mt-6 py-2 px-4 rounded-md text-gray-100 text-center bg-indigo-600 hover:bg-indigo-500 dark:bg-sky-500 dark:hover:bg-sky-400 border-transparent">View Products</Link>
+              <Link href="/dashboard/products?page=0" className="mt-6 py-2 px-4 rounded-md text-gray-100 text-center bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 border-transparent">View Products</Link>
             </div>
-            
-  
           </div>
           <div className="flex flex-col items-center mt-8">
-            <p>Return to <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400">Home</Link></p>
-            <p className="m-2">or</p>
             <SignOut />
           </div>
         </>
@@ -75,7 +71,7 @@ export default async function Dashboard() {
           <p>Your session has expired</p>
         </div>
         <div className="flex flex-col items-center mt-6">
-            <p>Return to <Link href="/" className="text-sky-500">Home</Link></p>
+            <p>Return to <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">Home</Link></p>
             <p className="m-2">or</p>
             <SignOut />
         </div>
@@ -90,9 +86,9 @@ export default async function Dashboard() {
           <p>You are not logged in</p>
         </div>
         <div className="flex flex-col items-center mt-6">
-          <p>Return to <Link href="/" className="text-sky-500">Home</Link></p>
+          <p>Return to <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">Home</Link></p>
           <p className="m-2">or</p>
-          <Link href={`/neto/login?type=webstore`} className="block py-2 px-4 rounded-md text-gray-100 bg-sky-500 border-transparent">Log In</Link>
+          <Link href={`/neto/login?type=webstore`} className="block py-2 px-4 rounded-md text-gray-100 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-transparent">Log In</Link>
         </div>
       </>
   ); 

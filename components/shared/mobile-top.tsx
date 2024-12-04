@@ -19,7 +19,7 @@ export default function MobileTop() {
   return (
     <button
     onClick={mobileTop}
-    className={`flex items-center align-center mt-2  md:hidden`}
+    className={`flex items-center align-center mt-4 md:hidden`}
   >
    Back to top{" "}
    <FontAwesomeIcon icon={faArrowTurnUp} className="ml-2 py-2 px-4 rounded-md bg-blue-500 text-lg text-white" />

@@ -4,9 +4,12 @@ import Link from "next/link";
 import Banner from "@/components/dashboard/banner";
 import Footer from "@/components/dashboard/footer";
 import Nav from "@/components/dashboard/nav";
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpRightFromSquare, faCode } from "@fortawesome/free-solid-svg-icons";
+import LinkTiles from "@/components/home/link_tiles";
+import TrustedTeams from "@/components/home/trusted_teams";
+import Features from "@/components/home/features";
+import Sponsors from "@/components/home/sponsors";
+import Plans from "@/components/home/plans";
+import Cta from "@/components/home/cta";
 
 export default function Home() {
   return (
@@ -18,71 +21,55 @@ export default function Home() {
       <main className="flex flex-col items-center justify-between p-12 lg:p-24">
         <div className="relative flex flex-col place-items-center pb-8">
           <h1 className="text-4xl lg:text-5xl font-semibold">
-            A Neto Addon Example <span className="text-xs text-gray-500">*in development</span>
+            A Neto Addon Example
           </h1>
-          <h2 className="text-lg md:text-xl lg:text-3xl font-semibold">
-            Select an option below to get started
+          <p className="text-xs text-gray-500">*currently in development</p>
+          <Link href={`/documentation/getting-started`} className="group block mt-8 mb-4 py-3 px-8 rounded-md bg-indigo-600 text-white dark:bg-indigo-500 border-transparent">
+            Get Started{" "}
+            <span className="inline-block transition-transform group-hover:translate-x-2 motion-reduce:transform-none">-&gt;</span>
+          </Link>
+          <h2 className="lg:mb-24 text-lg md:text-xl lg:text-2xl font-semibold">
+            or select an option below
           </h2>
         </div>
-        <div className="mb-4 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-          <Link
-            href="/dashboard"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          >
-            <h2 className={`mb-3 text-2xl font-semibold`}>
-              Dashboard{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span>
-            </h2>
-            <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-              Access your dashboard
-            </p>
-          </Link>
-          <Link
-            href="/neto/login?type=webstore"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          >
-            <h2 className={`mb-3 text-2xl font-semibold`}>
-              Login{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">-&gt;</span>
-            </h2>
-            <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-              Don&apos;t have access? Login first
-            </p>
-          </Link>
-          <a
-            href="https://developers.maropost.com/documentation/engineers/api-documentation/introduction-and-getting-started/api-best-practices/"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={`mb-3 text-2xl font-semibold`}>
-              Best Practices{" "}
-              <FontAwesomeIcon className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none" icon={faArrowUpRightFromSquare} />
-            </h2>
-            <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-              Working with our API efficiently.
-            </p>
-          </a>
-          <a
-            href="https://developers.maropost.com/documentation/engineers/tutorials/"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={`mb-3 text-2xl font-semibold`}>
-              Tutorials{" "}
-              <FontAwesomeIcon className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none" icon={faArrowUpRightFromSquare} />
-            </h2>
-            <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-              Take a look at a similar Addon setup.
-            </p>
-          </a>
+
+        <LinkTiles />
+
+        <div className="relative flex flex-col place-items-center mt-8 pb-8">
+          <p>Don't have a Neto Webstore? Take a look around using our demo data</p>
+          <Link href={`/demo`} className="block mt-4 py-2 px-4 rounded-md text-gray-100 bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 border-transparent">Demo Dashboard</Link>
         </div>
-        <div className="relative flex flex-col place-items-center mt-4 pb-8">
-          <p>or take a look around</p>
-          <Link href={`/demo`} className="block mt-2 py-2 px-4 rounded-md text-gray-100 bg-indigo-600 hover:bg-indigo-500 dark:bg-sky-500 dark:hover:bg-sky-400 border-transparent">Demo</Link>
-          <Link href={`/documentation`} className="mt-2 py-2 text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"><FontAwesomeIcon icon={faCode} />{" "}Documentation</Link>
+
+
+        <h2 className="mt-12 w-full max-w-screen-xl text-base/7 text-left font-semibold text-indigo-600 dark:text-indigo-500">
+            What is the Neto Addon Example?
+        </h2>
+        <p className="w-full max-w-screen-xl text-left mt-2 text-pretty text-3xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl lg:text-balance">
+          The Neto Addon Example outlines how an integration with the Neto eCommerce platform might function.
+        </p>
+        <div className="w-full max-w-screen-xl mt-6 px-12 py-8 text-white text-center bg-gradient-to-br from-indigo-800 from-40% to-indigo-600 dark:from-indigo-900 dark:to-indigo-950 rounded-2xl">
+          <p className="mt-3 text-pretty text-lg">
+            From a technical standpoint, the Neto Addon Example shows a method of completing the OAuth authentication flow required to access the Neto API.
+            It also shows some of the ways the Neto API can be polled and that data used at an application level. This application is just an example and does
+            not outline any requirements for a Neto integration - these should be discussed with Neto directly.
+          </p>
+          <p className="mt-6 text-pretty text-lg">
+            From a feature standpoint, the Neto Addon Example lets you connect to your Neto webstore and retreive your control panel data.
+            Currently this is limited to product data, to show a list of thumbnails, then a main product page - similar to a Neto webstore frontend.
+            Additional functionality will be added over time.
+          </p>
         </div>
+
+        <Features />
+
+        <Sponsors />
+
+        <Plans />
+
+        <Cta />
+
+        <TrustedTeams />
+
       </main>
       <Footer/>
     </>

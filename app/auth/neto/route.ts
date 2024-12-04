@@ -2,23 +2,39 @@ import { NextResponse } from "next/server";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
-const redirectURL = "http://localhost:3000/auth/test";
-const tokenURL = "https://api.netodev.com/oauth/v2/token?version=2";
-const codeURL = "https://api.netodev.com/oauth/v2/auth?version=2";
+// v1 API OAuth
 
-const API_ENDPOINT_V1 = "https://api.netodev.com/v1/stores/";
-const API_ENDPOINT_V2 = "https://api.netodev.com/v2/stores/";
+const redirectURL = "http://localhost:3000/auth/neto";
+const tokenURL = "https://apps.getneto.com/oauth/v2/token";
+const codeURL = "https://apps.getneto.com/oauth/v2/auth";
+
+const API_ENDPOINT_V1 = "/do/WS/NetoAPI";
+const CLIENT_ID = `${process.env.CLIENT_ID}`;
+const SECRET = `${process.env.CLIENT_SECRET}`;
+
 const MAX_LIMIT = 10000;
 
 interface oauthPayload {
     scope: string;
-    api_id: string;
-    token_type: string;
-    expires_in: number;
+    store_id: string;
+    store_domain: string;
+    store_name: number;
+    store_timezone: string;
     access_token: string;
-    refresh_token: string;
-    iat: number;
-    exp: number;
+    user: {
+        firstName: string;
+        lastName: string;
+        email: string;
+    };
+    billing_address: {
+        street1: string;
+        street2: string;
+        city: string;
+        post_code: string;
+        state: string;
+        country_name: string;
+        country_code: string;
+      }
   }
 
   interface oauthResponse {
@@ -36,52 +52,18 @@ interface oauthPayload {
 
 let OAuthResponse = {} as oauthResponse;
 
-async function getWebstore(oauth: oauthPayload) {
-    let webstoreProperties;
-
-    try {
-      const res = await fetch(`${API_ENDPOINT_V2}${oauth.api_id}/properties`, {
-        method: "GET",
-        headers: {
-          Authorization: `${oauth.token_type} ${oauth.access_token}`,
-          "Content-Type": "application/json",
-        },
-        //body: `{}`,
-      });
-
-      console.log(`GET WEBSTORE RESPONSE:`);
-      console.log(`${res.status} - ${res.statusText}`);
-
-      if (!res.ok || res.status !== 200) {
-        console.log(`issue with API call`);
-
-        if (res.statusText === "Unauthorized") {
-            console.log(`user is not authorized to make this request`);
-        } else {
-          // This will activate the closest `error.js` Error Boundary
-          throw new Error(`Failed to fetch data: ${res.statusText}`);
-        }
-      }
-
-      webstoreProperties = await res.json();
-      // console.log(`FETCH DATA:`);
-      // console.log(webstoreProperties);
-    } catch (e) {
-      return `Could not get webstore properties. ${e}`;
-    }
-    return webstoreProperties;
-}
-
-async function getProductTotal(oauth: oauthPayload) {
+async function getProductTotal(data: oauthPayload) {
     let webstoreProducts;
 
     try {
-      const res = await fetch(`${API_ENDPOINT_V1}${oauth.api_id}/do/WS/NetoAPI`, {
+      const res = await fetch(`https://${data.store_domain}${API_ENDPOINT_V1}`, {
         method: "POST",
         headers: {
-          Authorization: `${oauth.token_type} ${oauth.access_token}`,
-          "Content-Type": "application/json",
-          NETOAPI_ACTION: "GetItem",
+            NETOAPI_ACTION: "GetItem",
+            X_ACCESS_KEY: CLIENT_ID,
+            X_SECRET_KEY: data.access_token,
+            "Content-Type": "application/json",
+            "Accept": "application/json",
         },
         body: `{
             "Filter": {
@@ -112,8 +94,9 @@ async function getProductTotal(oauth: oauthPayload) {
       }
 
       webstoreProducts = await res.json();
-      // console.log(`FETCH DATA:`);
-      // console.log(webstoreProperties);
+      console.log(`WEBSTORE PRODUCTS:`);
+      console.log(webstoreProducts);
+      console.log(webstoreProducts.Messages);
     } catch (e) {
       return `Could not get webstore products. ${e}`;
     }
@@ -124,13 +107,15 @@ async function getProductTotal(oauth: oauthPayload) {
 
 
 export async function POST(request: NextRequest, code: String, grantType: String) {
-  // const requestURL=`${tokenURL}&client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}&redirect_uri=${localRedirectURL}&grant_type=authorization_code&code=${code}`
+  // const requestURL=`${tokenURL}&client_id=${CLIENT_ID}&client_secret=${SECRET}&redirect_uri=${localRedirectURL}&grant_type=authorization_code&code=${code}`
   if (process.env.NODE_ENV === "development") {
   
+    console.log(`POST REQUEST STARTED`)
+
     const params = new URLSearchParams();
 
-    params.append("client_id", `${process.env.CLIENT_ID}`);
-    params.append("client_secret", `${process.env.CLIENT_SECRET}`);
+    params.append("client_id", `${CLIENT_ID}`);
+    params.append("client_secret", `${SECRET}`);
     params.append("redirect_uri", `${redirectURL}`);
     params.append("grant_type", `${grantType}`);
     if (grantType === "authorization_code") {
@@ -138,6 +123,8 @@ export async function POST(request: NextRequest, code: String, grantType: String
     } else {
         params.append("refresh_token", `${code}`);
     }
+
+    console.log(`SWAPPING CODE FOR TOKEN`)
 
     try {
         const res = await fetch(tokenURL, {
@@ -153,23 +140,19 @@ export async function POST(request: NextRequest, code: String, grantType: String
         });
 
         const data = await res.json();
-        //console.log(`FETCH OAUTH DATA:`);
-        //console.log(data);
+        console.log(`OAUTH TOKEN RESPONSE:`);
+        console.log(data);
         OAuthResponse.oauth = data;
-        const oauthHash = data.api_id;
+        const accessToken = data.access_token;
 
-        if (oauthHash) {     
+        if (accessToken) {     
         // run API call here to confirm connection
-        const webstore = await getWebstore(data);
-
-        console.log(`FETCH WEBSTORE DATA:`);
-        console.log(webstore);
 
         let webstoreFormatted = {} as webstoreResponse;
-        webstoreFormatted.business = webstore.result.business_name;
-        webstoreFormatted.domain = webstore.result.domain;
-        webstoreFormatted.timezone = webstore.result.timezone;
-        webstoreFormatted.country = webstore.result.country;
+        webstoreFormatted.business = data.store_name;
+        webstoreFormatted.domain = data.store_domain;
+        webstoreFormatted.timezone = data.store_timezone;
+        webstoreFormatted.country = data.billing_address.country_name;
 
         OAuthResponse.webstore = webstoreFormatted;
 
@@ -193,7 +176,7 @@ export async function POST(request: NextRequest, code: String, grantType: String
 }
 
 // login:
-// http://localhost:3000/auth/test?store_domain=keylime.neto.com.au
+// http://localhost:3000/auth/neto?store_domain=keylime.neto.com.au
 
 // logout:
 // https://apps.getneto.com/saml/logout
@@ -209,7 +192,7 @@ export async function GET(request: NextRequest) {
     if (hasWebstore) {
         const webstoreURL = searchParams.get("store_domain");
         // console.log(`store_domain: ${webstoreURL}`);
-        redirect(`${codeURL}&client_id=${process.env.CLIENT_ID}&redirect_uri=${redirectURL}&response_type=code&store_domain=${webstoreURL}&state=test`);
+        redirect(`${codeURL}?client_id=${CLIENT_ID}&redirect_uri=${redirectURL}&response_type=code&store_domain=${webstoreURL}&state=test`);
 
     } else if (hasCode) {
         const code = searchParams.get("code") ?? "";
@@ -217,6 +200,9 @@ export async function GET(request: NextRequest) {
         // return NextResponse.json({ OAuthResponse: `${code}` }, { status: 201 });
 
         const oauthRes = await POST(request, code, "authorization_code");
+
+        console.log(`TOKEN RESPONSE`)
+        console.log(oauthRes)
 
         if (oauthRes.status === 201) {
         console.log(`oauth complete`);

@@ -3,7 +3,6 @@ import { Suspense, cache } from "react";
 
 import ThumbLoader from "@/components/dashboard/thumb-loader";
 import DemoThumbnail from "@/components/dashboard/demoThumbnail";
-import User from "@/components/dashboard/user";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -58,9 +57,8 @@ export default async function DemoProducts() {
       if (productTotal) {
         return (
           <section className="max-w-screen-lg">
-            <User />
             <h2 className="text-2xl font-semibold pt-4 pb-2">Products</h2>
-            <Link href="/demo" className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400">
+            <Link href="/demo" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
               <FontAwesomeIcon icon={faArrowLeft} />{" "}Demo Dashboard
             </Link>
 
@@ -80,7 +78,7 @@ export default async function DemoProducts() {
   
             <div className="my-8">
               <p>
-                Return to <Link href="/demo" className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400">Demo Dashboard</Link>
+                Return to <Link href="/demo" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">Demo Dashboard</Link>
               </p>
             </div>
           </section>
@@ -90,8 +88,8 @@ export default async function DemoProducts() {
           <div>
             <p className="mt-6">No products</p>
             <p>
-              <Link href={`/demo`} className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400">Go back</Link> or{" "}
-              return to <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400">Home</Link>
+              <Link href={`/demo`} className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">Go back</Link> or{" "}
+              return to <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">Home</Link>
             </p>
           </div>
         );

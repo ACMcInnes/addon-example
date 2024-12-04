@@ -20,7 +20,7 @@ export default function ResourcesLayout({
         <Nav/>
       </header>
       <main className="flex flex-col items-center px-5">
-        <h1 className="text-3xl font-semibold">Resources</h1>
+        <h2 className="text-base/7 font-semibold text-indigo-600 dark:text-indigo-500">Resources</h2>
         {children}
       </main>
       <Footer/>

@@ -39,7 +39,7 @@ export default function Variants({
             <p>
               <Link
                 href={`/dashboard/products/${variant.SKU}`}
-                className="text-sky-500"
+                className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
               >
                 Go to variant product
               </Link>

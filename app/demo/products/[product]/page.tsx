@@ -164,7 +164,7 @@ export default async function DemoProduct({
           <h2 className="col-span-3 text-2xl font-semibold mt-4 mb-2">
             Viewing Product SKU: {params.product}
           </h2>
-          <Link href={`/demo/products`} className="col-span-3 text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400">
+          <Link href={`/demo/products`} className="col-span-3 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
             <FontAwesomeIcon icon={faArrowLeft} />{" "}
             Go back to all products
           </Link>
@@ -177,7 +177,7 @@ export default async function DemoProduct({
             {results.ParentSKU && (
               <Link
                 href={`/demo/products/${results.ParentSKU}`}
-                className="text-sky-500"
+                className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
               >
                 Go to parent product
               </Link>
@@ -202,11 +202,11 @@ export default async function DemoProduct({
           )}
           <div className="col-span-3 md:col-span-2 mt-4">
             <p>
-              <Link href={`/demo/products`} className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400">
+              <Link href={`/demo/products`} className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
                 Go back to all products
               </Link>{" "}
               or return to{" "}
-              <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400">
+              <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
                 Home
               </Link>
             </p>
@@ -215,7 +215,7 @@ export default async function DemoProduct({
             <p>
               <Link
                 href={`//${WEBSTORE}/${results.ItemURL}`}
-                className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"
+                className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
               >
                 View On Webstore{" "}
                 <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
@@ -229,16 +229,15 @@ export default async function DemoProduct({
         <div>
           <p className="mt-6">Could not load SKU</p>
           <p>
-            <Link href={`/demo/products`} className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400">
+            <Link href={`/demo/products`} className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
               Go back to all products
             </Link>{" "}
             or return to{" "}
-            <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400">
+            <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
               Home
             </Link>
           </p>
         </div>
       );
     }
-
 }

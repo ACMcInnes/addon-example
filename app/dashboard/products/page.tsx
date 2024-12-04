@@ -37,7 +37,7 @@ export default async function Products({
         <section className="max-w-screen-lg">
           <h2 className="text-2xl font-semibold">Products</h2>
           <p>page {page + 1}</p>
-          <Link href="/dashboard" className="text-sky-500">
+          <Link href="/dashboard" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
             Dashboard
           </Link>
 
@@ -63,7 +63,7 @@ export default async function Products({
           <div className="my-8">
             <p>
               Return to{" "}
-              <Link href="/dashboard" className="text-sky-500">
+              <Link href="/dashboard" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
                 Dashboard
               </Link>
             </p>
@@ -78,12 +78,12 @@ export default async function Products({
           <p>
             <Link
               href={`/dashboard/products?page=${--page}`}
-              className="text-sky-500"
+              className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
             >
               Go back
             </Link>{" "}
             or return to{" "}
-            <Link href="/" className="text-sky-500">
+            <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
               Home
             </Link>
           </p>
@@ -99,14 +99,14 @@ export default async function Products({
         <div className="flex flex-col items-center mt-6">
           <p>
             Return to{" "}
-            <Link href="/" className="text-sky-500">
+            <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
               Home
             </Link>
           </p>
           <p className="m-2">or</p>
           <Link
             href={`/neto/login?type=webstore`}
-            className="block ml-1 py-2 px-4 rounded-md text-gray-100 bg-sky-500 border-transparent"
+            className="block ml-1 py-2 px-4 rounded-md text-gray-100 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-transparent"
           >
             Log In
           </Link>

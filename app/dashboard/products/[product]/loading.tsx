@@ -9,7 +9,7 @@ export default function Loading() {
         <p>...is loading...</p>
       </div>
       <div>
-        <p>Return to <Link href="/dashboard/products" className="text-sky-500">All Products</Link>.</p>
+        <p>Return to <Link href="/dashboard/products" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">All Products</Link>.</p>
       </div>
     </>
   );

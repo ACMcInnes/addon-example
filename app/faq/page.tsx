@@ -6,9 +6,12 @@ import Link from 'next/link';
 export default function Faq() {
   return (
     <section>
+      <h1 className="mx-auto text-center mt-2 mb-8 text-balance text-4xl font-semibold text-gray-900 dark:text-gray-100 sm:text-5xl">
+        Frequently Asked Questions
+      </h1>
       <p className="mt-4 text-center">Got a question? check out the below commonly asked questions</p>
 
-      <div className="h-dvh w-full pt-8 px-4">
+      <div className="h-full w-full py-8 px-4">
         <div className="mx-auto w-full sm:min-w-[512px] max-w-lg divide-y divide-gray-300 dark:divide-white/5 rounded-xl transition-colors bg-gray-100 dark:bg-white/5 border dark:border-transparent border-gray-300">
           
           <Disclosure as="div" className="p-6" defaultOpen={true}>
@@ -74,7 +77,7 @@ export default function Faq() {
           <Disclosure as="div" className="p-6">
             <DisclosureButton className="group flex w-full items-center justify-between">
               <span className="text-sm/6 font-medium text-black hover:text-black/80 dark:text-white group-data-[hover]:dark:text-white/80">
-                Why is there a big blank space under this FAQ?
+                How much does it cost?
               </span>
               <FontAwesomeIcon icon={faChevronDown} className="size-5 fill-white/60 group-data-[hover]:fill-white/50 group-data-[open]:rotate-180" />
             </DisclosureButton>
@@ -82,16 +85,16 @@ export default function Faq() {
               transition
               className="mt-4 text-sm/5 text-black/50 dark:text-white/50 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
             >
-              The space is there so that if you expanded all of the FAQs at once they won&apos;t shift the location of the footer down. It also stops the footer moving up as you close the FAQs
+              Until the Addon is officially released there is no charge for using this application
             </DisclosurePanel>
           </Disclosure>          
 
         </div>
       </div>
 
-      <div className="relative flex flex-col place-items-center mt-4 py-8 border-t-2 border-indigo-600 dark:border-sky-500">
+      <div className="relative flex flex-col place-items-center mt-4 py-8 border-t-2 border-indigo-600 dark:border-indigo-500">
         <p>Have a question that isn&apos;t listed above?</p>
-        <Link href={`/contact`} className="block mt-2 py-2 px-4 rounded-md text-gray-100 bg-indigo-600 hover:bg-indigo-500 dark:bg-sky-500 dark:hover:bg-sky-400 border-transparent">
+        <Link href={`/contact`} className="block mt-2 py-2 px-4 rounded-md text-gray-100 bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 border-transparent">
           Contact Us
         </Link>
       </div>

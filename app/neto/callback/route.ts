@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
 
         params.append("client_id", `${process.env.CLIENT_ID}`);
         params.append("client_secret", `${process.env.CLIENT_SECRET}`);
-        if (process.env.VERCEL_ENV === "development") {
+        if (process.env.VERCEL_ENV === "development" || process.env.NODE_ENV === "development") {
           params.append("redirect_uri", `${localRedirectURL}`);
         } else {
           params.append("redirect_uri", `${redirectURL}`);

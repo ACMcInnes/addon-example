@@ -19,7 +19,7 @@ export default function Pagination({ currentPage, limit, total }: {
         {currentPage ? (
           <Link 
           href={`/dashboard/products?page=0`} 
-          className="text-sky-500 flex items-center gap-1"
+          className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 flex items-center gap-1"
           >
             <FontAwesomeIcon icon={faAnglesLeft} className="text-lg" /> <span className="hidden sm:inline-block">First Page</span>
           </Link>
@@ -30,7 +30,7 @@ export default function Pagination({ currentPage, limit, total }: {
         {currentPage ? (
           <Link
             href={`/dashboard/products?page=${previousPage}`}
-            className="text-sky-500 flex items-center gap-1"
+            className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 flex items-center gap-1"
           >
             <FontAwesomeIcon icon={faAngleLeft} className="text-lg" /> Previous <span className="hidden sm:inline-block">Page</span>
           </Link>
@@ -41,7 +41,7 @@ export default function Pagination({ currentPage, limit, total }: {
         {currentPage < lastPage ? (
           <Link
             href={`/dashboard/products?page=${nextPage}`}
-            className="text-sky-500 flex items-center gap-1"
+            className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 flex items-center gap-1"
           >
             Next <span className="hidden sm:inline-block">Page</span> <FontAwesomeIcon icon={faAngleRight} className="text-lg" />
           </Link>
@@ -52,7 +52,7 @@ export default function Pagination({ currentPage, limit, total }: {
         {currentPage < lastPage ? (
           <Link
             href={`/dashboard/products?page=${lastPage}`}
-            className="text-sky-500 flex items-center gap-1"
+            className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 flex items-center gap-1"
           >
             <span className="hidden sm:inline-block">Last Page</span> <FontAwesomeIcon icon={faAnglesRight} className="text-lg" />
           </Link>
@@ -65,7 +65,7 @@ export default function Pagination({ currentPage, limit, total }: {
           id="products"
           max={++lastPage}
           value={++currentPage}
-          className="w-full h-1 [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-bar]:bg-slate-300 [&::-webkit-progress-value]:bg-sky-500 [&::-moz-progress-bar]:bg-sky-500"
+          className="w-full h-1 [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-bar]:bg-slate-300 [&::-webkit-progress-value]:bg-indigo-500 [&::-moz-progress-bar]:bg-indigo-500"
         ></progress>
         <label htmlFor="products" className="block w-full text-center">
           Page {currentPage} of {lastPage}

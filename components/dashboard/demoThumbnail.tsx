@@ -97,14 +97,14 @@ async function getDemoProduct(sku: string) {
                             <div className="flex">
                                 <Link 
                                     href={`/demo/products/${result.SKU}`}
-                                    className="mr-3 pr-3 font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400 border-r-2 border-indigo-600 dark:border-sky-500"
+                                    className="mr-3 pr-3 font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-r-2 border-indigo-600 dark:border-indigo-500"
                                 >
                                     View In App
                                 </Link>
                                 <Link 
                                     href={`${WEBSTORE}/${result.ItemURL}`}
                                     target="_blank"
-                                    className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"
+                                    className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
                                 >
                                     View On Webstore <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
                                 </Link>

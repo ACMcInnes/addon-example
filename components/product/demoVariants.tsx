@@ -27,7 +27,7 @@ export default function DemoVariants({
   // <div className="grid grid-cols-subgrid gap-4 col-span-3">
 
   return (
-    <div className="grid grid-cols-3 gap-4 col-span-3 pb-8 border-b-2 border-indigo-600 dark:border-sky-500">
+    <div className="grid grid-cols-3 gap-4 col-span-3 pb-8 border-b-2 border-indigo-600 dark:border-indigo-500">
       <h2 className="text-2xl font-semibold col-span-3">Related Products</h2>
         {variants.map((variant, index) => (
           <div key={index} className="col-span-3 md:col-span-1">
@@ -46,7 +46,7 @@ export default function DemoVariants({
             <p>
               <Link
                 href={`/demo/products/${variant.SKU}`}
-                className="text-indigo-600 hover:text-indigo-500 dark:text-sky-500 dark:hover:text-sky-400"
+                className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
               >
                 Go to variant product{" "}<FontAwesomeIcon icon={faArrowRight} />
               </Link>
