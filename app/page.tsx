@@ -36,7 +36,7 @@ export default function Home() {
         <LinkTiles />
 
         <div className="relative flex flex-col place-items-center mt-8 pb-8">
-          <p>Don't have a Neto Webstore? Take a look around using our demo data</p>
+          <p>Don&apos;t have a Neto Webstore? Take a look around using our demo data</p>
           <Link href={`/demo`} className="block mt-4 py-2 px-4 rounded-md text-gray-100 bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 border-transparent">Demo Dashboard</Link>
         </div>
 

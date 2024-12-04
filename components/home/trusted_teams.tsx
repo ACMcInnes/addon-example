@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const teams = [
   {
     image: "https://tailwindui.com/plus/img/logos/158x48/transistor-logo-gray-900.svg",
@@ -36,11 +38,11 @@ export default function TrustedTeams() {
       </p>
       <div className="mx-auto mt-16 grid grid-cols-2 items-center gap-x-8 gap-y-10 sm:gap-x-10 md:grid-cols-3 xl:grid-cols-6">
         {teams.map((team) => (
-          <img
-            alt={team.alt}
+          <Image
             src={team.image}
             width={158}
             height={48}
+            alt={team.alt}
             className="col-span-1 max-h-12 w-full object-contain dark:invert"
             key={team.alt}
           />

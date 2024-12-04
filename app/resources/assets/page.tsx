@@ -107,7 +107,7 @@ export default function Assets() {
                       src={asset.imageUrl}
                       width={asset.imageWidth}
                       height={asset.imageHeight}
-                      alt="Picture of the author"
+                      alt={`${asset.name} logo`}
                       className={`h-12 w-auto flex-none ${asset.styling}`}
                     />
                   )}
