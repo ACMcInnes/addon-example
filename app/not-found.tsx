@@ -1,6 +1,6 @@
-import Banner from "@/components/dashboard/banner";
-import Footer from "@/components/dashboard/footer";
-import Nav from "@/components/dashboard/nav";
+import Banner from "@/components/shared/banner";
+import Footer from "@/components/shared/footer";
+import Nav from "@/components/shared/nav";
 import Image from "next/image";
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

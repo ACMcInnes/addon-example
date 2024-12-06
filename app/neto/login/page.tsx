@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import LoginForm from "@/components/callback/login-form";
-import Banner from "@/components/dashboard/banner";
+import Banner from "@/components/shared/banner";
 import { Suspense } from "react";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";

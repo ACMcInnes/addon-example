@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Banner from "@/components/dashboard/banner";
-import Nav from "@/components/dashboard/nav";
-import Footer from "@/components/dashboard/footer";
+import Banner from "@/components/shared/banner";
+import Nav from "@/components/shared/nav";
+import Footer from "@/components/shared/footer";
 import User from "@/components/dashboard/user";
 
 export const metadata: Metadata = {

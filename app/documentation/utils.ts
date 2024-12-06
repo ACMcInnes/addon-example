@@ -2,12 +2,14 @@ import fs from "fs";
 import path from "path";
 import Markdoc from "@markdoc/markdoc";
 import yaml from "js-yaml";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 type Metadata = {
   title: string;
   published: Date;
   description: string;
   image?: string;
+  icon: IconProp;
 };
 
 

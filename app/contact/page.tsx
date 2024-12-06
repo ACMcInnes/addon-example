@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import ContactForm from "@/components/dashboard/contact-form";
+import ContactForm from "@/components/shared/contact-form";
 
 export default function Contact() {
   return (
@@ -15,6 +15,5 @@ export default function Contact() {
       <ContactForm />
     </div>
     </section>
-
   );
 }

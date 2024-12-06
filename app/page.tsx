@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import Banner from "@/components/dashboard/banner";
-import Footer from "@/components/dashboard/footer";
-import Nav from "@/components/dashboard/nav";
+import Banner from "@/components/shared/banner";
+import Footer from "@/components/shared/footer";
+import Nav from "@/components/shared/nav";
 import LinkTiles from "@/components/home/link_tiles";
 import TrustedTeams from "@/components/home/trusted_teams";
 import Features from "@/components/home/features";

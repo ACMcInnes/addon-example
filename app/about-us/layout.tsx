@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Banner from "@/components/dashboard/banner";
-import Nav from "@/components/dashboard/nav";
-import Footer from "@/components/dashboard/footer";
+import Banner from "@/components/shared/banner";
+import Nav from "@/components/shared/nav";
+import Footer from "@/components/shared/footer";
 
 export const metadata: Metadata = {
   title: "About Us",

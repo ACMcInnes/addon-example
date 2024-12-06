@@ -1,26 +1,7 @@
 import { auth, signOut } from "@/auth";
+import getWebstore from "@/components/helper/getWebstore";
 import deauth from "@/components/callback/deauth";
 
-const API_ENDPOINT = "https://api.netodev.com/v2/stores/";
-
-async function getWebstoreProperties(webstore: string, secret: string) {
-  const res = await fetch(`${API_ENDPOINT}${webstore}/properties`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${secret}`,
-      "Content-Type": "application/json",
-    },
-    //body: `{}`,
-  });
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    // throw new Error('Failed to fetch webstore properties')
-    console.log("Failed to fetch webstore properties");
-    return null;
-  }
-  return res.json();
-}
 
 export default async function SignOut() {
   const session = await auth();
@@ -30,7 +11,7 @@ export default async function SignOut() {
     console.log(session);
 
     //if (Date.now() < (session?.expires_at as number * 1000)) {
-    const webstore = await getWebstoreProperties(
+    const webstore = await getWebstore(
       session?.webstore_api_id as string,
       session?.access_token as string
     );
