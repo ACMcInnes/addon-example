@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpRightFromSquare, faLocationDot, faPhone, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faYoutube, faInstagram ,faLinkedinIn, faTwitter, faGithub, faMastodon, faBluesky } from "@fortawesome/free-brands-svg-icons";
 
-import SubscriberForm from "@/components/dashboard/subscriber-form";
+import SubscriberForm from "@/components/shared/subscriber-form";
 import OfficeHours from "@/components/shared/office-hours";
 import MobileTop from "@/components/shared/mobile-top";
 
@@ -15,7 +15,7 @@ export default function Footer() {
       <section className="flex flex-col md:flex-row max-w-screen-xl mx-auto xl:border-b border-white/25">
         <nav className="w-full md:w-6/12 flex flex-col lg:flex-row items-start justify-start gap-8 mt-12 p-12 md:p-8 text-sm">
         <ul className="flex flex-col w-full flex-auto lg:flex-initial lg:basis-24 gap-x-8 gap-y-2">
-          <li key="footer" className="text-lg border-b-2 border-inherit mb-2">
+          <li key="f-menu-heading" className="text-lg border-b-2 border-inherit mb-2">
             Menu
           </li>
             {[
@@ -24,7 +24,7 @@ export default function Footer() {
               ["FAQ", "/faq"],
               ["Contact", "/contact"],
             ].map(([title, url], index) => (
-              <li key={index} className="self-end lg:self-auto py-2 md:py-0.5">
+              <li key={`f-menu-${index}`} className="self-end lg:self-auto py-2 md:py-0.5">
                 <Link
                   className="text-slate-200 hover:text-indigo-300"
                   href={url}
@@ -35,7 +35,7 @@ export default function Footer() {
             ))}
           </ul>
           <ul className="flex flex-col w-full flex-auto lg:flex-initial lg:basis-28 gap-x-8 gap-y-2">
-          <li key="resources" className="text-lg border-b-2 border-inherit mb-2">
+          <li key="f-res-heading" className="text-lg border-b-2 border-inherit mb-2">
             Resources
           </li>
             {[
@@ -44,7 +44,7 @@ export default function Footer() {
               ["Plans", "/resources/plans"],
               ["Documentation", "/documentation"],
             ].map(([title, url], index) => (
-              <li key={index} className="self-end lg:self-auto py-2 md:py-0.5">
+              <li key={`f-res-${index}`} className="self-end lg:self-auto py-2 md:py-0.5">
                 <Link
                   className="text-slate-200 hover:text-indigo-300"
                   href={url}
@@ -55,7 +55,7 @@ export default function Footer() {
             ))}
           </ul>
           <ul className="flex flex-col w-full flex-auto lg:flex-initial lg:basis-44 gap-x-8 gap-y-2">
-          <li key="Neto" className="text-lg border-b-2 border-inherit mb-2">
+          <li key="f-neto-heading" className="text-lg border-b-2 border-inherit mb-2">
             Neto
           </li>
             {[
@@ -63,7 +63,7 @@ export default function Footer() {
               ["API Documentation", "//developers.maropost.com/documentation/engineers/api-documentation"],
               ["Status", "//status.netohq.com/"],
             ].map(([title, url], index) => (
-              <li key={index} className="self-end lg:self-auto py-2 md:py-0.5">
+              <li key={`f-neto-${index}`} className="self-end lg:self-auto py-2 md:py-0.5">
                 <Link
                   className="text-slate-200 hover:text-indigo-300"
                   href={url}

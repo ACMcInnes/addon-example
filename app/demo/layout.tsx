@@ -21,16 +21,14 @@ export default function DashboardLayout({
         <Banner/>
         <Nav/>
       </header>
+
+
       <main className="flex flex-col items-center px-5">
         <User />
-        <h1 className="text-3xl font-semibold">Demo Dashboard</h1>
-        <p>
-          To see the application with your webstore data{" "}
-          <Link href={`/neto/login?type=webstore`} className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
-            login
-          </Link>
-        </p>
-        {children}
+        <section className="align-start px-3 lg:px-24 pb-6 w-full max-w-screen-xl">
+          <h1 className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8 text-base/7 font-semibold text-indigo-500 dark:text-indigo-400">Demo</h1>
+          {children}
+        </section>
       </main>
       <Footer/>
     </>

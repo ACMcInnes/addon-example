@@ -52,7 +52,7 @@ export default function Sponsors() {
         <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 items-center gap-1 rounded-2xl overflow-hidden lg:grid-cols-3 lg:divide-y-0">
           {sponsors.map((sponsor) => (
             <a
-              className="pointer-events-none lg:pointer-events-auto w-full justify-items-center py-8 bg-neutral-100 dark:bg-slate-800 hover:bg-neutral-200 hover:dark:bg-slate-700"
+              className="pointer-events-none lg:pointer-events-auto w-full justify-items-center py-8 px-24 bg-neutral-100 dark:bg-slate-800 hover:bg-neutral-200 hover:dark:bg-slate-700"
               href={sponsor.url}
               target="_blank"
               rel="noopener noreferrer"
@@ -61,7 +61,7 @@ export default function Sponsors() {
               <Image
                 src={sponsor.image}
                 alt={sponsor.name}
-                className="dark:invert"
+                className="dark:invert w-full h-auto mx-auto"
                 width={200}
                 height={48}
               />

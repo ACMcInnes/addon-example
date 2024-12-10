@@ -12,7 +12,7 @@ export default function SubscriberForm() {
   }
 
   return (
-    <form className="flex flex-col w-10/12 md:w-full lg:w-9/12" onSubmit={handleSubmit}>
+    <form className="flex flex-col w=full sm:w-10/12 md:w-full lg:w-9/12" onSubmit={handleSubmit}>
       <label htmlFor="email">Email Address</label>
       <div className="flex mt-1">
       <input className="inline-flex flex-grow rounded-md bg-indigo-600 dark:bg-indigo-700 border-transparent text-white focus:border-gray-100 focus:bg-indigo-800 dark:focus:bg-indigo-900 focus:ring-0 placeholder:text-gray-300" id="email" type="text" name="email" placeholder="e.g. email@domain.com" required />

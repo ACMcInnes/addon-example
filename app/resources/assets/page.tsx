@@ -97,6 +97,7 @@ export default function Assets() {
             <div className="px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between gap-x-6">
                 <div className="flex min-w-0 min-h-12 gap-x-4">
+                  {/* SVG styling not applied in Safari :( */}
                   {asset.icon ? (
                     <FontAwesomeIcon
                       className={`size-12 flex-none ${asset.styling}`}

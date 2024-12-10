@@ -27,7 +27,7 @@ const features = [
 export default function Features() {
   return (
     <div className="mt-20 w-full max-w-screen-xl">
-      <div className="mx-auto px-6 lg:px-8">
+      <div className="mx-auto px-0 md:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base/7 font-semibold text-indigo-600 dark:text-indigo-500">
             Features

@@ -324,7 +324,7 @@ export default function Example() {
 
       <div id="get-started" className="my-4"></div>
 
-      <div className="mt-16 mx-4 md:mx-28 flex flex-col items-start gap-x-8 gap-y-6 rounded-3xl p-8 bg-neutral-100 dark:bg-slate-800 ring-1 ring-gray-900/10 dark:ring-gray-100/10 sm:gap-y-10 sm:p-10 lg:col-span-2 lg:flex-row lg:items-center">
+      <div className="mt-16 mx-0 sm:mx-4 md:mx-28 flex flex-col items-start gap-x-8 gap-y-6 rounded-3xl p-8 bg-neutral-100 dark:bg-slate-800 ring-1 ring-gray-900/10 dark:ring-gray-100/10 sm:gap-y-10 sm:p-10 lg:col-span-2 lg:flex-row lg:items-center">
         <div className="lg:min-w-0 lg:flex-1">
           <h3 className="text-lg/7 font-semibold text-indigo-600 dark:text-indigo-500">
             Beta Program Application

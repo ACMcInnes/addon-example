@@ -4,7 +4,7 @@ export default function PlansPage() {
   return (
     <>
       <div className="w-full max-w-screen-xl">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
             <h1 className="mt-2 text-balance text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-6xl">
               Pricing plans that grow with you

@@ -35,7 +35,7 @@ const people = [
     email: 'virginia.apgar@example.com',
     role: 'Research & Development',
     note: 'What can ChatGPT build for us next?',
-    endorsement: '\"ChatGPT, write an endorsement outlining how amazing I think the company is, thanks\"',
+    endorsement: 'ChatGPT, write an endorsement outlining how amazing I think the company is, thanks',
   },
   {
     name: 'Andrew McInnes',
@@ -98,7 +98,7 @@ export default function About() {
               <Avatar name={person.avatar} variant="beam" size={50} colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]} className="flex-none" />
               <div className="min-w-0 flex-auto">
                 <p className="text-sm/6 font-semibold text-gray-800 dark:text-gray-100">{person.name}</p>
-                <p className="mt-1 truncate text-xs/5 text-gray-500 dark:text-gray-400">{person.note}</p>
+                <p className="hidden md:block mt-1 truncate text-xs/5 text-gray-500 dark:text-gray-400">{person.note}</p>
               </div>
             </div>
             <div className="shrink-0 flex flex-col items-end">
@@ -119,20 +119,20 @@ export default function About() {
 
       <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {people.map((person) => (
-          <li key={person.name}>
+          <li key={person.avatar}>
             <div className="flex flex-col items-center gap-x-6">
-            <Avatar name={person.avatar} variant="beam" colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]} square className="flex-none size-full rounded-2xl" />
+            <Avatar name={person.avatar} variant="beam" colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]} square className="flex-none size-8/12 sm:size-full rounded-2xl" />
               <div className="text-center">
                 <h3 className="mt-4 text-base/7 font-semibold tracking-tight">{person.name}</h3>
                 <p className="text-sm/6 font-semibold text-gray-500">{person.role}</p>
-                <p className="mt-3 text-sm/6 text-pretty text-gray-700 dark:text-gray-300">{person.endorsement}</p>
+                <p className="mt-3 text-sm/6 text-balance text-gray-700 dark:text-gray-300">&quot;{person.endorsement}&quot;</p>
               </div>
             </div>
           </li>
         ))}
       </ul>
 
-      <p className="mt-16 text-lg text-center text-pretty">A Neto integration developed by{" "}<Link href="https://acmcinnes.au" target="_blank" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">Andrew McInnes <FontAwesomeIcon icon={faArrowUpRightFromSquare} /></Link></p>
+      <p className="mt-16 pt-8 text-lg text-center text-balance border-t-2 border-indigo-600 dark:border-indigo-500">A Neto integration developed by{" "}<Link href="https://acmcinnes.au" target="_blank" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">Andrew McInnes <FontAwesomeIcon icon={faArrowUpRightFromSquare} /></Link></p>
 
     </section>
   );

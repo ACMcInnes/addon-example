@@ -18,24 +18,24 @@ export default function Home() {
         <Banner/>
         <Nav />
       </header>
-      <main className="flex flex-col items-center justify-between p-12 lg:p-24">
+      <main className="flex flex-col items-center justify-between p-6 lg:p-24">
         <div className="relative flex flex-col place-items-center pb-8">
-          <h1 className="text-4xl lg:text-5xl font-semibold">
+          <h1 className="text-5xl lg:text-6xl text-center font-semibold">
             A Neto Addon Example
           </h1>
-          <p className="text-xs text-gray-500">*currently in development</p>
+          <p className="mt-2 sm:mt-1 text-xs text-gray-500">*currently in development</p>
           <Link href={`/documentation/getting-started`} className="group block mt-8 mb-4 py-3 px-8 rounded-md bg-indigo-600 text-white dark:bg-indigo-500 border-transparent">
             Get Started{" "}
             <span className="inline-block transition-transform group-hover:translate-x-2 motion-reduce:transform-none">-&gt;</span>
           </Link>
-          <h2 className="lg:mb-24 text-lg md:text-xl lg:text-2xl font-semibold">
+          <h2 className="mt-16 lg:mb-24 text-lg md:text-xl lg:text-2xl font-semibold">
             or select an option below
           </h2>
         </div>
 
         <LinkTiles />
 
-        <div className="relative flex flex-col place-items-center mt-8 pb-8">
+        <div className="relative flex flex-col text-center text-balance place-items-center mt-8 pb-8">
           <p>Don&apos;t have a Neto Webstore? Take a look around using our demo data</p>
           <Link href={`/demo`} className="block mt-4 py-2 px-4 rounded-md text-gray-100 bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 border-transparent">Demo Dashboard</Link>
         </div>
@@ -47,7 +47,7 @@ export default function Home() {
         <p className="w-full max-w-screen-xl text-left mt-2 text-pretty text-3xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl lg:text-balance">
           The Neto Addon Example outlines how an integration with the Neto eCommerce platform might function.
         </p>
-        <div className="w-full max-w-screen-xl mt-6 px-12 py-8 text-white text-center bg-gradient-to-br from-indigo-800 from-40% to-indigo-600 dark:from-indigo-900 dark:to-indigo-950 rounded-2xl">
+        <div className="w-full max-w-screen-xl mt-6 px-6 lg:px-12 py-8 text-white text-center bg-gradient-to-br from-indigo-800 from-40% to-indigo-600 dark:from-indigo-900 dark:to-indigo-950 rounded-2xl">
           <p className="mt-3 text-pretty text-lg">
             From a technical standpoint, the Neto Addon Example shows a method of completing the OAuth authentication flow required to access the Neto API.
             It also shows some of the ways the Neto API can be polled and that data used at an application level. This application is just an example and does
