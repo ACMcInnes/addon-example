@@ -16,7 +16,7 @@ export default async function Dashboard() {
 
       return (
     <>
-      <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
+      <div className="mx-auto max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8">
         <p className="mt-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
           All your Neto data in one handy dashboard
         </p>

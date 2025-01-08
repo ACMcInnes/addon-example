@@ -102,7 +102,7 @@ async function getDemoProduct(sku: string) {
   console.log(`${res.status == 200 ? 'OK' : 'ERROR'}`);
 
   if (!res.ok || res.status !== 200) {
-    console.log('Failed to fetch product data for SKU: ${sku}')
+    console.log(`Failed to fetch product data for SKU: ${sku}`);
     // This will activate the closest `error.js` Error Boundary
     throw new Error(`Failed to fetch data: ${res.statusText}`);
   }
@@ -190,6 +190,13 @@ export default async function DemoProduct({
             <p>Barcode: {results.UPC}</p>
             <p>Store Price: {results.DefaultPrice}</p>
             <p>QTY On Hand: {results.AvailableSellQuantity}</p>
+            {results.ParentSKU ? (
+              <p>Product Type: Variant</p>
+            ) : childProducts.Item.length ? (
+              <p>Product Type: Parent</p>
+            ) : (
+              <p>Product Type: Standalone</p>
+            )}
           </div>
           <div className="col-span-3 mt-4 mb-2">
             <h2 className="mt-4 mb-2 text-2xl font-semibold">Description</h2>

@@ -79,7 +79,7 @@ export default async function Profile({ session }: { session: Session| null}) {
                 keylime.neto.com.au <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
               </Link>
               <p className="mt-1">Australia/Brisbane AU</p>
-              <p className="text-green-500 mt-4">Connected to Neto Webstore</p>
+              <p className="text-green-500 mt-4">Connected to Neto Demo Webstore</p>
             </div>
           </div>
           <div className="flex flex-col items-center mt-2 mb-6">
