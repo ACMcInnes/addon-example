@@ -9,6 +9,9 @@ import delay from "@/components/helper/delay";
 const WEBSTORE = "https://keylime.neto.com.au";
 const CONTENT_CODE = "part-finder";
 
+// Generating Static Params for content quickly hits Neto API rate limit, removing for now
+
+/*
 export async function generateStaticParams() {
   const contentResults = await fetch(`${WEBSTORE}/do/WS/NetoAPI`, {
     method: "POST",
@@ -52,6 +55,7 @@ export async function generateStaticParams() {
   );
   return mappedContent;
 }
+*/  
 
 async function getPageContents(id: string[]) {
   console.log(`DEMO CONTENT: ${id}`);
