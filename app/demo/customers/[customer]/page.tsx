@@ -3,6 +3,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Avatar from "boring-avatars";
+import delay from "@/components/helper/delay";
 
 const WEBSTORE = "https://keylime.neto.com.au";
 const USER_GROUP = 4;
@@ -28,8 +29,6 @@ export async function generateStaticParams() {
         customer: c.Username,
     }))
 }
-
-
 
 async function getDemoCustomer(username: string) {
   console.log(`DEMO CUSTOMER: ${username}`);
@@ -98,7 +97,12 @@ async function getDemoCustomer(username: string) {
   console.log(`${res.status == 200 ? 'OK' : 'ERROR'}`);
 
   if (!res.ok || res.status !== 200) {
-    console.log(`Failed to fetch customer data for Username: ${username}`)
+    console.log(`Failed to fetch customer data for Username: ${username}`);
+    if(res.status === 429) {
+      // to many requests, rate limited by Neto
+      console.log(`${res.status} Response - Max API requests made, pausing and retrying...`);
+      await delay(5000).then(() => getDemoCustomer(username));
+    }
     // This will activate the closest `error.js` Error Boundary
     throw new Error(`Failed to fetch data: ${res.statusText}`);
   }

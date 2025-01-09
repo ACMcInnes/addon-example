@@ -6,6 +6,7 @@ import { faArrowLeft, faArrowUpRightFromSquare } from "@fortawesome/free-solid-s
 
 import Images from "@/components/product/images";
 import DemoVariants from "@/components/product/demoVariants";
+import delay from "@/components/helper/delay";
 
 // consider generating these pages at build time using https://nextjs.org/docs/app/api-reference/functions/generate-static-params
 // generateStaticParams() has issues with current cookie setup being out of global scope (https://nextjs.org/docs/messages/next-dynamic-api-wrong-context)
@@ -31,8 +32,6 @@ export async function generateStaticParams() {
         product: p.SKU,
     }))
 }
-
-
 
 async function getDemoProduct(sku: string) {
   console.log(`DEMO SKU: ${sku}`);
@@ -103,6 +102,11 @@ async function getDemoProduct(sku: string) {
 
   if (!res.ok || res.status !== 200) {
     console.log(`Failed to fetch product data for SKU: ${sku}`);
+    if(res.status === 429) {
+      // to many requests, rate limited by Neto
+      console.log(`${res.status} Response - Max API requests made, pausing and retrying...`);
+      await delay(5000).then(() => getDemoProduct(sku));
+    }
     // This will activate the closest `error.js` Error Boundary
     throw new Error(`Failed to fetch data: ${res.statusText}`);
   }
@@ -138,7 +142,12 @@ async function getDemoChildProducts(parent: string, ids: Array<Number>) {
     console.log(`${res.status == 200 ? 'OK' : 'ERROR'}`);
   
     if (!res.ok || res.status !== 200) {
-      console.log('Failed to fetch product variants for SKU: ${parent}')
+      console.log(`Failed to fetch product variants for SKU: ${parent}`);
+      if(res.status === 429) {
+        // to many requests, rate limited by Neto
+        console.log(`${res.status} Response - Max API requests made, pausing and retrying...`);
+        await delay(5000).then(() => getDemoChildProducts(parent, ids));
+      }
       // This will activate the closest `error.js` Error Boundary
       throw new Error(`Failed to fetch data: ${res.statusText}`);
     }

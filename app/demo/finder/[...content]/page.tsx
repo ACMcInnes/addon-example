@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Avatar from "boring-avatars";
 import getDemoContentCache from "@/components/demo/getDemoContentCache";
+import delay from "@/components/helper/delay";
 
 const WEBSTORE = "https://keylime.neto.com.au";
 const CONTENT_CODE = "part-finder";
@@ -52,7 +53,7 @@ export async function generateStaticParams() {
   return mappedContent;
 }
 
-async function getDemoContent(id: string[]) {
+async function getPageContents(id: string[]) {
   console.log(`DEMO CONTENT: ${id}`);
   const res = await fetch(`${WEBSTORE}/do/WS/NetoAPI`, {
     method: "POST",
@@ -102,6 +103,11 @@ async function getDemoContent(id: string[]) {
 
   if (!res.ok || res.status !== 200) {
     console.log(`Failed to fetch content data for ID: ${id}`);
+    if(res.status === 429) {
+        // to many requests, rate limited by Neto
+        console.log(`${res.status} Response - Max API requests made, pausing and retrying...`);
+        await delay(5000).then(() => getPageContents(id));
+      }
     // This will activate the closest `error.js` Error Boundary
     throw new Error(`Failed to fetch data: ${res.statusText}`);
   }
@@ -121,22 +127,19 @@ export default async function DemochildContent({
   // const currentContent = content.at(-1);
   // console.log(currentContent)
 
-  const getContent = await getDemoContent(content);
+  const pageContents = await getPageContents(content);
 
   // console.log(getContent.Content)
 
-  if (getContent.Content.length) {
-    const fullContentPathName = getContent.Content.map((content: { ContentName: string }) => content.ContentName).join(" ");
-    const results = getContent.Content.at(-1);
+  if (pageContents.Content.length) {
+    const fullContentPathName = pageContents.Content.map((content: { ContentName: string }) => content.ContentName).join(" ");
+    const results = pageContents.Content.at(-1);
 
-    const childContent = await getDemoContentCache(
-      results.ContentType,
-      results.ContentID
-    );
+    const contentData = await getDemoContentCache(results.ContentType);
 
-    const childContents = childContent.Content;
+    const childContents = contentData.Content.filter((page: { ParentContentID: string; }) => page.ParentContentID === results.ContentID)
 
-    if (childContent.Content.length) {
+    if (childContents.length) {
       return (
         <section>
           <p className="mt-2 mb-8">
@@ -163,23 +166,18 @@ export default async function DemochildContent({
               </Link>
             ))}
           </p>
-
-          <Avatar
-            name={`${fullContentPathName}`}
-            variant="marble"
-            size={224}
-            colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
-            className="mx-auto"
-          />
-          <h2 className="text-2xl font-semibold my-4 text-center">
+          <h2 className="text-4xl sm:text-5xl font-semibold my-4 text-center">
             {fullContentPathName}
           </h2>
+          <p className="mt-6 text-lg/8 text-gray-600 dark:text-gray-400">
+            {results.Description1}
+          </p>
 
           <div className="pb-12">
             <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
               <ul
                 role="list"
-                className="mx-auto mt-20 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 sm:grid-cols-3 lg:mx-0 lg:max-w-none lg:grid-cols-4"
+                className="mx-auto mt-20 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5 xl:grid-cols-6"
               >
                 {childContents.map(
                   (
@@ -193,22 +191,17 @@ export default async function DemochildContent({
                     index: number
                   ) => (
                     <li key={childContent.ContentID}>
-                      <Link
-                        href={`/demo/finder/${content.join("/")}/${
-                          childContent.ContentID
-                        }`}
-                      >
+                      <Link href={`/demo/finder/${content.join("/")}/${childContent.ContentID}`}>
                         <Avatar
-                          name={`${childContent.ContentName} ${childContent.ContentID}`}
+                          name={`${childContent.ContentName}`}
                           variant="marble"
-                          size={160}
                           colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
-                          className="mx-auto"
+                          className="mx-auto size-24"
                         />
                         <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-gray-900 dark:text-gray-100">
                           {childContent.ContentName}
                         </h3>
-                        <p className="text-sm/6 text-gray-600">
+                        <p className="text-sm/6 text-gray-600 dark:text-gray-400">
                           Active: {childContent.Active}
                         </p>
                       </Link>
@@ -251,9 +244,8 @@ export default async function DemochildContent({
           <Avatar
             name={`${fullContentPathName}`}
             variant="marble"
-            size={224}
             colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
-            className="mx-auto"
+            className="mx-auto size-56"
           />
           <h2 className="text-2xl font-semibold my-4 text-center">
             {fullContentPathName}

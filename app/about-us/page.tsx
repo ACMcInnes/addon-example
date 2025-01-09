@@ -68,7 +68,7 @@ const people = [
     role: 'Bitcoin Miner',
     note: 'Should have got into Ethereum...',
     endorsement: 'Andrew hasn\'t noticed the GPU bank I\'ve setup in the backroom',
-  },   
+  }, 
 ]
 
 export default function About() {

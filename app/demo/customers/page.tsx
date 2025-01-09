@@ -61,7 +61,6 @@ export default async function DemoCustomers() {
                     <Avatar
                       name={`${customer.BillingAddress.BillFirstName} ${customer.BillingAddress.BillLastName}`}
                       variant="beam"
-                      size={160}
                       colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
                       className="mx-auto size-56"
                     />

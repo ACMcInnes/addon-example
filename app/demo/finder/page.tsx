@@ -8,12 +8,10 @@ import Avatar from "boring-avatars";
 
 export default async function DemoFinder() {
     const CONTENT_CODE = "part-finder";
-    const PARENT_CONTENT_ID = "0";
-    const demoData = await getDemoContentCache(CONTENT_CODE, PARENT_CONTENT_ID);
-    const finderContentsTotal = demoData.Content.length;
-    const finderContents = demoData.Content;
+    const demoData = await getDemoContentCache(CONTENT_CODE);
+    const topLevelContents = demoData.Content.filter((page: { ParentContentID: string; }) => page.ParentContentID === '0')
 
-  if (finderContentsTotal) {
+  if (topLevelContents.length) {
     return (
       <section className="max-w-screen-lg">
         <h2 className="my-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
@@ -46,9 +44,9 @@ export default async function DemoFinder() {
               role="list"
               className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
             >
-              {finderContents.map(
+              {topLevelContents.map(
                 (
-                  finderContent: {
+                  content: {
                     ContentID: string;
                     ContentName: string;
                     ParentContentID: string;
@@ -57,23 +55,22 @@ export default async function DemoFinder() {
                   },
                   index: number
                 ) => (
-                  <li key={finderContent.ContentID}>
-                  <Link
-                    href={`/demo/finder/${finderContent.ContentID}`}
-                  >
-                    <Avatar
-                      name={`${finderContent.ContentName} ${finderContent.ContentID}`}
-                      variant="marble"
-                      size={224}
-                      colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
-                      className="mx-auto"
-                    />
-                    <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-gray-900 dark:text-gray-100">
-                      {finderContent.ContentName}
-                    </h3>
-                    <p className="text-sm/6 text-gray-600">
-                      Active: {finderContent.Active}
-                    </p>
+                  <li key={content.ContentID}>
+                    <Link
+                      href={`/demo/finder/${content.ContentID}`}
+                    >
+                      <Avatar
+                        name={`${content.ContentName}`}
+                        variant="marble"
+                        colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
+                        className="mx-auto size-56"
+                      />
+                      <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-gray-900 dark:text-gray-100">
+                        {content.ContentName}
+                      </h3>
+                      <p className="text-sm/6 text-gray-600">
+                        Active: {content.Active}
+                      </p>
                     </Link>
                   </li>
                 )
