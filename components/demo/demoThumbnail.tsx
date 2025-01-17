@@ -65,7 +65,15 @@ export default async function DemoThumbnail({ sku }: { sku: string }) {
           DefaultPrice: string;
           ShortDescription: string;
           ItemURL: string;
-          Images: any;
+          Images: [
+            {
+                URL: string;
+                Timestamp: string;
+                ThumbURL: string;
+                MediumThumbURL: string;
+                Name: string;
+            }
+          ];
           ItemSpecifics: [
             {
               ItemSpecific: Array<itemSpecificsObject> | itemSpecificsObject;
@@ -81,14 +89,12 @@ export default async function DemoThumbnail({ sku }: { sku: string }) {
             <div className="sm:col-span-5 sm:row-span-2 sm:row-end-2">
               <Link href={`/demo/products/${product.SKU}`}>
                 <Image
-                  src={
-                    product.Images[0] ? product.Images[0].URL : "/am_logo.svg"
-                  }
+                  src={product.Images[0] ? `${product.Images[0].URL}?${new Date(product.Images[0].Timestamp).getTime()}` : "/thumb_fallback.jpg"}
                   sizes="(max-width: 768px) 100vw, 300px"
                   alt={`${product.SKU} product image`}
                   width={999}
                   height={1500}
-                  className="w-full h-auto rounded-lg object-contain object-center"
+                  className="w-full h-auto rounded-lg object-contain object-center hover:opacity-75"
                 />
               </Link>
             </div>

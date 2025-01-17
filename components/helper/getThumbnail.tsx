@@ -22,7 +22,8 @@ export default async function getThumbnail(webstore: string, secret: string, sku
               "Images",
               "ItemURL",
               "ParentSKU",
-              "VariantInventoryIDs"
+              "VariantInventoryIDs",
+              "ItemSpecifics"
           ]
       }
   }`,

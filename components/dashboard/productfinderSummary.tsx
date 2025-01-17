@@ -1,6 +1,10 @@
 import Link from "next/link";
 
+import getContentTypesCache from "@/components/helper/getContentTypesCache";
+import getContentsCache from "@/components/helper/getContentsCache";
+import getProductFinderType from "@/components/helper/getProductFinderType";
 import getDemoContentCache from "@/components/demo/getDemoContentCache";
+
 
 export default async function PartsFinderSummary({
   hash,
@@ -10,8 +14,12 @@ export default async function PartsFinderSummary({
   secret: string;
 }) {
   if (hash.length & secret.length) {
-    // TODO: poll for parts content
-    const finderContentTotal = 0;
+
+    const contentTypes = await getContentTypesCache(hash, secret);
+    const productFinderType = await getProductFinderType(contentTypes);
+    const finderContents = await getContentsCache(hash, secret, productFinderType);
+    const finderContentTotal = finderContents.Content.length;
+
     return (
       <div className="px-6 py-24 md:px-2 md:py-16 lg:px-4">
         <div className="mx-auto max-w-2xl text-center">
@@ -28,17 +36,11 @@ export default async function PartsFinderSummary({
           </p>
           <div className="mt-10 flex lg:flex-col xl:flex-row items-center justify-center gap-x-6">
             <Link
-              href="#"
+              href="/dashboard/finder"
               className="py-2 px-4 rounded-md text-gray-100 text-center bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 border-transparent"
             >
               View Finder
             </Link>
-            <a
-              href="#"
-              className="lg:mt-4 xl:mt-0 text-sm/6 font-semibold text-gray-900 dark:text-gray-100"
-            >
-              Manual Sync
-            </a>
           </div>
         </div>
       </div>
@@ -68,12 +70,6 @@ export default async function PartsFinderSummary({
             >
               View Finder
             </Link>
-            <a
-              href="#"
-              className="lg:mt-4 xl:mt-0 text-sm/6 font-semibold text-gray-900 dark:text-gray-100"
-            >
-              Manual Sync
-            </a>
           </div>
         </div>
       </div>

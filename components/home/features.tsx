@@ -1,26 +1,26 @@
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faCircleExclamation, faGears, faLock, faRotate } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const features = [
   {
     name: 'Full Product Sync',
     description: 'Easily access your product data and preview your content',
-    icon: faArrowRight,
+    icon: faRotate,
   },
   {
     name: 'Secure Connection',
     description: 'The Neto Addon Example uses OAuth2.0 to securely access your data via the Neto API',
-    icon: faArrowRight,
+    icon: faLock,
   },
   {
     name: 'Notifications',
     description: 'Never miss an order or stocktake with notifications straight to your Neto Addon Example dashboard',
-    icon: faArrowRight,
+    icon: faCircleExclamation,
   },
   {
     name: 'Minimal Setup',
     description: 'No long winded import/export feed required, once connected all your Neto data is available in app',
-    icon: faArrowRight,
+    icon: faGears,
   },
 ];
 

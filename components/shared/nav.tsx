@@ -8,7 +8,7 @@ import Image from "next/image";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faBars, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-import { faYoutube, faInstagram, faTwitter, faLinkedinIn, faBluesky, faGithub, faMastodon } from "@fortawesome/free-brands-svg-icons";
+import { faYoutube, faInstagram, faLinkedinIn, faBluesky, faGithub, faMastodon } from "@fortawesome/free-brands-svg-icons";
 import OfficeHours from "@/components/shared/office-hours";
 
 export default function Nav() {
@@ -157,15 +157,8 @@ export default function Nav() {
             className="flex items-center justify-start gap-3 text-xl mt-8 pt-4 border-t-2 w-full"
           >
             <FontAwesomeIcon icon={faYoutube} className="w-[24px] !h-[24px]" />
-            <FontAwesomeIcon
-              icon={faInstagram}
-              className="w-[24px] !h-[24px]"
-            />
-            <FontAwesomeIcon icon={faTwitter} className="w-[24px] !h-[24px]" />
-            <FontAwesomeIcon
-              icon={faLinkedinIn}
-              className="w-[24px] !h-[24px]"
-            />
+            <FontAwesomeIcon icon={faInstagram} className="w-[24px] !h-[24px]" />
+            <FontAwesomeIcon icon={faLinkedinIn} className="w-[24px] !h-[24px]" />
             <FontAwesomeIcon icon={faMastodon} className="w-[24px] !h-[24px]" />
             <FontAwesomeIcon icon={faBluesky} className="w-[24px] !h-[24px]" />
             <FontAwesomeIcon icon={faGithub} className="w-[24px] !h-[24px]" />

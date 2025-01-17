@@ -42,12 +42,6 @@ export default async function ProductsSummary({
             >
               View Products
             </Link>
-            <a
-              href="#"
-              className="lg:mt-4 xl:mt-0 text-sm/6 font-semibold text-gray-900 dark:text-gray-100"
-            >
-              Manual Sync
-            </a>
           </div>
         </div>
       </div>
@@ -76,12 +70,6 @@ export default async function ProductsSummary({
             >
               View Products
             </Link>
-            <a
-              href="#"
-              className="lg:mt-4 xl:mt-0 text-sm/6 font-semibold text-gray-900 dark:text-gray-100"
-            >
-              Manual Sync
-            </a>
           </div>
         </div>
       </div>

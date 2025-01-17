@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpRightFromSquare, faLocationDot, faPhone, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { faYoutube, faInstagram ,faLinkedinIn, faTwitter, faGithub, faMastodon, faBluesky } from "@fortawesome/free-brands-svg-icons";
+import { faYoutube, faInstagram ,faLinkedinIn, faGithub, faMastodon, faBluesky } from "@fortawesome/free-brands-svg-icons";
 
 import SubscriberForm from "@/components/shared/subscriber-form";
 import OfficeHours from "@/components/shared/office-hours";
@@ -88,7 +88,6 @@ export default function Footer() {
               <div className="flex items-center justify-center gap-3 text-xl pt-8">
                 <FontAwesomeIcon icon={faYoutube} className="w-[24px] !h-[24px]" />
                 <FontAwesomeIcon icon={faInstagram} className="w-[24px] !h-[24px]" />
-                <FontAwesomeIcon icon={faTwitter} className="w-[24px] !h-[24px]" />
                 <FontAwesomeIcon icon={faLinkedinIn} className="w-[24px] !h-[24px]" />
                 <FontAwesomeIcon icon={faMastodon} className="w-[24px] !h-[24px]" />
                 <FontAwesomeIcon icon={faBluesky} className="w-[24px] !h-[24px]" />

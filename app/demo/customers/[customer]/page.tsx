@@ -215,7 +215,7 @@ export default async function DemoCustomer({
           <p className="mt-6">Could not load customer</p>
           <p>
             <Link href={`/demo/customer`} className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
-              Go back to all products
+              Go back to all customers
             </Link>{" "}
             or return to{" "}
             <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">

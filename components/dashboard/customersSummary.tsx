@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import getCustomersCache from "@/components/helper/getCustomersCache";
 import getDemoCustomerCache from "@/components/demo/getDemoCustomerCache";
 
 export default async function CustomersSummary({
@@ -10,8 +11,8 @@ export default async function CustomersSummary({
   secret: string;
 }) {
   if (hash.length & secret.length) {
-    // TODO: poll for customer details
-    const customerTotal = 0;
+    const customerData = await getCustomersCache(hash, secret);
+    const customerTotal = customerData.Customer.length;
     return (
       <div className="px-6 py-24 md:px-2 md:py-16 lg:px-4">
         <div className="mx-auto max-w-2xl text-center">
@@ -28,17 +29,11 @@ export default async function CustomersSummary({
           </p>
           <div className="mt-10 flex lg:flex-col xl:flex-row items-center justify-center gap-x-6">
             <Link
-              href="#"
+              href="/dashboard/customers"
               className="py-2 px-4 rounded-md text-gray-100 text-center bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 border-transparent"
             >
               View Customers
             </Link>
-            <a
-              href="#"
-              className="lg:mt-4 xl:mt-0 text-sm/6 font-semibold text-gray-900 dark:text-gray-100"
-            >
-              Manual Sync
-            </a>
           </div>
         </div>
       </div>
@@ -67,12 +62,6 @@ export default async function CustomersSummary({
             >
               View Customers
             </Link>
-            <a
-              href="#"
-              className="lg:mt-4 xl:mt-0 text-sm/6 font-semibold text-gray-900 dark:text-gray-100"
-            >
-              Manual Sync
-            </a>
           </div>
         </div>
       </div>

@@ -3,11 +3,11 @@ import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight  } from "@fortawesome/free-solid-svg-icons";
 
-export default function Pagination({ currentPage, limit, total, contents = '' }: {
+export default function ContentPagination({ content, currentPage, limit, total }: {
+  content: string;  
   currentPage: number;
   limit: number;
   total: number;
-  contents: string;
 }) {
 
   let previousPage = currentPage > 0 ? currentPage - 1 : 0;
@@ -19,7 +19,7 @@ export default function Pagination({ currentPage, limit, total, contents = '' }:
       <div className="flex justify-between">
         {currentPage ? (
           <Link 
-          href={`/dashboard/${+contents ? (`contents/${contents}/`) : ``}products?page=0`} 
+          href={`/demo/content/${content}/products?page=0`} 
           className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 flex items-center gap-1"
           >
             <FontAwesomeIcon icon={faAnglesLeft} className="text-lg" /> <span className="hidden sm:inline-block">First Page</span>
@@ -30,7 +30,7 @@ export default function Pagination({ currentPage, limit, total, contents = '' }:
 
         {currentPage ? (
           <Link
-            href={`/dashboard/${+contents ? (`contents/${contents}/`) : ``}products?page=${previousPage}`}
+            href={`/demo/content/${content}/products?page=${previousPage}`}
             className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 flex items-center gap-1"
           >
             <FontAwesomeIcon icon={faAngleLeft} className="text-lg" /> Previous <span className="hidden sm:inline-block">Page</span>
@@ -41,7 +41,7 @@ export default function Pagination({ currentPage, limit, total, contents = '' }:
 
         {currentPage < lastPage ? (
           <Link
-            href={`/dashboard/${+contents ? (`contents/${contents}/`) : ``}products?page=${nextPage}`}
+            href={`/demo/content/${content}/products?page=${nextPage}`}
             className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 flex items-center gap-1"
           >
             Next <span className="hidden sm:inline-block">Page</span> <FontAwesomeIcon icon={faAngleRight} className="text-lg" />
@@ -52,7 +52,7 @@ export default function Pagination({ currentPage, limit, total, contents = '' }:
 
         {currentPage < lastPage ? (
           <Link
-            href={`/dashboard/${+contents ? (`contents/${contents}/`) : ``}products?page=${lastPage}`}
+            href={`/demo/content/${content}/products?page=${lastPage}`}
             className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 flex items-center gap-1"
           >
             <span className="hidden sm:inline-block">Last Page</span> <FontAwesomeIcon icon={faAnglesRight} className="text-lg" />

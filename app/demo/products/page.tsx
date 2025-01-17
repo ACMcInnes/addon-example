@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Suspense, cache } from "react";
 
 import ThumbLoader from "@/components/dashboard/thumb-loader";
-import DemoThumbnail from "@/components/dashboard/demoThumbnail";
+import DemoThumbnail from "@/components/demo/demoThumbnail";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

@@ -33,7 +33,7 @@ export default function DemoVariants({
           <div key={index} className="col-span-3 md:col-span-1">
             <Link href={`/demo/products/${variant.SKU}`}>
                 <Image
-                src={variant.Images[0] ? variant.Images[0].URL : "/am_logo.svg"}
+                src={variant.Images[0] ? variant.Images[0].URL : "/thumb_fallback.jpg"}
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 500px"
                 alt={`${sku} product variant - ${variant.SKU}`}
                 width={999}

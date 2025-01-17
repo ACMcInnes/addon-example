@@ -61,7 +61,7 @@ export default async function Profile({ session }: { session: Session| null}) {
 
     return (
         <>
-          <div className="flex flex-col md:flex-row gap-4 p-6 pb-16 m-8 mb-2 border-b-2 border-indigo-600 dark:border-indigo-500">
+          <div className="flex flex-col md:flex-row gap-4 p-6 pb-16 m-8 mb-2">
             <div className="self-center md:self-start">
               <Avatar
                 name="Mother Frances"

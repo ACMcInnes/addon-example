@@ -2,9 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { auth } from "@/auth";
 
+import CustomersSummary from "@/components/dashboard/customersSummary";
 import ProductsSummary from "@/components/dashboard/productsSummary";
 import Profile from "@/components/dashboard/profile";
-import CustomersSummary from "@/components/dashboard/customersSummary";
+import ProductFinderSummary from "@/components/dashboard/productfinderSummary";
+import ContentSummary from "@/components/dashboard/contentSummary";
 
 export default async function Dashboard() {
 
@@ -20,7 +22,7 @@ export default async function Dashboard() {
         <p className="mt-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
           All your Neto data in one handy dashboard
         </p>
-        <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-16 lg:grid-cols-6 lg:grid-rows-2">
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-16 lg:grid-cols-6 lg:grid-rows-3">
           {/* Bento 1 */}
           <div className="flex p-px lg:col-span-4">
             <div className="w-full overflow-hidden rounded-lg bg-white dark:bg-gray-800 ring-1 ring-black/5 dark:ring-white/15 max-lg:rounded-t-[2rem] lg:rounded-tl-[2rem]">
@@ -34,12 +36,24 @@ export default async function Dashboard() {
             </div>
           </div>
           {/* Bento 3 */}
-          <div className="flex p-px lg:col-span-2">
-            <div className="w-full overflow-hidden rounded-lg bg-white dark:bg-gray-800 ring-1 ring-black/5 dark:ring-white/15 lg:rounded-bl-[2rem]">
+          <div className="flex p-px lg:col-span-3">
+            <div className="w-full overflow-hidden rounded-lg bg-white dark:bg-gray-800 ring-1 ring-black/5 dark:ring-white/15">
               <CustomersSummary hash={session?.webstore_api_id as string} secret={session?.access_token as string} />
             </div>
           </div>
           {/* Bento 4 */}
+          <div className="flex p-px lg:col-span-3">
+            <div className="w-full overflow-hidden rounded-lg bg-white dark:bg-gray-800 ring-1 ring-black/5 dark:ring-white/15">
+              <ContentSummary hash={session?.webstore_api_id as string} secret={session?.access_token as string} />
+            </div>
+          </div>
+          {/* Bento 5 */}
+          <div className="flex p-px lg:col-span-2">
+            <div className="w-full overflow-hidden rounded-lg bg-white dark:bg-gray-800 ring-1 ring-black/5 dark:ring-white/15 lg:rounded-bl-[2rem]">
+              <ProductFinderSummary hash={session?.webstore_api_id as string} secret={session?.access_token as string} />
+            </div>
+          </div>
+          {/* Bento 6 */}
           <div className="flex p-px lg:col-span-4">
             <div className="w-full overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-900 ring-1 ring-black/5 dark:ring-white/15 max-lg:rounded-b-[2rem] lg:rounded-br-[2rem]">
               <Image

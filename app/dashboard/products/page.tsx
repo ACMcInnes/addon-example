@@ -7,6 +7,8 @@ import getProductTotal from "@/components/helper/getProductTotal";
 import Pagination from "@/components/dashboard/pagination";
 import Thumbnail from "@/components/dashboard/thumbnail";
 import ThumbLoader from "@/components/dashboard/thumb-loader";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default async function Products({
   searchParams,
@@ -16,8 +18,14 @@ export default async function Products({
   const session = await auth();
 
   if (session) {
-    const details = await getWebstore(session?.webstore_api_id as string, session?.access_token as string);
-    const webstoreProducts = await getProductTotal(session?.webstore_api_id as string, session?.access_token as string);
+    const details = await getWebstore(
+      session?.webstore_api_id as string,
+      session?.access_token as string
+    );
+    const webstoreProducts = await getProductTotal(
+      session?.webstore_api_id as string,
+      session?.access_token as string
+    );
     const webstore = details.result.domain;
     const productTotal = webstoreProducts.Item.length;
 
@@ -35,40 +43,81 @@ export default async function Products({
     if (currentProducts.length) {
       return (
         <section className="max-w-screen-lg">
-          <h2 className="text-2xl font-semibold">Products</h2>
-          <p>page {page + 1}</p>
-          <Link href="/dashboard" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
-            Dashboard
-          </Link>
+          <h2 className="my-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
+            Products
+          </h2>
+          <p>
+            <Link
+              href="/dashboard"
+              className="pr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-r-2 border-indigo-600 dark:border-indigo-500"
+            >
+              <FontAwesomeIcon icon={faArrowLeft} /> Dashboard
+            </Link>
+            {page ? (
+              <>
+                          <Link
+              href="/dashboard/products?page=0"
+              className={`ml-2 pr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 ${page ? "border-r-2 border-indigo-600 dark:border-indigo-500" : ""}`}
+            >
+              Products
+            </Link>
+            <Link
+              href={`/dashboard/products?page=${page}`}
+              className="ml-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+            >
+              Page {page + 1}
+            </Link>
+              </>
 
-          {currentProducts.map(
-            (
-              product: {
-                InventoryID: string;
-                SKU: string;
-              },
-              index: number
-            ) => (
-              <Suspense key={`suspense-${index}`} fallback={ <ThumbLoader key={`fallback-${index}`} /> } >
-                <Thumbnail
-                  hash={session?.webstore_api_id as string}
-                  secret={session?.access_token as string}
-                  sku={product.SKU}
-                  webstore={webstore}
-                />
-              </Suspense>
-            )
-          )}
+            ) : (
+              <Link
+              href="/dashboard/products?page=0"
+              className={`ml-2 pr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 ${page ? "border-r-2 border-indigo-600 dark:border-indigo-500" : ""}`}
+            >
+              Products - Page 1
+            </Link>
+            )}
+
+          </p>
+
+          <div className="mt-16">
+            <div className="space-y-24">
+              {currentProducts.map(
+                (
+                  product: {
+                    InventoryID: string;
+                    SKU: string;
+                  },
+                  index: number
+                ) => (
+                  <Suspense
+                    key={`suspense-${index}`}
+                    fallback={<ThumbLoader key={`fallback-${index}`} />}
+                  >
+                    <Thumbnail
+                      hash={session?.webstore_api_id as string}
+                      secret={session?.access_token as string}
+                      sku={product.SKU}
+                      webstore={webstore}
+                    />
+                  </Suspense>
+                )
+              )}
+            </div>
+          </div>
 
           <div className="my-8">
             <p>
-              Return to{" "}
-              <Link href="/dashboard" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
+              <FontAwesomeIcon icon={faArrowLeft} /> Back to{" "}
+              <Link
+                href={`/dashboard`}
+                className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+              >
                 Dashboard
               </Link>
             </p>
           </div>
-          <Pagination currentPage={page} limit={limit} total={productTotal} />
+          <Pagination currentPage={page} limit={limit} total={productTotal} contents={""} />
         </section>
       );
     } else {
@@ -83,7 +132,10 @@ export default async function Products({
               Go back
             </Link>{" "}
             or return to{" "}
-            <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
+            <Link
+              href="/"
+              className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+            >
               Home
             </Link>
           </p>
@@ -99,7 +151,10 @@ export default async function Products({
         <div className="flex flex-col items-center mt-6">
           <p>
             Return to{" "}
-            <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
+            <Link
+              href="/"
+              className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+            >
               Home
             </Link>
           </p>

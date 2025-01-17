@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { faArrowLeft, faEnvelope, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import getDemoContentCache from "@/components/demo/getDemoContentCache";
@@ -32,7 +32,6 @@ export default async function DemoFinder() {
           </Link>
         </p>
 
-
         <div className="py-12">
           <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
             <div className="mx-auto max-w-2xl">
@@ -59,9 +58,20 @@ export default async function DemoFinder() {
                     <Link
                       href={`/demo/finder/${content.ContentID}`}
                     >
+
+                      {/*
+                        *
+                        * Avatar component here and in [...content] page can have a duplicate React.useId() value
+                        * to the User Avatar component, which breaks the Avatar size for the duplicate :(
+                        * Might be a React issue: https://github.com/facebook/react/pull/31668
+                        * Might just need to suck it up and use the "Beam" variant for all Avatars, which seems to help?
+                        *
+                        * Look to add 'Products' view to display products under a certain content page
+                        * 
+                        */}
+
                       <Avatar
                         name={`${content.ContentName}`}
-                        variant="marble"
                         colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
                         className="mx-auto size-56"
                       />
@@ -78,10 +88,9 @@ export default async function DemoFinder() {
             </ul>
           </div>
         </div>
-
         <div className="my-8">
           <p>
-            Return to{" "}
+            <FontAwesomeIcon icon={faArrowLeft} /> Back to the{" "}
             <Link
               href="/demo"
               className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
@@ -95,13 +104,14 @@ export default async function DemoFinder() {
   } else {
     return (
       <div>
-        <p className="mt-6">No parts content</p>
+        <p className="mt-6">No parts content found</p>
         <p>
+          <FontAwesomeIcon icon={faArrowLeft} /> Back to the{" "}
           <Link
             href={`/demo`}
             className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
           >
-            Go back
+            Demo Dashboard
           </Link>{" "}
           or return to{" "}
           <Link

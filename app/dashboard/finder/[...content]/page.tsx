@@ -1,129 +1,24 @@
 import Link from "next/link";
+import { auth } from "@/auth";
 
+import Avatar from "boring-avatars";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import Avatar from "boring-avatars";
-import getDemoContentCache from "@/components/demo/getDemoContentCache";
-import delay from "@/components/helper/delay";
 
-const WEBSTORE = "https://keylime.neto.com.au";
-const CONTENT_CODE = "part-finder";
+import getContentPage from "@/components/helper/getContentPage";
+import getContentsCache from "@/components/helper/getContentsCache";
 
-// Generating Static Params for content quickly hits Neto API rate limit, removing for now
-
-/*
-export async function generateStaticParams() {
-  const contentResults = await fetch(`${WEBSTORE}/do/WS/NetoAPI`, {
-    method: "POST",
-    headers: {
-      NETOAPI_KEY: `${process.env.KEYLIME_GLOBAL_KEY}`,
-      NETOAPI_ACTION: "GetContent",
-      Accept: "application/json",
-    },
-    body: `{
-            "Filter": {
-                "ContentType": "${CONTENT_CODE}",
-                "OutputSelector": [
-                    "ParentContentID"
-                ]
-            }
-        }`,
-  }).then((res) => res.json());
-
-  const mappedContent = contentResults.Content.map(
-    (c: { ContentID: string; ParentContentID: string }) => {
-      if (+c.ParentContentID > 0) {
-        const parentObject = contentResults.Content.find(
-          (x: { ContentID: string; ParentContentID: string }) =>
-            x.ContentID === c.ParentContentID
-        );
-
-        if (+parentObject.ParentContentID > 0) {
-          const parentsParentObject = contentResults.Content.find(
-            (x: { ContentID: string; ParentContentID: string }) =>
-              x.ContentID === parentObject.ParentContentID
-          );
-          // 3 content levels
-          return { content: [`${parentsParentObject.ContentID}`, `${parentObject.ContentID}`, `${c.ContentID}`] };
-        }
-        // 2 content levels
-        return { content: [`${parentObject.ContentID}`, `${c.ContentID}`] };
-      }
-      // 1 content level
-      return { content: [`${c.ContentID}`] };
-    }
-  );
-  return mappedContent;
-}
-*/  
-
-async function getPageContents(id: string[]) {
-  console.log(`DEMO CONTENT: ${id}`);
-  const res = await fetch(`${WEBSTORE}/do/WS/NetoAPI`, {
-    method: "POST",
-    headers: {
-      NETOAPI_KEY: `${process.env.KEYLIME_GLOBAL_KEY}`,
-      NETOAPI_ACTION: "GetContent",
-      Accept: "application/json",
-    },
-    body: `{
-        "Filter": {
-            "ContentID": [
-                ${id}
-            ],
-            "OutputSelector": [
-                "ContentID",
-                "ContentName",
-                "ContentType",
-                "ParentContentID",
-                "Active",
-                "ContentReference",
-                "ShortDescription1",
-                "ShortDescription2",
-                "ShortDescription3",
-                "Description1",
-                "Description2",
-                "Description3",
-                "Author",
-                "ContentURL",
-                "RelatedContents",
-                "ExternalSource",
-                "ExternalReference1",
-                "ExternalReference2",
-                "ExternalReference3",
-                "DatePosted",
-                "DatePostedLocal",
-                "DatePostedUTC",
-                "DateUpdated",
-                "DateUpdatedLocal",
-                "DateUpdatedUTC"
-            ]
-        }
-    }`,
-  });
-
-  console.log(`GET CONTENT RESPONSE:`);
-  console.log(`${res.status == 200 ? "OK" : "ERROR"}`);
-
-  if (!res.ok || res.status !== 200) {
-    console.log(`Failed to fetch content data for ID: ${id}`);
-    if(res.status === 429) {
-        // to many requests, rate limited by Neto
-        console.log(`${res.status} Response - Max API requests made, pausing and retrying...`);
-        await delay(5000).then(() => getPageContents(id));
-      }
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error(`Failed to fetch data: ${res.statusText}`);
-  }
-  return res.json();
-}
-
-export default async function DemochildContent({
+export default async function FinderContent({
   params,
 }: {
   params: Promise<{ content: string[] }>;
 }) {
   const { content } = await params;
+
+  const session = await auth();
+
+  if (session) {
+
 
   // console.log(`CONTENT:`);
   // console.log(content)
@@ -131,7 +26,7 @@ export default async function DemochildContent({
   // const currentContent = content.at(-1);
   // console.log(currentContent)
 
-  const pageContents = await getPageContents(content);
+  const pageContents = await getContentPage(session?.webstore_api_id as string, session?.access_token as string, content);
 
   // console.log(getContent.Content)
 
@@ -139,24 +34,22 @@ export default async function DemochildContent({
     const fullContentPathName = pageContents.Content.map((content: { ContentName: string }) => content.ContentName).join(" ");
     const results = pageContents.Content.at(-1);
 
-    const contentData = await getDemoContentCache(results.ContentType);
+    const contentData = await getContentsCache(session?.webstore_api_id as string, session?.access_token as string, results.ContentType);
 
     const childContents = contentData.Content.filter((page: { ParentContentID: string; }) => page.ParentContentID === results.ContentID)
 
+    if (childContents.length) {
       return (
         <section>
-          <h2 className="my-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
-            Content Finder
-          </h2>
           <p className="mt-2 mb-8">
             <Link
-              href="/demo"
+              href="/dashboard"
               className="pr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
             >
-              <FontAwesomeIcon icon={faArrowLeft} /> Demo Dashboard
+              <FontAwesomeIcon icon={faArrowLeft} /> Dashboard
             </Link>
             <Link
-              href="/demo/finder"
+              href="/dashboard/finder"
               className="pl-2 mr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-l-2 border-indigo-600 dark:border-indigo-500"
             >
               Finder
@@ -165,7 +58,7 @@ export default async function DemochildContent({
             {content.map((id: string, index: number) => (
               <Link
                 key={id}
-                href={`/demo/finder/${content.slice(0, index + 1).join("/")}`}
+                href={`/dashboard/finder/${content.slice(0, index + 1).join("/")}`}
                 className="pl-2 mr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-l-2 border-indigo-600 dark:border-indigo-500"
               >
                 {id}
@@ -173,8 +66,6 @@ export default async function DemochildContent({
             ))}
           </p>
 
-          {childContents.length ? (
-            <>
           <h2 className="text-4xl sm:text-5xl font-semibold my-4 text-center">
             {fullContentPathName}
           </h2>
@@ -200,7 +91,7 @@ export default async function DemochildContent({
                     index: number
                   ) => (
                     <li key={childContent.ContentID}>
-                      <Link href={`/demo/finder/${content.join("/")}/${childContent.ContentID}`}>
+                      <Link href={`/dashboard/finder/${content.join("/")}/${childContent.ContentID}`}>
                         <Avatar
                           name={`${childContent.ContentName}`}
                           colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
@@ -209,21 +100,51 @@ export default async function DemochildContent({
                         <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-gray-900 dark:text-gray-100">
                           {childContent.ContentName}
                         </h3>
+                      </Link>
                         <p className="text-sm/6 text-gray-600 dark:text-gray-400">
                           Active: {childContent.Active}
                         </p>
-                      </Link>
+                        <Link href={`/dashboard/contents/${childContent.ContentID}/products`}>
+                          View Products
+                        </Link>
+                      
                     </li>
                   )
                 )}
               </ul>
             </div>
-          </div>            
-            </>
-          ) : (
-            <>
+          </div>
+        </section>
+      );
+    } else {
+      return (
+        <section>
+          <p className="mt-2 mb-8">
+            <Link
+              href="/dashboard"
+              className="pr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+            >
+              <FontAwesomeIcon icon={faArrowLeft} /> Dashboard
+            </Link>
+            <Link
+              href="/dashboard/finder"
+              className="pl-2 mr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-l-2 border-indigo-600 dark:border-indigo-500"
+            >
+              Finder
+            </Link>
 
-<Avatar
+            {content.map((id: string, index: number) => (
+              <Link
+                key={id}
+                href={`/dashboard/finder/${content.slice(0, index + 1).join("/")}`}
+                className="pl-2 mr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-l-2 border-indigo-600 dark:border-indigo-500"
+              >
+                {id}
+              </Link>
+            ))}
+          </p>
+
+          <Avatar
             name={`${fullContentPathName}`}
             colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
             className="mx-auto size-56"
@@ -238,7 +159,7 @@ export default async function DemochildContent({
                 Content Information
               </h3>
               <p className="mt-1 max-w-2xl text-sm/6 text-gray-500 dark:text-gray-300">
-                Demo Data
+                All the Data!
               </p>
             </div>
             <div className="mt-6 border-t border-gray-100">
@@ -309,50 +230,72 @@ export default async function DemochildContent({
                 </div>
               </dl>
             </div>
-          </div>        
-            </>
-          )}
+          </div>
 
-        <div className="mt-6">
-          <p>
-            <FontAwesomeIcon icon={faArrowLeft} /> Back to{" "}
-            <Link
-              href={`/demo/finder`}
-              className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
-            >
-              Finder
-            </Link>{" "}
-            or the{" "}
-            <Link
-              href="/demo"
-              className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
-            >
-              Demo Dashboard
-            </Link>
-          </p>
-        </div>   
+          <div className="mt-4">
+            <p>
+              <Link
+                href={`/dashboard/finder`}
+                className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+              >
+                Go back to finder
+              </Link>{" "}
+              or return to{" "}
+              <Link
+                href="/"
+                className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+              >
+                Home
+              </Link>
+            </p>
+          </div>
         </section>
       );
+    }
   } else {
     return (
       <div>
         <p className="mt-6">Could not load content</p>
         <p>
           <Link
-            href={`/demo/finder`}
+            href={`/dashboard/finder`}
             className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
           >
             Go back to finder
           </Link>{" "}
           or return to{" "}
           <Link
-            href="/demo"
+            href="/"
             className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
           >
-            Demo Dashboard
+            Home
           </Link>
         </p>
       </div>
     );
   }
+
+} else {
+    return (
+      <div>
+        <p className="mt-6">Could not load Content Page</p>
+        <p>
+          <Link
+            href={`/dashboard/finder`}
+            className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+          >
+            Go back
+          </Link>{" "}
+          or return to{" "}
+          <Link
+            href="/"
+            className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+          >
+            Home
+          </Link>
+        </p>
+      </div>
+    );
+  }
+
 }
