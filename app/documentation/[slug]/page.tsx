@@ -11,13 +11,14 @@ export async function generateStaticParams() {
     }))
   }
 
-  export default function Documentation({
-    params,
-  }: {
-    params: { slug: string }
-  }) {
+  export default async function Documentation(
+    props: {
+      params: Promise<{ slug: string }>
+    }
+  ) {
+    const params = await props.params;
     let page = getMarkdoc().find((page) => page.slug === params.slug)
-  
+
     if (!page) {
       notFound()
     }
@@ -31,7 +32,7 @@ export async function generateStaticParams() {
     const renderedContent =
     !!page.content && Markdoc.renderers.react(page.content, React);
 
-    console.log(`Markdoc rendered`)  
+    console.log(`Markdoc rendered`)
     // console.log(renderedContent);
 
     return (

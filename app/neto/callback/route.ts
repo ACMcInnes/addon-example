@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
       console.log(`Store: ${text.store_id}`);
       console.log(`Hash: ${text.api_id}`);
 
-      const headersList = headers();
+      const headersList = await headers();
       console.log(`headers:`);
       console.log(headersList);
       const verification_key = headersList.get("neto_verification_key");

@@ -1,9 +1,8 @@
 "use client";
 
+import { useActionState } from "react";
 import Link from "next/link";
 import { redirect, useSearchParams } from "next/navigation";
-
-import { useFormState } from "react-dom";
 
 import { getWebstore } from "@/components/callback/form-action-webstore";
 import { SubmitButton } from "@/components/callback/submit-button";
@@ -14,7 +13,7 @@ const initialState = {
 };
 
 export default function LoginForm() {
-  const [formState, formAction] = useFormState(getWebstore, initialState);
+  const [formState, formAction] = useActionState(getWebstore, initialState);
 
   const searchParams = useSearchParams();
   const hasType = searchParams.has("type");

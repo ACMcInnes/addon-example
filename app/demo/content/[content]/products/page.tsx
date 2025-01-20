@@ -8,14 +8,14 @@ import ContentPagination from "@/components/demo/demoContentPagination";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default async function DemoContentProducts({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ content: string }>;
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  const { content } = await params;
+export default async function DemoContentProducts(
+  props: {
+    params: Promise<{ content: string }>;
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  }
+) {
+  const searchParams = await props.searchParams;
+  const { content } = await props.params;
 
   console.log(`DEMO CONTENT PARAMS`);
   console.log(content);
