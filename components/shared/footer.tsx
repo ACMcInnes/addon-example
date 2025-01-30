@@ -103,7 +103,6 @@ export default function Footer() {
         <p className="flex flex-col md:flex-row place-items-center gap-2 p-12 pb-2">
           By{" "}
           <a
-            className="pointer-events-none lg:pointer-events-auto"
             href="https://acmcinnes.au/"
             target="_blank"
             rel="noopener noreferrer"
@@ -120,7 +119,6 @@ export default function Footer() {
         <p className="pt-8 pb-6">Developed using</p>
         <div className="flex flex-row w-full items-center justify-center">
             <a
-              className="pointer-events-none lg:pointer-events-auto"
               href="https://nextjs.org/"
               target="_blank"
               rel="noopener noreferrer"
@@ -135,18 +133,17 @@ export default function Footer() {
             </a>
           <FontAwesomeIcon icon={faPlus} size="lg" className="mx-6" />
             <a
-            className="pointer-events-none lg:pointer-events-auto"
             href="https://vercel.com/"
             target="_blank"
             rel="noopener noreferrer"
             >
-            <Image
-              className="invert"
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              width={100}
-              height={24}
-            />
+              <Image
+                className="invert"
+                src="/vercel.svg"
+                alt="Vercel Logo"
+                width={100}
+                height={24}
+              />
             </a>
         </div>
 
