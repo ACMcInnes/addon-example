@@ -142,7 +142,7 @@ export default function Assets() {
         ))}
       </ul>
       <p className="mx-auto mt-6 max-w-3xl text-pretty text-center text-gray-600 dark:text-gray-400">
-        Using an iOS device or Safari Browser? Apple doesn't like the inline styling applied to some of these logos. 
+        Using an iOS device or Safari Browser? Apple doesn&apos;t like the inline styling applied to some of these logos. 
         If something doesn&apos;t look right use the Theme Toggle to switch to Light Mode
       </p>
     </section>
