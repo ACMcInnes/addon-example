@@ -42,17 +42,17 @@ const sponsors = [
 export default function Sponsors() {
   return (
     <>
-      <h2 className="mt-20 w-full max-w-screen-xl text-base/7 text-left font-semibold text-indigo-600 dark:text-indigo-500">
+      <h2 className="mt-20 w-full max-w-(--breakpoint-xl) text-base/7 text-left font-semibold text-indigo-600 dark:text-indigo-500">
         Sponsors
       </h2>
-      <p className="w-full max-w-screen-xl text-left mt-2 text-pretty text-3xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl lg:text-balance">
+      <p className="w-full max-w-(--breakpoint-xl) text-left mt-2 text-pretty text-3xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl lg:text-balance">
         The Neto Addon Example would not be possible without these wonderful sponsors
       </p>
-      <div className="mt-6 w-full max-w-screen-xl">
+      <div className="mt-6 w-full max-w-(--breakpoint-xl)">
         <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 items-center gap-1 rounded-2xl overflow-hidden lg:grid-cols-3 lg:divide-y-0">
           {sponsors.map((sponsor) => (
             <a
-              className="pointer-events-none lg:pointer-events-auto w-full justify-items-center py-8 px-24 bg-neutral-100 dark:bg-slate-800 hover:bg-neutral-200 hover:dark:bg-slate-700"
+              className="pointer-events-none lg:pointer-events-auto w-full justify-items-center py-8 px-24 bg-neutral-100 dark:bg-slate-800 hover:bg-neutral-200 dark:hover:bg-slate-700"
               href={sponsor.url}
               target="_blank"
               rel="noopener noreferrer"

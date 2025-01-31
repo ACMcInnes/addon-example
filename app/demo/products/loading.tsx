@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function Loading() {
   // You can add any UI inside Loading, including a Skeleton.
   return (
-    <section className="max-w-screen-lg">
+    <section className="max-w-(--breakpoint-lg)">
       <h2 className="text-2xl font-semibold pt-4 pb-2">Products</h2>
       <p className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
         <FontAwesomeIcon icon={faArrowLeft} /> Demo Dashboard

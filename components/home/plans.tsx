@@ -44,7 +44,7 @@ const plans = [
   
   export default function Plans() {
     return (
-      <div className="mt-20 w-full max-w-screen-xl">
+      <div className="mt-20 w-full max-w-(--breakpoint-xl)">
         <div className="mx-auto text-center">
           <h2 className="text-base/7 font-semibold text-indigo-600 dark:text-indigo-500">Pricing</h2>
           <p className="mt-2 text-balance text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
@@ -109,7 +109,7 @@ const plans = [
                 aria-describedby={plan.id}
                 className={classNames(
                   plan.featured
-                    ? 'bg-indigo-500 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline-indigo-500'
+                    ? 'bg-indigo-500 text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-indigo-500'
                     : 'text-indigo-600 dark:text-indigo-500 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300 focus-visible:outline-indigo-600',
                   'mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10',
                 )}

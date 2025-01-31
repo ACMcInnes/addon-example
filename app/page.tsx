@@ -41,13 +41,13 @@ export default function Home() {
         </div>
 
 
-        <h2 className="mt-12 w-full max-w-screen-xl text-base/7 text-left font-semibold text-indigo-600 dark:text-indigo-500">
+        <h2 className="mt-12 w-full max-w-(--breakpoint-xl) text-base/7 text-left font-semibold text-indigo-600 dark:text-indigo-500">
             What is the Neto Addon Example?
         </h2>
-        <p className="w-full max-w-screen-xl text-left mt-2 text-pretty text-3xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl lg:text-balance">
+        <p className="w-full max-w-(--breakpoint-xl) text-left mt-2 text-pretty text-3xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl lg:text-balance">
           The Neto Addon Example outlines how an integration with the Neto eCommerce platform might function.
         </p>
-        <div className="w-full max-w-screen-xl mt-6 px-6 lg:px-12 py-8 text-white text-center bg-gradient-to-br from-indigo-800 from-40% to-indigo-600 dark:from-indigo-900 dark:to-indigo-950 rounded-2xl">
+        <div className="w-full max-w-(--breakpoint-xl) mt-6 px-6 lg:px-12 py-8 text-white text-center bg-linear-to-br from-indigo-800 from-40% to-indigo-600 dark:from-indigo-900 dark:to-indigo-950 rounded-2xl">
           <p className="mt-3 text-pretty text-lg">
             From a technical standpoint, the Neto Addon Example shows a method of completing the OAuth authentication flow required to access the Neto API.
             It also shows some of the ways the Neto API can be polled and that data used at an application level. This application is just an example and does

@@ -15,7 +15,7 @@ export default function SubscriberForm() {
     <form className="flex flex-col w=full sm:w-10/12 md:w-full lg:w-9/12" onSubmit={handleSubmit}>
       <label htmlFor="email">Email Address</label>
       <div className="flex mt-1">
-      <input className="inline-flex flex-grow rounded-md bg-indigo-600 dark:bg-indigo-700 border-transparent text-white focus:border-gray-100 focus:bg-indigo-800 dark:focus:bg-indigo-900 focus:ring-0 placeholder:text-gray-300" id="email" type="text" name="email" placeholder="e.g. email@domain.com" required />
+      <input className="inline-flex grow rounded-md bg-indigo-600 dark:bg-indigo-700 border-transparent text-white focus:border-gray-100 focus:bg-indigo-800 dark:focus:bg-indigo-900 focus:ring-0 placeholder:text-gray-300" id="email" type="text" name="email" placeholder="e.g. email@domain.com" required />
       <button className="inline-flex items-center ml-1 py-2 px-4 rounded-md text-gray-100 bg-blue-500 hover:bg-blue-400 border-transparent" type="submit" disabled={state.submitting}>
       <FontAwesomeIcon icon={faPaperPlane} className="text-lg" />
       </button>

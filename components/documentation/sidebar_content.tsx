@@ -13,14 +13,6 @@ export default function SidebarContent() {
           Home
         </Link>
       </li>
-      <li key={`markdoc-baseline`}>
-        <Link
-          href="/documentation/markdoc-baseline"
-          className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
-        >
-          Markdoc Baseline Test
-        </Link>
-      </li>
       {pages.map((page) => (
         <li key={`${page.slug}`}>
           <Link

@@ -16,14 +16,14 @@ export default function Faq() {
           
           <Disclosure as="div" className="p-6" defaultOpen={true}>
             <DisclosureButton className="group flex w-full items-center justify-between">
-              <span className="text-sm/6 font-medium text-black hover:text-black/80 dark:text-white group-data-[hover]:dark:text-white/80">
+              <span className="text-sm/6 font-medium text-black hover:text-black/80 dark:text-white dark:group-data-hover:text-white/80">
                 What is the Neto Addon Example?
               </span>
-              <FontAwesomeIcon icon={faChevronDown} className="size-5 fill-white/60 group-data-[hover]:fill-white/50 group-data-[open]:rotate-180" />
+              <FontAwesomeIcon icon={faChevronDown} className="size-5 fill-white/60 group-data-hover:fill-white/50 group-data-open:rotate-180" />
             </DisclosureButton>
             <DisclosurePanel 
               transition
-              className="mt-4 text-sm/5 text-black/50 dark:text-white/50 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
+              className="mt-4 text-sm/5 text-black/50 dark:text-white/50 origin-top transition duration-200 ease-out data-closed:-translate-y-6 data-closed:opacity-0"
             >
               This is a work in progress / proof for how a Neto Addon may be developed and how it can function
             </DisclosurePanel>
@@ -31,14 +31,14 @@ export default function Faq() {
 
           <Disclosure as="div" className="p-6">
             <DisclosureButton className="group flex w-full items-center justify-between">
-              <span className="text-sm/6 font-medium text-black hover:text-black/80 dark:text-white group-data-[hover]:dark:text-white/80">
+              <span className="text-sm/6 font-medium text-black hover:text-black/80 dark:text-white dark:group-data-hover:text-white/80">
                 Is this officially supported by Neto?
               </span>
-              <FontAwesomeIcon icon={faChevronDown} className="size-5 fill-white/60 group-data-[hover]:fill-white/50 group-data-[open]:rotate-180" />
+              <FontAwesomeIcon icon={faChevronDown} className="size-5 fill-white/60 group-data-hover:fill-white/50 group-data-open:rotate-180" />
             </DisclosureButton>
             <DisclosurePanel 
               transition
-              className="mt-4 text-sm/5 text-black/50 dark:text-white/50 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
+              className="mt-4 text-sm/5 text-black/50 dark:text-white/50 origin-top transition duration-200 ease-out data-closed:-translate-y-6 data-closed:opacity-0"
             >
               No. This is a 3rd party application which connects to Neto via its API and OAuth authentication method
             </DisclosurePanel>
@@ -46,14 +46,14 @@ export default function Faq() {
 
           <Disclosure as="div" className="p-6">
             <DisclosureButton className="group flex w-full items-center justify-between">
-              <span className="text-sm/6 font-medium text-black hover:text-black/80 dark:text-white group-data-[hover]:dark:text-white/80">
+              <span className="text-sm/6 font-medium text-black hover:text-black/80 dark:text-white dark:group-data-hover:text-white/80">
                 What does the Addon Do?
               </span>
-              <FontAwesomeIcon icon={faChevronDown} className="size-5 fill-white/60 group-data-[hover]:fill-white/50 group-data-[open]:rotate-180" />
+              <FontAwesomeIcon icon={faChevronDown} className="size-5 fill-white/60 group-data-hover:fill-white/50 group-data-open:rotate-180" />
             </DisclosureButton>
             <DisclosurePanel 
               transition
-              className="mt-4 text-sm/5 text-black/50 dark:text-white/50 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
+              className="mt-4 text-sm/5 text-black/50 dark:text-white/50 origin-top transition duration-200 ease-out data-closed:-translate-y-6 data-closed:opacity-0"
             >
               At the moment, not much. You can log in with your Webstore URL and retrieve some product information. Additional features will be added over time 
             </DisclosurePanel>
@@ -61,14 +61,14 @@ export default function Faq() {
 
           <Disclosure as="div" className="p-6">
             <DisclosureButton className="group flex w-full items-center justify-between">
-              <span className="text-sm/6 font-medium text-black hover:text-black/80 dark:text-white group-data-[hover]:dark:text-white/80">
+              <span className="text-sm/6 font-medium text-black hover:text-black/80 dark:text-white dark:group-data-hover:text-white/80">
                 When will the Addon be released?
               </span>
-              <FontAwesomeIcon icon={faChevronDown} className="size-5 fill-white/60 group-data-[hover]:fill-white/50 group-data-[open]:rotate-180" />
+              <FontAwesomeIcon icon={faChevronDown} className="size-5 fill-white/60 group-data-hover:fill-white/50 group-data-open:rotate-180" />
             </DisclosureButton>
             <DisclosurePanel 
               transition
-              className="mt-4 text-sm/5 text-black/50 dark:text-white/50 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
+              className="mt-4 text-sm/5 text-black/50 dark:text-white/50 origin-top transition duration-200 ease-out data-closed:-translate-y-6 data-closed:opacity-0"
             >
               There are currently no plans for this to be officially released
             </DisclosurePanel>
@@ -76,14 +76,14 @@ export default function Faq() {
 
           <Disclosure as="div" className="p-6">
             <DisclosureButton className="group flex w-full items-center justify-between">
-              <span className="text-sm/6 font-medium text-black hover:text-black/80 dark:text-white group-data-[hover]:dark:text-white/80">
+              <span className="text-sm/6 font-medium text-black hover:text-black/80 dark:text-white dark:group-data-hover:text-white/80">
                 How much does it cost?
               </span>
-              <FontAwesomeIcon icon={faChevronDown} className="size-5 fill-white/60 group-data-[hover]:fill-white/50 group-data-[open]:rotate-180" />
+              <FontAwesomeIcon icon={faChevronDown} className="size-5 fill-white/60 group-data-hover:fill-white/50 group-data-open:rotate-180" />
             </DisclosureButton>
             <DisclosurePanel 
               transition
-              className="mt-4 text-sm/5 text-black/50 dark:text-white/50 origin-top transition duration-200 ease-out data-[closed]:-translate-y-6 data-[closed]:opacity-0"
+              className="mt-4 text-sm/5 text-black/50 dark:text-white/50 origin-top transition duration-200 ease-out data-closed:-translate-y-6 data-closed:opacity-0"
             >
               Until the Addon is officially released there is no charge for using this application
             </DisclosurePanel>

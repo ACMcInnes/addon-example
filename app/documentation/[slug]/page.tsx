@@ -44,7 +44,7 @@ export async function generateStaticParams() {
             Last updated: {formatDate(page.metadata.published)}
           </p>
         </div>
-        <div className="max-w-full lg:max-w-screen-sm xl:max-w-screen-lg 2xl:max-w-screen-xl prose dark:prose-invert prose-headings:mt-8 prose-headings:font-semibold prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-xl prose-h6:text-lg">
+        <div className="max-w-full lg:max-w-(--breakpoint-sm) xl:max-w-(--breakpoint-lg) 2xl:max-w-(--breakpoint-xl) prose dark:prose-invert prose-headings:mt-8 prose-headings:font-semibold prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-xl prose-h6:text-lg">
           {renderedContent}
         </div>
       </>

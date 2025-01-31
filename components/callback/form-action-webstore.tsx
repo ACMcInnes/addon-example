@@ -16,7 +16,7 @@ export async function getWebstore(
         
     } else {
         return {
-            message: "URL not a valid webstore",
+            message: "Error: URL not a valid webstore",
             webstore: ""
         };
     }

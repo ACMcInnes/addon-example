@@ -35,13 +35,13 @@ export const ThemeSwitcher = () => {
           defaultChecked={true}
           onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
           name="theme-toggle"
-          className="inline-flex ml-2 group relative flex h-7 w-14 cursor-pointer rounded-full bg-white/40 p-1 transition-colors duration-200 ease-in-out focus:outline-none data-[focus]:outline-1 data-[focus]:outline-white data-[checked]:bg-white/40"
+          className="inline-flex ml-2 group relative flex h-7 w-14 cursor-pointer rounded-full bg-white/40 p-1 transition-colors duration-200 ease-in-out focus:outline-hidden data-focus:outline-1 data-focus:outline-white data-checked:bg-white/40"
         >
-          <span className="pointer-events-none inline-block size-5 translate-x-0 rounded-full bg-white text-slate-800 ring-0 shadow-lg transition duration-200 ease-in-out group-data-[checked]:translate-x-7">
+          <span className="pointer-events-none inline-block size-5 translate-x-0 rounded-full bg-white text-slate-800 ring-0 shadow-lg transition duration-200 ease-in-out group-data-checked:translate-x-7">
             {theme === "dark" ? (
-              <FontAwesomeIcon icon={faMoon} className="!align-text-top" />
+              <FontAwesomeIcon icon={faMoon} className="align-text-top!" />
             ) : (
-              <FontAwesomeIcon icon={faSun} className="!align-text-top" />
+              <FontAwesomeIcon icon={faSun} className="align-text-top!" />
             )}
           </span>
         </Switch>
