@@ -22,7 +22,7 @@ export default function Documentation() {
         {pages.map((page) => (
         <div
           key={page.slug}
-          className="relative flex items-center space-x-3 rounded-lg border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-6 py-5 shadow-sm hover:border-gray-400 dark:hover:border-slate-500"
+          className="relative flex items-center space-x-3 rounded-lg border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-6 py-5 shadow-xs hover:border-gray-400 dark:hover:border-slate-500"
         >
           <div className="shrink-0">
             {/* 
@@ -32,7 +32,7 @@ export default function Documentation() {
             <FontAwesomeIcon icon={faRocket} className="size-10"/>
           </div>
           <div className="min-w-0 flex-1">
-            <Link href={`/documentation/${page.slug}`} className="focus:outline-none">
+            <Link href={`/documentation/${page.slug}`} className="focus:outline-hidden">
               <span aria-hidden="true" className="absolute inset-0" />
               <p className="text-sm font-medium text-gray-900 dark:text-gray-100">{page.metadata.title}</p>
               <p className="truncate text-sm text-gray-500 dark:text-gray-400">{formatDate(page.metadata.published)}</p>

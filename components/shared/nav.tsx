@@ -90,7 +90,7 @@ export default function Nav() {
       </div>
 
       {nav && (
-        <ul className="z-[1] flex flex-col justify-start items-start flex-auto gap-x-8 gap-y-2 p-12 pb-28 overflow-y-auto text-base absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-black to-gray-800 text-white">
+        <ul className="z-1 flex flex-col justify-start items-start flex-auto gap-x-8 gap-y-2 p-12 pb-28 overflow-y-auto text-base absolute top-0 left-0 w-full h-screen bg-linear-to-b from-black to-gray-800 text-white">
           <li
             key="m-menu-heading"
             className="text-lg border-b-2 mb-2 w-full pt-20"
@@ -156,12 +156,12 @@ export default function Nav() {
             key="header-socials"
             className="flex items-center justify-start gap-3 text-xl mt-8 pt-4 border-t-2 w-full"
           >
-            <FontAwesomeIcon icon={faYoutube} className="w-[24px] !h-[24px]" />
-            <FontAwesomeIcon icon={faInstagram} className="w-[24px] !h-[24px]" />
-            <FontAwesomeIcon icon={faLinkedinIn} className="w-[24px] !h-[24px]" />
-            <FontAwesomeIcon icon={faMastodon} className="w-[24px] !h-[24px]" />
-            <FontAwesomeIcon icon={faBluesky} className="w-[24px] !h-[24px]" />
-            <FontAwesomeIcon icon={faGithub} className="w-[24px] !h-[24px]" />
+            <FontAwesomeIcon icon={faYoutube} className="w-[24px] h-[24px]!" />
+            <FontAwesomeIcon icon={faInstagram} className="w-[24px] h-[24px]!" />
+            <FontAwesomeIcon icon={faLinkedinIn} className="w-[24px] h-[24px]!" />
+            <FontAwesomeIcon icon={faMastodon} className="w-[24px] h-[24px]!" />
+            <FontAwesomeIcon icon={faBluesky} className="w-[24px] h-[24px]!" />
+            <FontAwesomeIcon icon={faGithub} className="w-[24px] h-[24px]!" />
           </li>
           <li key="header-open">
             <OfficeHours />

@@ -42,7 +42,7 @@ export default function LoginForm() {
             <form action={formAction}>
               <input type="text" id="webstore" name="webstore" className="mt-1 w-8/12 inline-block rounded-md bg-gray-200 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 dark:bg-gray-600 dark:focus:border-gray-100 dark:focus:bg-zinc-900"/>
               <SubmitButton />
-              <p aria-live="polite" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400" role="status">
+              <p aria-live="polite" className="text-red-500 dark:text-red-400" role="status">
                 {formState?.message}
               </p>
             </form>

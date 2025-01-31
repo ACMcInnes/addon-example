@@ -115,7 +115,7 @@ function classNames(...classes: string[]) {
 
 export default function Example() {
   return (
-    <div className="mt-2 w-full max-w-screen-xl">
+    <div className="mt-2 w-full max-w-(--breakpoint-xl)">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* xs to lg */}
         <div className="mx-auto mt-12 max-w-md space-y-8 sm:mt-16 lg:hidden">

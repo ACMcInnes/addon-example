@@ -94,7 +94,7 @@ const contentFullPathData: { [key: string]: { fullpathIDs: string[]; fullpathNam
 export default async function DemoContent() {
   if (contentResponse.length) {
     return (
-      <section className="max-w-screen-lg">
+      <section className="max-w-(--breakpoint-lg)">
         <h2 className="my-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
           Content
         </h2>
@@ -159,14 +159,14 @@ export default async function DemoContent() {
                         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                           <button
                             type="button"
-                            className="inline-block rounded-md bg-indigo-600 dark:bg-indigo-500 mx-2 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:enabled:bg-indigo-500 dark:hover:enabled:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="inline-block rounded-md bg-indigo-600 dark:bg-indigo-500 mx-2 px-3 py-2 text-center text-sm font-semibold text-white shadow-xs hover:enabled:bg-indigo-500 dark:hover:enabled:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
                             disabled
                           >
                             Edit
                           </button>
                           <Link
                             href="#"
-                            className="inline-block rounded-md bg-indigo-600 dark:bg-indigo-500 mx-2 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 dark:hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-600"
+                            className="inline-block rounded-md bg-indigo-600 dark:bg-indigo-500 mx-2 px-3 py-2 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 dark:hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-600"
                           >
                             Top
                             {" "}

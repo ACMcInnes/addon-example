@@ -9,10 +9,10 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
   const [sidebar, setSidebar] = useState(true);
 
   return (
-    <aside className={`!self-stretch grow-0 shrink-1 basis-full p-2 ${sidebar ? 'lg:basis-1/3' : 'lg:basis-auto'}`}>
+    <aside className={`self-stretch! grow-0 shrink-1 basis-full p-2 ${sidebar ? 'lg:basis-1/3' : 'lg:basis-auto'}`}>
       <Popover className="group h-full mx-auto lg:hidden max-w-md p-2">
         <PopoverButton className="w-full lg:w-max py-3 text-gray-100 bg-indigo-600 dark:bg-indigo-500">
-          Addon Documentation{" "}<FontAwesomeIcon icon={faChevronRight} className="ml-4 group-data-[open]:rotate-90" />
+          Addon Documentation{" "}<FontAwesomeIcon icon={faChevronRight} className="ml-4 group-data-open:rotate-90" />
         </PopoverButton>
         <PopoverPanel className="flex flex-col">
         {children}

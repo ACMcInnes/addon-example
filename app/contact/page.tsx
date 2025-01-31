@@ -3,7 +3,7 @@ import ContactForm from "@/components/shared/contact-form";
 
 export default function Contact() {
   return (
-    <section className="w-full max-w-screen-xl">
+    <section className="w-full max-w-(--breakpoint-xl)">
       <h1 className="mx-auto text-center mt-2 text-balance text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
         Contact Us
       </h1>

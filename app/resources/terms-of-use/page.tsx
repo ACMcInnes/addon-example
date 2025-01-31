@@ -1,6 +1,6 @@
 export default function TermsOfUse() {
   return (
-    <section className="px-3 lg:px-24 pb-6 w-full max-w-screen-xl">
+    <section className="px-3 lg:px-24 pb-6 w-full max-w-(--breakpoint-xl)">
       <h1 className="mx-auto text-center mt-2 mb-8 text-balance text-4xl font-semibold text-gray-900 dark:text-gray-100 sm:text-5xl">
         Terms of Use
       </h1>

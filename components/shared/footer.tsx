@@ -11,8 +11,8 @@ import MobileTop from "@/components/shared/mobile-top";
 
 export default function Footer() {
   return (
-    <footer className="mt-24 text-white bg-gradient-to-b from-indigo-800 from-40% to-indigo-600 dark:from-indigo-900 dark:to-indigo-950">
-      <section className="flex flex-col md:flex-row max-w-screen-xl mx-auto xl:border-b border-white/25">
+    <footer className="mt-24 text-white bg-linear-to-b from-indigo-800 from-40% to-indigo-600 dark:from-indigo-900 dark:to-indigo-950">
+      <section className="flex flex-col md:flex-row max-w-(--breakpoint-xl) mx-auto xl:border-b border-white/25">
         <nav className="w-full md:w-6/12 flex flex-col lg:flex-row items-start justify-start gap-8 mt-12 p-12 md:p-8 text-sm">
         <ul className="flex flex-col w-full flex-auto lg:flex-initial lg:basis-24 gap-x-8 gap-y-2">
           <li key="f-menu-heading" className="text-lg border-b-2 border-inherit mb-2">
@@ -86,12 +86,12 @@ export default function Footer() {
               <p className="flex justify-center gap-1"><FontAwesomeIcon icon={faPhone} className="text-xl" /> 1800 975 709</p>
               
               <div className="flex items-center justify-center gap-3 text-xl pt-8">
-                <FontAwesomeIcon icon={faYoutube} className="w-[24px] !h-[24px]" />
-                <FontAwesomeIcon icon={faInstagram} className="w-[24px] !h-[24px]" />
-                <FontAwesomeIcon icon={faLinkedinIn} className="w-[24px] !h-[24px]" />
-                <FontAwesomeIcon icon={faMastodon} className="w-[24px] !h-[24px]" />
-                <FontAwesomeIcon icon={faBluesky} className="w-[24px] !h-[24px]" />
-                <FontAwesomeIcon icon={faGithub} className="w-[24px] !h-[24px]" />
+                <FontAwesomeIcon icon={faYoutube} className="w-[24px] h-[24px]!" />
+                <FontAwesomeIcon icon={faInstagram} className="w-[24px] h-[24px]!" />
+                <FontAwesomeIcon icon={faLinkedinIn} className="w-[24px] h-[24px]!" />
+                <FontAwesomeIcon icon={faMastodon} className="w-[24px] h-[24px]!" />
+                <FontAwesomeIcon icon={faBluesky} className="w-[24px] h-[24px]!" />
+                <FontAwesomeIcon icon={faGithub} className="w-[24px] h-[24px]!" />
               </div>
 
               <MobileTop />
@@ -103,7 +103,6 @@ export default function Footer() {
         <p className="flex flex-col md:flex-row place-items-center gap-2 p-12 pb-2">
           By{" "}
           <a
-            className="pointer-events-none lg:pointer-events-auto"
             href="https://acmcinnes.au/"
             target="_blank"
             rel="noopener noreferrer"
@@ -120,7 +119,6 @@ export default function Footer() {
         <p className="pt-8 pb-6">Developed using</p>
         <div className="flex flex-row w-full items-center justify-center">
             <a
-              className="pointer-events-none lg:pointer-events-auto"
               href="https://nextjs.org/"
               target="_blank"
               rel="noopener noreferrer"
@@ -135,24 +133,23 @@ export default function Footer() {
             </a>
           <FontAwesomeIcon icon={faPlus} size="lg" className="mx-6" />
             <a
-            className="pointer-events-none lg:pointer-events-auto"
             href="https://vercel.com/"
             target="_blank"
             rel="noopener noreferrer"
             >
-            <Image
-              className="invert"
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              width={100}
-              height={24}
-            />
+              <Image
+                className="invert"
+                src="/vercel.svg"
+                alt="Vercel Logo"
+                width={100}
+                height={24}
+              />
             </a>
         </div>
 
         <div className="flex flex-col w-full pt-4 md:pb-4 items-center justify-center">
-          <div className="h-64 lg:h-80 w-11/12 md:w-8/12 lg:w-9/12 max-w-screen-xl my-8 mx-2">
-            <div className="galaxy-bg flex flex-col items-center justify-center !size-full rounded-2xl">
+          <div className="h-64 lg:h-80 w-11/12 md:w-8/12 lg:w-9/12 max-w-(--breakpoint-xl) my-8 mx-2">
+            <div className="galaxy-bg flex flex-col items-center justify-center size-full! rounded-2xl">
               <p className="text-lg md:text-2xl">Connect your Neto webstore today</p>
               <Link href={`/documentation/getting-started`} className="group block mt-2 py-2 px-4 rounded-md bg-white text-black mix-blend-screen dark:bg-white border-transparent">
                 Get Started{" "}

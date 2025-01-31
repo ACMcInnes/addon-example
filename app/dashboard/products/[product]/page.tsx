@@ -50,7 +50,7 @@ export default async function Product({
       // console.log(`has variants: ${childProducts.Item.length > 0}`);
 
       return (
-        <section className="grid gap-4 grid-cols-3 max-w-screen-xl mx-3">
+        <section className="grid gap-4 grid-cols-3 max-w-(--breakpoint-xl) mx-3">
           <h2 className="col-span-3 text-2xl font-semibold mt-4 mb-2">
             Viewing Product SKU: {params.product}
           </h2>

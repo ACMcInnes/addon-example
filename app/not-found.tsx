@@ -22,7 +22,7 @@ export default function NotFound() {
       <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
         <Link 
           href="/dashboard"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 dark:hover:border-neutral-700 dark:hover:bg-neutral-800/30"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>
             Dashboard{" "}
@@ -36,7 +36,7 @@ export default function NotFound() {
         </Link>
         <Link 
           href="/neto/login?type=webstore"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 dark:hover:border-neutral-700 dark:hover:bg-neutral-800/30"
         >
           <h2 className={`mb-3 text-2xl font-semibold`}>
             Login{" "}
@@ -50,7 +50,7 @@ export default function NotFound() {
         </Link>
         <a
           href="https://developers.maropost.com/documentation/engineers/api-documentation/introduction-and-getting-started/api-best-practices/"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 dark:hover:border-neutral-700 dark:hover:bg-neutral-800/30"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -64,7 +64,7 @@ export default function NotFound() {
         </a>
         <a
           href="https://developers.maropost.com/documentation/engineers/tutorials/"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 dark:hover:border-neutral-700 dark:hover:bg-neutral-800/30"
           target="_blank"
           rel="noopener noreferrer"
         >

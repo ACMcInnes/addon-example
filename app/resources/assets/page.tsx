@@ -11,7 +11,7 @@ const assets = [
     imageWidth: 128,
     imageHeight: 128,
     icon: null,
-    styling: "rounded-md",
+    styling: "h-12 rounded-md",
     href: "https://boringavatars.com/",
   },
   {
@@ -33,7 +33,7 @@ const assets = [
     imageWidth: 327,
     imageHeight: 361,
     icon: null,
-    styling: null,
+    styling: "h-12",
     href: "https://authjs.dev/",
   },
   {
@@ -44,7 +44,7 @@ const assets = [
     imageWidth: 112,
     imageHeight: 37,
     icon: null,
-    styling: null,
+    styling: "h-12",
     href: "https://markdoc.dev/",
   },
   {
@@ -73,12 +73,12 @@ const assets = [
 
 export default function Assets() {
   return (
-    <section className="w-full max-w-screen-xl">
+    <section className="w-full max-w-(--breakpoint-xl)">
       <h1 className="mx-auto text-center mt-2 text-balance text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
         Assets
       </h1>
 
-      <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg text-gray-600 dark:text-gray-400 sm:text-xl/8">
+      <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg text-gray-700 dark:text-gray-300 sm:text-xl/8">
         Wondering how the Neto Addon Example does something? This application
         uses a combination of bespoke code along with various 3rd party services
         to build out functionality &#40;why reinvent the wheel right?&#41;
@@ -109,7 +109,7 @@ export default function Assets() {
                       width={asset.imageWidth}
                       height={asset.imageHeight}
                       alt={`${asset.name} logo`}
-                      className={`h-12 w-auto flex-none ${asset.styling}`}
+                      className={`w-auto flex-none ${asset.styling}`}
                     />
                   )}
 
@@ -141,6 +141,10 @@ export default function Assets() {
           </li>
         ))}
       </ul>
+      <p className="mx-auto mt-6 max-w-3xl text-pretty text-center text-gray-600 dark:text-gray-400">
+        Using an iOS device or Safari Browser? Apple doesn&apos;t like the inline styling applied to some of these logos. 
+        If something doesn&apos;t look right use the Theme Toggle to switch to Light Mode
+      </p>
     </section>
   );
 }

@@ -109,7 +109,7 @@ export default function About() {
         ))}
       </ul>
 
-      <div className="mt-12 px-12 py-32 text-white text-center bg-gradient-to-br from-indigo-800 from-40% to-indigo-600 dark:from-indigo-900 dark:to-indigo-950 rounded-2xl">
+      <div className="mt-12 px-12 py-32 text-white text-center bg-linear-to-br from-indigo-800 from-40% to-indigo-600 dark:from-indigo-900 dark:to-indigo-950 rounded-2xl">
         <p className="text-lg font-semibold">&quot;I&apos;ll kidnap a thousand children before I let this company die&quot;</p>
         <p className="mt-3">Henry J. Waternoose III</p>
         <p className="text-sm/5 text-gray-300">&#40;Inspirational quote of the day&#41;</p>
