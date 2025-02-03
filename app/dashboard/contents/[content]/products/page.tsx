@@ -27,7 +27,7 @@ export default async function ContentProducts({
     console.log(content)
 
     const details = await getWebstore(session?.webstore_api_id as string, session?.access_token as string);
-    const webstoreProducts = await getContentProducts(session?.webstore_api_id as string, session?.access_token as string, content);
+    const webstoreProducts = await getContentProducts(session?.webstore_api_id as string, session?.access_token as string, content, false);
     const webstore = details.result.domain;
     const productTotal = webstoreProducts.Item.length;
 
@@ -76,6 +76,8 @@ export default async function ContentProducts({
           </Link>
         </p>
 
+        <p className="mt-2">{`${page ? page * limit : 1} - ${(page * limit + limit) > productTotal ? (`${productTotal}`) : (`${page * limit + limit}`)} shown of ${productTotal}`}</p>
+
         <div className="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {currentProducts.map(
             (
@@ -91,6 +93,7 @@ export default async function ContentProducts({
                   secret={session?.access_token as string}
                   sku={product.SKU}
                   webstore={webstore}
+                  demo={false}
                 />
               </Suspense>
             )
@@ -105,7 +108,7 @@ export default async function ContentProducts({
               </Link>
             </p>
           </div>
-          <Pagination currentPage={page} limit={limit} total={productTotal} contents={content} />
+          <Pagination currentPage={page} limit={limit} total={productTotal} demo={false} contents={content} />
         </section>
       );
     } else {

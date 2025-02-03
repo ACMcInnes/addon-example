@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import Avatar from "boring-avatars";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import parse from "html-react-parser";
 
 import getContentPage from "@/components/helper/getContentPage";
 import getContentsCache from "@/components/helper/getContentsCache";
@@ -26,7 +27,7 @@ export default async function FinderContent({
   // const currentContent = content.at(-1);
   // console.log(currentContent)
 
-  const pageContents = await getContentPage(session?.webstore_api_id as string, session?.access_token as string, content);
+  const pageContents = await getContentPage(session?.webstore_api_id as string, session?.access_token as string, content, false);
 
   // console.log(getContent.Content)
 
@@ -34,7 +35,7 @@ export default async function FinderContent({
     const fullContentPathName = pageContents.Content.map((content: { ContentName: string }) => content.ContentName).join(" ");
     const results = pageContents.Content.at(-1);
 
-    const contentData = await getContentsCache(session?.webstore_api_id as string, session?.access_token as string, results.ContentType);
+    const contentData = await getContentsCache(session?.webstore_api_id as string, session?.access_token as string, false, results.ContentType);
 
     const childContents = contentData.Content.filter((page: { ParentContentID: string; }) => page.ParentContentID === results.ContentID)
 
@@ -95,19 +96,15 @@ export default async function FinderContent({
                         <Avatar
                           name={`${childContent.ContentName}`}
                           colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
-                          className="mx-auto size-24"
+                          className="mx-auto size-24 lg:opacity-80 hover:opacity-100"
                         />
                         <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-gray-900 dark:text-gray-100">
                           {childContent.ContentName}
                         </h3>
                       </Link>
-                        <p className="text-sm/6 text-gray-600 dark:text-gray-400">
-                          Active: {childContent.Active}
-                        </p>
-                        <Link href={`/dashboard/contents/${childContent.ContentID}/products`}>
-                          View Products
-                        </Link>
-                      
+                      <Link href={`/dashboard/contents/${childContent.ContentID}/products`} className="text-sm/6 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
+                        View Products
+                      </Link>
                     </li>
                   )
                 )}
@@ -152,6 +149,9 @@ export default async function FinderContent({
           <h2 className="text-2xl font-semibold my-4 text-center">
             {fullContentPathName}
           </h2>
+          <div className="mb-4 max-w-4xl mx-auto prose prose-slate dark:prose-invert sm:col-span-2 sm:mt-0">
+            {parse(results.Description1)}
+          </div>
 
           <div className="py-6">
             <div className="px-4 sm:px-0">
@@ -214,18 +214,20 @@ export default async function FinderContent({
                 </div>
                 <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                   <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
-                    Description
-                  </dt>
-                  <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
-                    {results.Description1}
-                  </dd>
-                </div>
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
                     Date Created
                   </dt>
                   <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
                     {results.DatePostedLocal}
+                  </dd>
+                </div>
+                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                  <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+                    Products
+                  </dt>
+                  <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
+                    <Link href={`/demo/contents/${results.ContentID}/products`} className="text-sm/6 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
+                      View Products
+                    </Link> 
                   </dd>
                 </div>
               </dl>

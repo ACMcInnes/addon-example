@@ -1,16 +1,7 @@
 import Link from "next/link";
-import { cache } from "react";
 import Image from "next/image";
 
-import getThumbnail from "@/components/helper/getThumbnail";
-
-
-// not sure how effective cache is here, needs further testing
-const thumbnailCache = cache(
-  async (webstore_api_id: string, access_token: string, sku: string) => {
-    return await getThumbnail(webstore_api_id, access_token, sku);
-  }
-);
+import getThumbnailCache from "@/components/helper/getThumbnailCache";
 
 interface itemSpecificsObject {
   Value: string;
@@ -22,13 +13,15 @@ export default async function ContentThumbnail({
   secret,
   sku,
   webstore,
+  demo,
 }: {
   hash: string;
   secret: string;
   sku: string;
   webstore: string;
+  demo: boolean;
 }) {
-  const webstoreProduct = await thumbnailCache(hash, secret, sku);
+  const webstoreProduct = await getThumbnailCache(hash, secret, sku, demo);
   const results = webstoreProduct.Item;
   return (
     <>
@@ -70,7 +63,7 @@ export default async function ContentThumbnail({
               <div className="mt-4 flex flex-col">
                 <div className="flex flex-row justify-between">
                   <h3 className="text-sm text-gray-700 dark:text-gray-400">
-                    <Link href={`/demo/products/${product.SKU}`}>
+                    <Link href={`/${demo ? "demo" : "dashboard"}/products/${product.SKU}`}>
                       <span aria-hidden="true" className="absolute inset-0" />
                       {product.SKU}
                     </Link>

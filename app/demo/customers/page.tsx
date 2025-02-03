@@ -3,11 +3,11 @@ import Link from "next/link";
 import { faArrowLeft, faEnvelope, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import getDemoCustomerCache from "@/components/demo/getDemoCustomerCache";
+import getCustomersCache from "@/components/helper/getCustomersCache";
 import Avatar from "boring-avatars";
 
 export default async function DemoCustomers() {
-  const demoData = await getDemoCustomerCache();
+  const demoData = await getCustomersCache('', '', true);
   const customerTotal = demoData.Customer.length;
   const customers = demoData.Customer;
 

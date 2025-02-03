@@ -2,14 +2,16 @@ import Link from "next/link";
 import { Suspense, cache } from "react";
 
 import ThumbLoader from "@/components/dashboard/thumb-loader";
-import DemoThumbnail from "@/components/demo/demoThumbnail";
+import ProductThumbnail from "@/components/dashboard/productThumbnail";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import getDemoProductCache from "@/components/demo/getDemoProductCache";
+import getProductTotal from "@/components/helper/getProductTotal";
+
+const WEBSTORE = "https://keylime.neto.com.au";
 
 export default async function DemoProducts() {
-  const demoData = await getDemoProductCache();
+  const demoData = await getProductTotal('', '', true);
   const productTotal = demoData.Item.length;
   const products = demoData.Item;
 
@@ -45,7 +47,7 @@ export default async function DemoProducts() {
                 index: number
               ) => (
                 <Suspense key={product.InventoryID} fallback={<ThumbLoader />}>
-                  <DemoThumbnail sku={product.SKU} />
+                  <ProductThumbnail hash={""} secret={""} sku={product.SKU} webstore={WEBSTORE} demo={true} />
                 </Suspense>
               )
             )}

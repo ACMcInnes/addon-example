@@ -3,7 +3,7 @@ import Link from "next/link";
 import { faArrowLeft, faArrowTurnUp, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import getDemoContentCache from "@/components/demo/getDemoContentCache";
+import getContentsCache from "@/components/helper/getContentsCache";
 
 const WEBSTORE = "https://keylime.neto.com.au";
 
@@ -37,7 +37,8 @@ const contentFullPathData: { [key: string]: { fullpathIDs: string[]; fullpathNam
 
 {
   contentTypes.map(async (content) => {
-    const contentData = await getDemoContentCache(content.code);
+
+    const contentData = await getContentsCache('', '', true, content.code);
 
     contentData.Content.map(
       (c: {
@@ -106,7 +107,7 @@ export default async function DemoContent() {
             <FontAwesomeIcon icon={faArrowLeft} /> Demo Dashboard
           </Link>
           <Link
-            href="/demo/content"
+            href="/demo/contents"
             className="ml-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
           >
             Content
@@ -246,7 +247,7 @@ export default async function DemoContent() {
                                   </td>
                                   <td className="py-4 pl-3 pr-4 text-right text-sm text-nowrap font-medium sm:pr-0">
                                      <Link
-                                        href={`/demo/content/${page.ContentID}/products?page=0`}
+                                        href={`/demo/contents/${page.ContentID}/products?page=0`}
                                         className="pr-2 text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 border-r-2 border-indigo-600 dark:border-indigo-500"
                                       >
                                         View

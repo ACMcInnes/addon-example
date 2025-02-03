@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Avatar from 'boring-avatars';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const people = [
   {
@@ -132,8 +133,19 @@ export default function About() {
         ))}
       </ul>
 
-      <p className="mt-16 pt-8 text-lg text-center text-balance border-t-2 border-indigo-600 dark:border-indigo-500">A Neto integration developed by{" "}<Link href="https://acmcinnes.au" target="_blank" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">Andrew McInnes <FontAwesomeIcon icon={faArrowUpRightFromSquare} /></Link></p>
+      <p className="mt-16 pt-8 text-lg text-center text-balance border-t-2 border-indigo-600 dark:border-indigo-500">
+        A Neto integration developed by{" "}
+        <Link href="https://acmcinnes.au" target="_blank" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
+          Andrew McInnes <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+        </Link>
+      </p>
 
+      <p className="mt-8 text-center">
+        <Link href="https://github.com/ACMcInnes/addon-example" target="_blank" className="text-[#24292f] dark:text-white">
+          <FontAwesomeIcon icon={faGithub} className="size-24!" />
+        </Link>
+      </p>
+      
     </section>
   );
 }

@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { Suspense } from "react";
 
-import getDemoContentProducts from "@/components/demo/getDemoContentProductsCache";
-import DemoContentThumbnail from "@/components/demo/demoContentThumbnail";
+import getContentProducts from "@/components/helper/getContentProducts";
+import ContentThumbnail from "@/components/dashboard/contentThumbnail";
 import ThumbLoader from "@/components/dashboard/thumb-loader";
-import ContentPagination from "@/components/demo/demoContentPagination";
+import Pagination from "@/components/dashboard/pagination";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+const DEMO_WEBSTORE = "https://keylime.neto.com.au";
 
 export default async function DemoContentProducts({
   params,
@@ -20,7 +22,7 @@ export default async function DemoContentProducts({
   console.log(`DEMO CONTENT PARAMS`);
   console.log(content);
 
-  const webstoreProducts = await getDemoContentProducts(content);
+  const webstoreProducts = await getContentProducts('', '', content, true);
   const productTotal = webstoreProducts.Item.length;
 
   // Neto index starts at 0, but page should start at 1 - TODO: mess with query value so it matches page
@@ -49,24 +51,26 @@ export default async function DemoContentProducts({
             <FontAwesomeIcon icon={faArrowLeft} /> Demo Dashboard
           </Link>
           <Link
-            href="/demo/content"
+            href="/demo/contents"
             className="ml-2 pr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-r-2 border-indigo-600 dark:border-indigo-500"
           >
             Content
           </Link>
           <Link
-            href={`/demo/content/${content}/products?page=0`}
+            href={`/demo/contents/${content}/products?page=0`}
             className="ml-2 pr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-r-2 border-indigo-600 dark:border-indigo-500"
           >
             {content} - Products
           </Link>
           <Link
-            href={`/demo/content/${content}/products?page=${page}`}
+            href={`/demo/contents/${content}/products?page=${page}`}
             className="ml-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
           >
             Page {page + 1}
           </Link>
         </p>
+
+        <p className="mt-2">{`${page ? page * limit : 1} - ${(page * limit + limit) > productTotal ? (`${productTotal}`) : (`${page * limit + limit}`)} shown of ${productTotal}`}</p>
 
         <div className="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {currentProducts.map(
@@ -78,7 +82,13 @@ export default async function DemoContentProducts({
               index: number
             ) => (
               <Suspense key={product.InventoryID} fallback={<ThumbLoader />}>
-                <DemoContentThumbnail sku={product.SKU} />
+                <ContentThumbnail
+                  hash={''}
+                  secret={''}
+                  sku={product.SKU}
+                  webstore={DEMO_WEBSTORE}
+                  demo={true}
+                />
               </Suspense>
             )
           )}
@@ -88,7 +98,7 @@ export default async function DemoContentProducts({
           <p>
             <FontAwesomeIcon icon={faArrowLeft} /> Back to{" "}
             <Link
-              href={`/demo/content`}
+              href={`/demo/contents`}
               className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
             >
               Content
@@ -102,11 +112,12 @@ export default async function DemoContentProducts({
             </Link>
           </p>
         </div>
-        <ContentPagination
-          content={content}
+        <Pagination
           currentPage={page}
           limit={limit}
           total={productTotal}
+          demo={true}
+          contents={content}
         />
       </section>
     );
@@ -122,19 +133,19 @@ export default async function DemoContentProducts({
             <FontAwesomeIcon icon={faArrowLeft} /> Demo Dashboard
           </Link>
           <Link
-            href="/demo/content"
+            href="/demo/contents"
             className="ml-2 pr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-r-2 border-indigo-600 dark:border-indigo-500"
           >
             Content
           </Link>
           <Link
-            href={`/demo/content/${content}/products?page=0`}
+            href={`/demo/contents/${content}/products?page=0`}
             className="ml-2 pr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-r-2 border-indigo-600 dark:border-indigo-500"
           >
             {content} - Products
           </Link>
           <Link
-            href={`/demo/content/${content}/products?page=${page}`}
+            href={`/demo/contents/${content}/products?page=${page}`}
             className="ml-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
           >
             Page {page + 1}
@@ -145,7 +156,7 @@ export default async function DemoContentProducts({
         </div>
         <p>
           <Link
-            href={`/demo/content`}
+            href={`/demo/contents`}
             className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
           >
             <FontAwesomeIcon icon={faArrowLeft} /> Content

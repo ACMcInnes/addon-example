@@ -21,7 +21,7 @@ export default async function Contents() {
     const contentTypes = await getContentTypesCache(session?.webstore_api_id as string, session?.access_token as string);
 
     for (const contentType of contentTypes.result) {
-      const contentData = await getContentsCache(session?.webstore_api_id as string, session?.access_token as string, contentType.code);
+      const contentData = await getContentsCache(session?.webstore_api_id as string, session?.access_token as string, false, contentType.code);
 
       contentData.Content.map(
         (c: {

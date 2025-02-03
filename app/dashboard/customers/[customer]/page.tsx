@@ -19,7 +19,8 @@ export default async function Customer({
     const customerData = await getCustomer(
       session?.webstore_api_id as string,
       session?.access_token as string,
-      customer
+      customer,
+      false
     );
 
     if (customerData.Customer.length) {

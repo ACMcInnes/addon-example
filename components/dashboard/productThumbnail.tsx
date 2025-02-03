@@ -1,36 +1,29 @@
 import Link from "next/link";
-import { cache } from "react";
 import Image from "next/image";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
-import getThumbnail from "@/components/helper/getThumbnail";
-
-
-// not sure how effective cache is here, needs further testing
-const thumbnailCache = cache(
-  async (webstore_api_id: string, access_token: string, sku: string) => {
-    return await getThumbnail(webstore_api_id, access_token, sku);
-  }
-);
+import getThumbnailCache from "@/components/helper/getThumbnailCache";
 
 interface itemSpecificsObject {
   Value: string;
   Name: string;
 }
 
-export default async function Thumbnail({
+export default async function ProductThumbnail({
   hash,
   secret,
   sku,
   webstore,
+  demo,
 }: {
   hash: string;
   secret: string;
   sku: string;
   webstore: string;
+  demo: boolean;
 }) {
-  const webstoreProduct = await thumbnailCache(hash, secret, sku);
+  const webstoreProduct = await getThumbnailCache(hash, secret, sku, demo);
   const results = webstoreProduct.Item;
   return (
     <>
@@ -65,7 +58,7 @@ export default async function Thumbnail({
             className="grid grid-cols-1 text-sm sm:grid-cols-12 sm:grid-rows-1 sm:gap-x-6 md:gap-x-8 lg:gap-x-8"
           >
             <div className="sm:col-span-5 sm:row-span-2 sm:row-end-2">
-              <Link href={`/demo/products/${product.SKU}`}>
+              <Link href={`/${demo ? "demo" : "dashboard"}/products/${product.SKU}`}>
                 <Image
                   src={product.Images[0] ? `${product.Images[0].URL}?${new Date(product.Images[0].Timestamp).getTime()}` : "/thumb_fallback.jpg"}
                   sizes="(max-width: 768px) 100vw, 300px"
@@ -78,7 +71,7 @@ export default async function Thumbnail({
             </div>
             <div className="mt-6 sm:col-span-7 sm:mt-0 md:row-end-1">
               <h3 className="text-xl font-medium text-gray-900 dark:text-gray-100">
-                <Link href={`/demo/products/${product.SKU}`}>
+                <Link href={`/${demo ? "demo" : "dashboard"}/products/${product.SKU}`}>
                   {product.Model}
                 </Link>
               </h3>
@@ -132,7 +125,7 @@ export default async function Thumbnail({
               </dl>
               <p className="self-end mt-6 font-medium md:mt-10">
                 <Link
-                  href={`/demo/products/${product.SKU}`}
+                  href={`/${demo ? "demo" : "dashboard"}/products/${product.SKU}`}
                   className="mr-3 pr-3 font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-r-2 border-indigo-600 dark:border-indigo-500"
                 >
                   View In App

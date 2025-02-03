@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import getWebstore from "@/components/helper/getWebstore";
 import getProductTotal from "@/components/helper/getProductTotal";
 import Pagination from "@/components/dashboard/pagination";
-import Thumbnail from "@/components/dashboard/thumbnail";
+import ProductThumbnail from "@/components/dashboard/productThumbnail";
 import ThumbLoader from "@/components/dashboard/thumb-loader";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,7 +24,8 @@ export default async function Products({
     );
     const webstoreProducts = await getProductTotal(
       session?.webstore_api_id as string,
-      session?.access_token as string
+      session?.access_token as string,
+      false
     );
     const webstore = details.result.domain;
     const productTotal = webstoreProducts.Item.length;
@@ -77,8 +78,9 @@ export default async function Products({
               Products - Page 1
             </Link>
             )}
-
           </p>
+
+          <p className="mt-2">{`${page ? page * limit : 1} - ${(page * limit + limit) > productTotal ? (`${productTotal}`) : (`${page * limit + limit}`)} shown of ${productTotal}`}</p>
 
           <div className="mt-16">
             <div className="space-y-24">
@@ -94,11 +96,12 @@ export default async function Products({
                     key={`suspense-${index}`}
                     fallback={<ThumbLoader key={`fallback-${index}`} />}
                   >
-                    <Thumbnail
+                    <ProductThumbnail
                       hash={session?.webstore_api_id as string}
                       secret={session?.access_token as string}
                       sku={product.SKU}
                       webstore={webstore}
+                      demo={false}
                     />
                   </Suspense>
                 )
@@ -117,7 +120,7 @@ export default async function Products({
               </Link>
             </p>
           </div>
-          <Pagination currentPage={page} limit={limit} total={productTotal} contents={""} />
+          <Pagination currentPage={page} limit={limit} total={productTotal} demo={false} contents={""} />
         </section>
       );
     } else {

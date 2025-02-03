@@ -3,12 +3,12 @@ import Link from "next/link";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import getDemoContentCache from "@/components/demo/getDemoContentCache";
+import getContentsCache from "@/components/helper/getContentsCache";
 import Avatar from "boring-avatars";
 
 export default async function DemoFinder() {
     const CONTENT_CODE = "part-finder";
-    const demoData = await getDemoContentCache(CONTENT_CODE);
+    const demoData = await getContentsCache('', '', true, CONTENT_CODE);
     const topLevelContents = demoData.Content.filter((page: { ParentContentID: string; }) => page.ParentContentID === '0')
 
   if (topLevelContents.length) {
@@ -73,14 +73,14 @@ export default async function DemoFinder() {
                       <Avatar
                         name={`${content.ContentName}`}
                         colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
-                        className="mx-auto size-56"
+                        className="mx-auto size-56 lg:opacity-80 hover:opacity-100"
                       />
                       <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-gray-900 dark:text-gray-100">
                         {content.ContentName}
                       </h3>
-                      <p className="text-sm/6 text-gray-600">
-                        Active: {content.Active}
-                      </p>
+                    </Link>
+                    <Link href={`/demo/contents/${content.ContentID}/products`} className="text-sm/6 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
+                      View Products
                     </Link>
                   </li>
                 )

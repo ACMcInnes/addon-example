@@ -3,8 +3,9 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Avatar from "boring-avatars";
-import getDemoContentCache from "@/components/demo/getDemoContentCache";
-import delay from "@/components/helper/delay";
+import parse from "html-react-parser";
+import getContentsCache from "@/components/helper/getContentsCache";
+import getContentPage from "@/components/helper/getContentPage";
 
 const WEBSTORE = "https://keylime.neto.com.au";
 const CONTENT_CODE = "part-finder";
@@ -57,67 +58,6 @@ export async function generateStaticParams() {
 }
 */  
 
-async function getPageContents(id: string[]) {
-  console.log(`DEMO CONTENT: ${id}`);
-  const res = await fetch(`${WEBSTORE}/do/WS/NetoAPI`, {
-    method: "POST",
-    headers: {
-      NETOAPI_KEY: `${process.env.KEYLIME_GLOBAL_KEY}`,
-      NETOAPI_ACTION: "GetContent",
-      Accept: "application/json",
-    },
-    body: `{
-        "Filter": {
-            "ContentID": [
-                ${id}
-            ],
-            "OutputSelector": [
-                "ContentID",
-                "ContentName",
-                "ContentType",
-                "ParentContentID",
-                "Active",
-                "ContentReference",
-                "ShortDescription1",
-                "ShortDescription2",
-                "ShortDescription3",
-                "Description1",
-                "Description2",
-                "Description3",
-                "Author",
-                "ContentURL",
-                "RelatedContents",
-                "ExternalSource",
-                "ExternalReference1",
-                "ExternalReference2",
-                "ExternalReference3",
-                "DatePosted",
-                "DatePostedLocal",
-                "DatePostedUTC",
-                "DateUpdated",
-                "DateUpdatedLocal",
-                "DateUpdatedUTC"
-            ]
-        }
-    }`,
-  });
-
-  console.log(`GET CONTENT RESPONSE:`);
-  console.log(`${res.status == 200 ? "OK" : "ERROR"}`);
-
-  if (!res.ok || res.status !== 200) {
-    console.log(`Failed to fetch content data for ID: ${id}`);
-    if(res.status === 429) {
-        // to many requests, rate limited by Neto
-        console.log(`${res.status} Response - Max API requests made, pausing and retrying...`);
-        await delay(5000).then(() => getPageContents(id));
-      }
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error(`Failed to fetch data: ${res.statusText}`);
-  }
-  return res.json();
-}
-
 export default async function DemochildContent({
   params,
 }: {
@@ -131,7 +71,7 @@ export default async function DemochildContent({
   // const currentContent = content.at(-1);
   // console.log(currentContent)
 
-  const pageContents = await getPageContents(content);
+  const pageContents = await getContentPage('', '', content, true);
 
   // console.log(getContent.Content)
 
@@ -139,7 +79,7 @@ export default async function DemochildContent({
     const fullContentPathName = pageContents.Content.map((content: { ContentName: string }) => content.ContentName).join(" ");
     const results = pageContents.Content.at(-1);
 
-    const contentData = await getDemoContentCache(results.ContentType);
+    const contentData = await getContentsCache('', '', true, results.ContentType);
 
     const childContents = contentData.Content.filter((page: { ParentContentID: string; }) => page.ParentContentID === results.ContentID)
 
@@ -204,15 +144,15 @@ export default async function DemochildContent({
                         <Avatar
                           name={`${childContent.ContentName}`}
                           colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
-                          className="mx-auto size-24"
+                          className="mx-auto size-24 lg:opacity-80 hover:opacity-100"
                         />
                         <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-gray-900 dark:text-gray-100">
                           {childContent.ContentName}
                         </h3>
-                        <p className="text-sm/6 text-gray-600 dark:text-gray-400">
-                          Active: {childContent.Active}
-                        </p>
                       </Link>
+                      <Link href={`/demo/contents/${childContent.ContentID}/products`} className="text-sm/6 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
+                        View Products
+                      </Link>                      
                     </li>
                   )
                 )}
@@ -222,94 +162,98 @@ export default async function DemochildContent({
             </>
           ) : (
             <>
+              <Avatar
+                name={`${fullContentPathName}`}
+                colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
+                className="mx-auto size-56"
+              />
+              <h2 className="text-2xl font-semibold my-4 text-center">
+                {fullContentPathName}
+              </h2>
+              <div className="mb-4 max-w-4xl mx-auto prose prose-slate dark:prose-invert sm:col-span-2 sm:mt-0">
+                {parse(results.Description1)}
+              </div>
 
-<Avatar
-            name={`${fullContentPathName}`}
-            colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
-            className="mx-auto size-56"
-          />
-          <h2 className="text-2xl font-semibold my-4 text-center">
-            {fullContentPathName}
-          </h2>
-
-          <div className="py-6">
-            <div className="px-4 sm:px-0">
-              <h3 className="text-base/7 font-semibold text-gray-900 dark:text-gray-100">
-                Content Information
-              </h3>
-              <p className="mt-1 max-w-2xl text-sm/6 text-gray-500 dark:text-gray-300">
-                Demo Data
-              </p>
-            </div>
-            <div className="mt-6 border-t border-gray-100">
-              <dl className="divide-y divide-gray-100">
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
-                    Name
-                  </dt>
-                  <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
-                    {fullContentPathName}
-                  </dd>
+              <div className="py-6">
+                <div className="px-4 sm:px-0">
+                  <h3 className="text-base/7 font-semibold text-gray-900 dark:text-gray-100">
+                    Content Information
+                  </h3>
+                  <p className="mt-1 max-w-2xl text-sm/6 text-gray-500 dark:text-gray-300">
+                    Demo Data
+                  </p>
                 </div>
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
-                    Content ID
-                  </dt>
-                  <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
-                    {results.ContentID}
-                  </dd>
+                <div className="mt-6 border-t border-gray-100">
+                  <dl className="divide-y divide-gray-100">
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                      <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+                        Name
+                      </dt>
+                      <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
+                        {fullContentPathName}
+                      </dd>
+                    </div>
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                      <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+                        Content ID
+                      </dt>
+                      <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
+                        {results.ContentID}
+                      </dd>
+                    </div>
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                      <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+                        Type ID
+                      </dt>
+                      <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
+                        {results.ContentType}
+                      </dd>
+                    </div>
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                      <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+                        Has Parent Content
+                      </dt>
+                      <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
+                        {+results.ParentContentID > 0 ? "Yes" : "No"}
+                      </dd>
+                    </div>
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                      <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+                        Active
+                      </dt>
+                      <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
+                        {results.Active}
+                      </dd>
+                    </div>
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                      <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+                        Author
+                      </dt>
+                      <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
+                        {results.Author}
+                      </dd>
+                    </div>
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                      <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+                        Date Created
+                      </dt>
+                      <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
+                        {results.DatePostedLocal}
+                      </dd>
+                    </div>
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                      <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+                        Products
+                      </dt>
+                      <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
+                        <Link href={`/demo/contents/${results.ContentID}/products`} className="text-sm/6 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
+                          View Products
+                        </Link> 
+                      </dd>
+                    </div>
+                  </dl>
                 </div>
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
-                    Type ID
-                  </dt>
-                  <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
-                    {results.ContentType}
-                  </dd>
-                </div>
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
-                    Has Parent Content
-                  </dt>
-                  <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
-                    {+results.ParentContentID > 0 ? "Yes" : "No"}
-                  </dd>
-                </div>
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
-                    Active
-                  </dt>
-                  <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
-                    {results.Active}
-                  </dd>
-                </div>
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
-                    Author
-                  </dt>
-                  <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
-                    {results.Author}
-                  </dd>
-                </div>
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
-                    Description
-                  </dt>
-                  <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
-                    {results.Description1}
-                  </dd>
-                </div>
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
-                    Date Created
-                  </dt>
-                  <dd className="mt-1 text-sm/6 text-gray-700 dark:text-gray-400 sm:col-span-2 sm:mt-0">
-                    {results.DatePostedLocal}
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </div>        
+              </div>        
             </>
           )}
 

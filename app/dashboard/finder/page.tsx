@@ -15,7 +15,7 @@ export default async function Finder() {
   if (session) {
     const contentTypes = await getContentTypesCache(session?.webstore_api_id as string, session?.access_token as string);
     const productFinderType = await getProductFinderType(contentTypes);
-    const finderContents = await getContentsCache(session?.webstore_api_id as string, session?.access_token as string, productFinderType);
+    const finderContents = await getContentsCache(session?.webstore_api_id as string, session?.access_token as string, false, productFinderType);
     const topLevelContents = finderContents.Content.filter(
       (page: { ParentContentID: string }) => page.ParentContentID === "0"
     );
@@ -79,14 +79,14 @@ export default async function Finder() {
                         <Avatar
                           name={`${content.ContentName}`}
                           colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
-                          className="mx-auto size-56"
+                          className="mx-auto size-56 lg:opacity-80 hover:opacity-100"
                         />
                         <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-gray-900 dark:text-gray-100">
                           {content.ContentName}
                         </h3>
-                        <p className="text-sm/6 text-gray-600">
-                          Active: {content.Active}
-                        </p>
+                      </Link>
+                      <Link href={`/dashboard/contents/${content.ContentID}/products`} className="text-sm/6 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
+                        View Products
                       </Link>
                     </li>
                   )

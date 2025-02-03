@@ -4,24 +4,32 @@ import delay from "@/components/helper/delay";
 const API_ENDPOINT = "https://api.netodev.com/v1/stores/";
 const DEMO_WEBSTORE = "https://keylime.neto.com.au";
 
-export default async function getChildProducts(hash: string, secret: string, parent: string, ids: Array<Number>, demo: boolean) {
-
+async function getThumbnail(
+  hash: string,
+  secret: string,
+  sku: string,
+  demo: boolean
+) {
   let fetchURL = "";
   let fetchData = {};
   let BODY = `{
                 "Filter": {
-                  "InventoryID": [
-                    ${ids}
+                  "SKU": [
+                    "${sku}"
                   ],
                   "OutputSelector": [
                     "Model",
+                    "Brand",
+                    "ShortDescription",
                     "DefaultPrice",
                     "Images",
-                    "ItemURL"
+                    "ItemURL",
+                    "ParentSKU",
+                    "VariantInventoryIDs",
+                    "ItemSpecifics"
                   ]
                 }
               }`;
-
   if (demo) {
     fetchURL = `${DEMO_WEBSTORE}/do/WS/NetoAPI`;
     fetchData = {
@@ -46,31 +54,31 @@ export default async function getChildProducts(hash: string, secret: string, par
     };
   }
 
-
-  console.log(`Variant IDs: ${ids}`);
-  // webstore and secret passed from AuthJS
   const res = await fetch(fetchURL, fetchData);
- 
-  console.log(`GET ${demo ? "DEMO" : "WEBSTORE"} PRODUCT VARIANTS RESPONSE:`);
-  console.log(`${res.status == 200 ? "OK" : "ERROR"}`);
+
+  console.log(`${demo ? "DEMO PRODUCT" : "WEBSTORE PRODUCT"}`);
+  console.log(`GET ${sku.toUpperCase()}: ${res.status} - ${res.statusText}`);
 
   if (!res.ok || res.status !== 200) {
-    console.log(`Failed to fetch product variant data for SKU: ${parent}`);
+    console.log(`Failed to fetch product thumbnail: ${sku}`);
     if (res.status === 429) {
       // to many requests, rate limited by Neto
       console.log(
         `${res.status} Response - Max API requests made, pausing and retrying...`
       );
-      await delay(5000).then(() => getChildProducts(hash, secret, parent, ids, demo));
+      await delay(5000).then(() => getThumbnail(hash, secret, sku, demo));
     }
     // This will activate the closest `error.js` Error Boundary
     throw new Error(`Failed to fetch data: ${res.statusText}`);
   }
 
-  const childProducts = await res.json();
-  if (childProducts.Ack === "Error") {
-    console.dir(childProducts.Messages[0], { maxArrayLength: null });
+  const thumbnailContent = await res.json();
+
+  if (thumbnailContent.Ack === "Error") {
+    console.dir(thumbnailContent.Messages[0], { maxArrayLength: null });
   }
-  
-  return childProducts;
+
+  return thumbnailContent;
 }
+
+export default cache(getThumbnail);

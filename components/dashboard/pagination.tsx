@@ -3,10 +3,11 @@ import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight, faAnglesLeft, faAnglesRight  } from "@fortawesome/free-solid-svg-icons";
 
-export default function Pagination({ currentPage, limit, total, contents = '' }: {
+export default function Pagination({ currentPage, limit, total, demo, contents = '' }: {
   currentPage: number;
   limit: number;
   total: number;
+  demo: boolean;
   contents: string;
 }) {
 
@@ -14,12 +15,20 @@ export default function Pagination({ currentPage, limit, total, contents = '' }:
   let lastPage = Math.floor(total / limit);
   let nextPage = currentPage === lastPage ? lastPage : currentPage + 1;
 
+  console.log(`PAGINATION`)
+  console.log(`total results: ${total}`)
+  console.log(`result limit: ${limit}`)
+  console.log(`prev: ${previousPage}`)
+  console.log(`current: ${currentPage}`)
+  console.log(`next: ${nextPage}`)
+  console.log(`last: ${lastPage}`)
+
   return (
     <section className="mt-4">
       <div className="flex justify-between">
         {currentPage ? (
           <Link 
-          href={`/dashboard/${+contents ? (`contents/${contents}/`) : ``}products?page=0`} 
+          href={`/${demo ? "demo" : "dashboard"}/${+contents ? (`contents/${contents}/`) : ``}products?page=0`} 
           className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 flex items-center gap-1"
           >
             <FontAwesomeIcon icon={faAnglesLeft} className="text-lg" /> <span className="hidden sm:inline-block">First Page</span>
@@ -30,7 +39,7 @@ export default function Pagination({ currentPage, limit, total, contents = '' }:
 
         {currentPage ? (
           <Link
-            href={`/dashboard/${+contents ? (`contents/${contents}/`) : ``}products?page=${previousPage}`}
+            href={`/${demo ? "demo" : "dashboard"}/${+contents ? (`contents/${contents}/`) : ``}products?page=${previousPage}`}
             className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 flex items-center gap-1"
           >
             <FontAwesomeIcon icon={faAngleLeft} className="text-lg" /> Previous <span className="hidden sm:inline-block">Page</span>
@@ -41,7 +50,7 @@ export default function Pagination({ currentPage, limit, total, contents = '' }:
 
         {currentPage < lastPage ? (
           <Link
-            href={`/dashboard/${+contents ? (`contents/${contents}/`) : ``}products?page=${nextPage}`}
+            href={`/${demo ? "demo" : "dashboard"}/${+contents ? (`contents/${contents}/`) : ``}products?page=${nextPage}`}
             className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 flex items-center gap-1"
           >
             Next <span className="hidden sm:inline-block">Page</span> <FontAwesomeIcon icon={faAngleRight} className="text-lg" />
@@ -52,7 +61,7 @@ export default function Pagination({ currentPage, limit, total, contents = '' }:
 
         {currentPage < lastPage ? (
           <Link
-            href={`/dashboard/${+contents ? (`contents/${contents}/`) : ``}products?page=${lastPage}`}
+            href={`/${demo ? "demo" : "dashboard"}/${+contents ? (`contents/${contents}/`) : ``}products?page=${lastPage}`}
             className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 flex items-center gap-1"
           >
             <span className="hidden sm:inline-block">Last Page</span> <FontAwesomeIcon icon={faAnglesRight} className="text-lg" />

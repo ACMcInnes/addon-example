@@ -13,7 +13,7 @@ export default async function Customers() {
 
     if (session) {
 
-  const customerData = await getCustomersCache(session?.webstore_api_id as string, session?.access_token as string);
+  const customerData = await getCustomersCache(session?.webstore_api_id as string, session?.access_token as string, false);
   const customerTotal = customerData.Customer.length;
   const customers = customerData.Customer;
 

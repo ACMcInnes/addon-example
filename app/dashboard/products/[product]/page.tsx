@@ -26,7 +26,7 @@ export default async function Product({
 
     const details = await getWebstore(session?.webstore_api_id as string, session?.access_token as string);
     const webstore = details.result.domain;
-    const product = await getProduct(session?.webstore_api_id as string, session?.access_token as string, params.product);
+    const product = await getProduct(session?.webstore_api_id as string, session?.access_token as string, params.product, false);
 
     // console.log(`products:`);
     // console.log(products);
@@ -40,7 +40,8 @@ export default async function Product({
         session?.webstore_api_id as string, 
         session?.access_token as string,
         results.SKU,
-        results.VariantInventoryIDs
+        results.VariantInventoryIDs,
+        false
       );
       
       // console.log(`CHILD/VARIANTS:`);
@@ -84,7 +85,7 @@ export default async function Product({
             </div>
           </div>
           {childProducts.Item.length > 0 && (
-            <Variants sku={results.SKU} variants={childProducts.Item} />
+            <Variants sku={results.SKU} variants={childProducts.Item} demo={false} />
           )}
           <div className="col-span-3 md:col-span-2 mt-4">
             <p>

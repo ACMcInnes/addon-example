@@ -2,7 +2,7 @@ const API_ENDPOINT = "https://api.netodev.com/v2/stores/";
 
 export default async function getContentTypes(webstore: string, secret: string) {
   // webstore and secret passed from AuthJS
-  // GET request should be caused automatically?
+  // GET request should be cached automatically?
   const res = await fetch(`${API_ENDPOINT}${webstore}/content-types`, {
     method: "GET",
     headers: {

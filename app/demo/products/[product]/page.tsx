@@ -5,11 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 
 import Images from "@/components/product/images";
-import DemoVariants from "@/components/product/demoVariants";
-import delay from "@/components/helper/delay";
-
-// consider generating these pages at build time using https://nextjs.org/docs/app/api-reference/functions/generate-static-params
-// generateStaticParams() has issues with current cookie setup being out of global scope (https://nextjs.org/docs/messages/next-dynamic-api-wrong-context)
+import Variants from "@/components/product/variants";
+import getProduct from "@/components/helper/getProduct";
+import getChildProducts from "@/components/helper/getChildProducts";
 
 const WEBSTORE = "https://keylime.neto.com.au";
 
@@ -33,139 +31,21 @@ export async function generateStaticParams() {
     }))
 }
 
-async function getDemoProduct(sku: string) {
-  console.log(`DEMO SKU: ${sku}`);
-  // webstore and secret passed from AuthJS
-  const res = await fetch(`${WEBSTORE}/do/WS/NetoAPI`, {
-    method: "POST",
-    headers: {
-      NETOAPI_KEY: `${process.env.KEYLIME_GLOBAL_KEY}`,
-      NETOAPI_ACTION: "GetItem",      
-      "Accept": "application/json",
-    },
-    body: `{
-      "Filter": {
-          "SKU": [
-              "${sku}"
-          ],
-          "OutputSelector": [
-              "ParentSKU",
-              "ID",
-              "Brand",
-              "Model",
-              "Virtual",
-              "Name",
-              "PrimarySupplier",
-              "Approved",
-              "IsActive",
-              "FreeGifts",
-              "CrossSellProducts",
-              "UpsellProducts",
-              "PriceGroups",
-              "WarehouseQuantity",
-              "WarehouseLocations",
-              "CommittedQuantity",
-              "AvailableSellQuantity",
-              "ItemSpecifics",
-              "Categories",
-              "AccountingCode",
-              "RRP",
-              "DefaultPrice",
-              "PromotionPrice",
-              "UnitOfMeasure",
-              "SellUnitQuantity",
-              "PreOrderQuantity",
-              "ShortDescription",
-              "Description",
-              "Features",
-              "Specifications",
-              "Warranty",
-              "TermsAndConditions",
-              "Subtitle",
-              "AvailabilityDescription",
-              "Images",
-              "ProductURL",
-              "UPC",
-              "ReferenceNumber",
-              "InternalNotes",
-              "ItemURL",
-              "RelatedContents",
-              "SalesChannels",
-              "VariantInventoryIDs"
-          ]
-      }
-  }`,
-  });
- 
-  console.log(`GET PRODUCT RESPONSE:`);
-  console.log(`${res.status == 200 ? 'OK' : 'ERROR'}`);
-
-  if (!res.ok || res.status !== 200) {
-    console.log(`Failed to fetch product data for SKU: ${sku}`);
-    if(res.status === 429) {
-      // to many requests, rate limited by Neto
-      console.log(`${res.status} Response - Max API requests made, pausing and retrying...`);
-      await delay(5000).then(() => getDemoProduct(sku));
-    }
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error(`Failed to fetch data: ${res.statusText}`);
-  }
-  return res.json()
-}
-
-async function getDemoChildProducts(parent: string, ids: Array<Number>) {
-    console.log(`Demo Variant IDs: ${ids}`);
-    // webstore and secret passed from AuthJS
-    const res = await fetch(`${WEBSTORE}/do/WS/NetoAPI`, {
-      method: "POST",
-      headers: {
-          NETOAPI_KEY: `${process.env.KEYLIME_GLOBAL_KEY}`,
-          NETOAPI_ACTION: "GetItem",      
-          "Accept": "application/json",
-      },
-      body: `{
-          "Filter": {
-              "InventoryID": [
-                  ${ids}
-              ],
-              "OutputSelector": [
-                  "Model",
-                  "DefaultPrice",
-                  "Images",
-                  "ItemURL"
-              ]
-          }
-      }`,
-    });
-   
-    console.log(`GET DEMO VARIANTS RESPONSE:`);
-    console.log(`${res.status == 200 ? 'OK' : 'ERROR'}`);
-  
-    if (!res.ok || res.status !== 200) {
-      console.log(`Failed to fetch product variants for SKU: ${parent}`);
-      if(res.status === 429) {
-        // to many requests, rate limited by Neto
-        console.log(`${res.status} Response - Max API requests made, pausing and retrying...`);
-        await delay(5000).then(() => getDemoChildProducts(parent, ids));
-      }
-      // This will activate the closest `error.js` Error Boundary
-      throw new Error(`Failed to fetch data: ${res.statusText}`);
-    }
-    return res.json()
-}
-
 export default async function DemoProduct({
   params,
 }: {
   params: { product: string };
 }) {
 
-    const product = await getDemoProduct(params.product);
+    const product = await getProduct('', '', params.product, true);
     if (product.Item.length) {
       const results = product.Item[0];
-      let childProducts = await getDemoChildProducts(
+      let childProducts = await getChildProducts(
+        '', 
+        '',
         results.SKU,
-        results.VariantInventoryIDs
+        results.VariantInventoryIDs,
+        true
       );
       
       return (
@@ -214,7 +94,7 @@ export default async function DemoProduct({
             </div>
           </div>
           {childProducts.Item.length > 0 && (
-            <DemoVariants sku={results.SKU} variants={childProducts.Item} />
+            <Variants sku={results.SKU} variants={childProducts.Item} demo={true} />
           )}
           <div className="col-span-3 md:col-span-2 mt-4">
             <p>

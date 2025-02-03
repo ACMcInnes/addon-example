@@ -23,25 +23,25 @@ export default async function Demo() {
           {/* Bento 2 */}
           <div className="flex p-px lg:col-span-2">
             <div className="w-full overflow-hidden rounded-lg bg-white dark:bg-gray-800 ring-1 ring-black/5 dark:ring-white/15 lg:rounded-tr-[2rem]">
-              <ProductsSummary hash={''} secret={''} />
+              <ProductsSummary hash={''} secret={''} demo={true} />
             </div>
           </div>
           {/* Bento 3 */}
           <div className="flex p-px lg:col-span-3">
             <div className="w-full overflow-hidden rounded-lg bg-white dark:bg-gray-800 ring-1 ring-black/5 dark:ring-white/15">
-              <CustomersSummary hash={''} secret={''} />
+              <CustomersSummary hash={''} secret={''} demo={true} />
             </div>
           </div>
           {/* Bento 4 */}
           <div className="flex p-px lg:col-span-3">
             <div className="w-full overflow-hidden rounded-lg bg-white dark:bg-gray-800 ring-1 ring-black/5 dark:ring-white/15">
-              <ContentSummary hash={''} secret={''} />
+              <ContentSummary hash={''} secret={''} demo={true} />
             </div>
           </div>
           {/* Bento 5 */}
           <div className="flex p-px lg:col-span-2">
             <div className="w-full overflow-hidden rounded-lg bg-white dark:bg-gray-800 ring-1 ring-black/5 dark:ring-white/15 lg:rounded-bl-[2rem]">
-              <ProductFinderSummary hash={''} secret={''} />
+              <ProductFinderSummary hash={''} secret={''} demo={true} />
             </div>
           </div>
           {/* Bento 6 */}

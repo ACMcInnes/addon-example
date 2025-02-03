@@ -1,455 +1,116 @@
-const API_ENDPOINT = "https://api.netodev.com/v1/stores/";
+import { cache } from "react";
+import delay from "@/components/helper/delay";
 
-export default async function getProduct(webstore: string, secret: string, sku: string) {
+const API_ENDPOINT = "https://api.netodev.com/v1/stores/";
+const DEMO_WEBSTORE = "https://keylime.neto.com.au";
+
+async function getProduct(hash: string, secret: string, sku: string, demo: boolean) {
+
+  let fetchURL = "";
+  let fetchData = {};
+  let BODY = `{
+                "Filter": {
+                    "SKU": [
+                        "${sku}"
+                    ],
+                    "OutputSelector": [
+                      "ParentSKU",
+                      "ID",
+                      "Brand",
+                      "Model",
+                      "Virtual",
+                      "Name",
+                      "PrimarySupplier",
+                      "Approved",
+                      "IsActive",
+                      "FreeGifts",
+                      "CrossSellProducts",
+                      "UpsellProducts",
+                      "PriceGroups",
+                      "WarehouseQuantity",
+                      "WarehouseLocations",
+                      "CommittedQuantity",
+                      "AvailableSellQuantity",
+                      "ItemSpecifics",
+                      "Categories",
+                      "AccountingCode",
+                      "RRP",
+                      "DefaultPrice",
+                      "PromotionPrice",
+                      "UnitOfMeasure",
+                      "SellUnitQuantity",
+                      "PreOrderQuantity",
+                      "ShortDescription",
+                      "Description",
+                      "Features",
+                      "Specifications",
+                      "Warranty",
+                      "TermsAndConditions",
+                      "Subtitle",
+                      "AvailabilityDescription",
+                      "Images",
+                      "ProductURL",
+                      "UPC",
+                      "ReferenceNumber",
+                      "InternalNotes",
+                      "ItemURL",
+                      "RelatedContents",
+                      "SalesChannels",
+                      "VariantInventoryIDs"
+                    ]
+                }
+            }`;
+
+  if (demo) {
+    fetchURL = `${DEMO_WEBSTORE}/do/WS/NetoAPI`;
+    fetchData = {
+      method: "POST",
+      headers: {
+        NETOAPI_KEY: `${process.env.KEYLIME_GLOBAL_KEY}`,
+        NETOAPI_ACTION: "GetItem",
+        Accept: "application/json",
+      },
+      body: BODY,
+    };
+  } else {
+    fetchURL = `${API_ENDPOINT}${hash}/do/WS/NetoAPI`;
+    fetchData = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${secret}`,
+        "Content-Type": "application/json",
+        NETOAPI_ACTION: "GetItem",
+      },
+      body: BODY,
+    };
+  }
+
   console.log(`SKU: ${sku}`);
   // webstore and secret passed from AuthJS
-  const res = await fetch(`${API_ENDPOINT}${webstore}/do/WS/NetoAPI`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${secret}`,
-      "Content-Type": "application/json",
-      NETOAPI_ACTION: "GetItem",
-    },
-    body: `{
-      "Filter": {
-          "SKU": [
-              "${sku}"
-          ],
-          "OutputSelector": [
-              "ParentSKU",
-              "ID",
-              "Brand",
-              "Model",
-              "Virtual",
-              "Name",
-              "PrimarySupplier",
-              "Approved",
-              "IsActive",
-              "IsNetoUtility",
-              "AuGstExempt",
-              "NzGstExempt",
-              "IsGiftVoucher",
-              "FreeGifts",
-              "CrossSellProducts",
-              "UpsellProducts",
-              "PriceGroups",
-              "ItemLength",
-              "ItemWidth",
-              "ItemHeight",
-              "ShippingLength",
-              "ShippingWidth",
-              "ShippingHeight",
-              "ShippingWeight",
-              "CubicWeight",
-              "HandlingTime",
-              "WarehouseQuantity",
-              "WarehouseLocations",
-              "CommittedQuantity",
-              "AvailableSellQuantity",
-              "ItemSpecifics",
-              "Categories",
-              "AccountingCode",
-              "SortOrder1",
-              "SortOrder2",
-              "RRP",
-              "DefaultPrice",
-              "PromotionPrice",
-              "PromotionStartDate",
-              "PromotionStartDateLocal",
-              "PromotionStartDateUTC",
-              "PromotionExpiryDate",
-              "PromotionExpiryDateLocal",
-              "PromotionExpiryDateUTC",
-              "DateArrival",
-              "DateArrivalUTC",
-              "CostPrice",
-              "UnitOfMeasure",
-              "BaseUnitOfMeasure",
-              "BaseUnitPerQuantity",
-              "QuantityPerScan",
-              "BuyUnitQuantity",
-              "SellUnitQuantity",
-              "PreOrderQuantity",
-              "PickPriority",
-              "PickZone",
-              "eBayProductIDs",
-              "TaxCategory",
-              "TaxFreeItem",
-              "TaxInclusive",
-              "SearchKeywords",
-              "ShortDescription",
-              "Description",
-              "Features",
-              "Specifications",
-              "Warranty",
-              "eBayDescription",
-              "TermsAndConditions",
-              "ArtistOrAuthor",
-              "Format",
-              "ModelNumber",
-              "Subtitle",
-              "AvailabilityDescription",
-              "Images",
-              "ImageURL",
-              "BrochureURL",
-              "ProductURL",
-              "DateAdded",
-              "DateAddedLocal",
-              "DateAddedUTC",
-              "DateCreatedLocal",
-              "DateCreatedUTC",
-              "DateUpdated",
-              "DateUpdatedLocal",
-              "DateUpdatedUTC",
-              "UPC",
-              "UPC1",
-              "UPC2",
-              "UPC3",
-              "Type",
-              "SubType",
-              "NumbersOfLabelsToPrint",
-              "ReferenceNumber",
-              "InternalNotes",
-              "BarcodeHeight",
-              "SupplierItemCode",
-              "SplitForWarehousePicking",
-              "DisplayTemplate",
-              "EditableKitBundle",
-              "RequiresPackaging",
-              "IsAsset",
-              "WhenToRepeatOnStandingOrders",
-              "SerialTracking",
-              "Group",
-              "ShippingCategory",
-              "MonthlySpendRequirement",
-              "RestrictedToUserGroup",
-              "IsInventoried",
-              "IsBought",
-              "IsSold",
-              "ExpenseAccount",
-              "PurchaseTaxCode",
-              "CostOfSalesAccount",
-              "IncomeAccount",
-              "AssetAccount",
-              "KitComponents",
-              "SEOPageTitle",
-              "SEOMetaKeywords",
-              "SEOPageHeading",
-              "SEOMetaDescription",
-              "SEOCanonicalURL",
-              "ItemURL",
-              "AutomaticURL",
-              "Job",
-              "RelatedContents",
-              "SalesChannels",
-              "VariantInventoryIDs",
-              "Misc01",
-              "Misc02",
-              "Misc03",
-              "Misc04",
-              "Misc05",
-              "Misc06",
-              "Misc07",
-              "Misc08",
-              "Misc09",
-              "Misc10",
-              "Misc11",
-              "Misc12",
-              "Misc13",
-              "Misc14",
-              "Misc15",
-              "Misc16",
-              "Misc17",
-              "Misc18",
-              "Misc19",
-              "Misc20",
-              "Misc21",
-              "Misc22",
-              "Misc23",
-              "Misc24",
-              "Misc25",
-              "Misc26",
-              "Misc27",
-              "Misc28",
-              "Misc29",
-              "Misc30",
-              "Misc31",
-              "Misc32",
-              "Misc33",
-              "Misc34",
-              "Misc35",
-              "Misc36",
-              "Misc37",
-              "Misc38",
-              "Misc39",
-              "Misc40",
-              "Misc41",
-              "Misc42",
-              "Misc43",
-              "Misc44",
-              "Misc45",
-              "Misc46",
-              "Misc47",
-              "Misc48",
-              "Misc49",
-              "Misc50",
-              "Misc51",
-              "Misc52"
-          ]
-      }
-  }`,
-  });
+  const res = await fetch(fetchURL, fetchData);
  
-  console.log(`GET PRODUCT RESPONSE:`);
-  console.log(`${res.status} - ${res.statusText}`);
+  console.log(`GET ${demo ? "DEMO" : "WEBSTORE"} PRODUCT RESPONSE:`);
+  console.log(`${res.status == 200 ? "OK" : "ERROR"}`);
 
   if (!res.ok || res.status !== 200) {
-    console.log('Failed to fetch product data for SKU: ${sku}')
+    console.log(`Failed to fetch product data for SKU: ${sku}`);
+    if (res.status === 429) {
+      // to many requests, rate limited by Neto
+      console.log(
+        `${res.status} Response - Max API requests made, pausing and retrying...`
+      );
+      await delay(5000).then(() => getProduct(hash, secret, sku, demo));
+    }
     // This will activate the closest `error.js` Error Boundary
     throw new Error(`Failed to fetch data: ${res.statusText}`);
   }
-  return res.json()
-}
 
-/*
-
-export default async function getProduct(sku: string) {
-  console.log(`SKU: ${sku}`);
-  const oauth = await getAuthenticated();
-
-  if (oauth.api_id) {
-    let needsRedirect = false;
-    let webstoreProduct;
-
-    try {
-      const res = await fetch(`${API_ENDPOINT}${oauth.api_id}/do/WS/NetoAPI`, {
-        method: "POST",
-        headers: {
-          Authorization: `${oauth.token_type} ${oauth.access_token}`,
-          "Content-Type": "application/json",
-          NETOAPI_ACTION: "GetItem",
-        },
-        body: `{
-            "Filter": {
-                "SKU": [
-                    "${sku}"
-                ],
-                "OutputSelector": [
-                    "ParentSKU",
-                    "ID",
-                    "Brand",
-                    "Model",
-                    "Virtual",
-                    "Name",
-                    "PrimarySupplier",
-                    "Approved",
-                    "IsActive",
-                    "IsNetoUtility",
-                    "AuGstExempt",
-                    "NzGstExempt",
-                    "IsGiftVoucher",
-                    "FreeGifts",
-                    "CrossSellProducts",
-                    "UpsellProducts",
-                    "PriceGroups",
-                    "ItemLength",
-                    "ItemWidth",
-                    "ItemHeight",
-                    "ShippingLength",
-                    "ShippingWidth",
-                    "ShippingHeight",
-                    "ShippingWeight",
-                    "CubicWeight",
-                    "HandlingTime",
-                    "WarehouseQuantity",
-                    "WarehouseLocations",
-                    "CommittedQuantity",
-                    "AvailableSellQuantity",
-                    "ItemSpecifics",
-                    "Categories",
-                    "AccountingCode",
-                    "SortOrder1",
-                    "SortOrder2",
-                    "RRP",
-                    "DefaultPrice",
-                    "PromotionPrice",
-                    "PromotionStartDate",
-                    "PromotionStartDateLocal",
-                    "PromotionStartDateUTC",
-                    "PromotionExpiryDate",
-                    "PromotionExpiryDateLocal",
-                    "PromotionExpiryDateUTC",
-                    "DateArrival",
-                    "DateArrivalUTC",
-                    "CostPrice",
-                    "UnitOfMeasure",
-                    "BaseUnitOfMeasure",
-                    "BaseUnitPerQuantity",
-                    "QuantityPerScan",
-                    "BuyUnitQuantity",
-                    "SellUnitQuantity",
-                    "PreOrderQuantity",
-                    "PickPriority",
-                    "PickZone",
-                    "eBayProductIDs",
-                    "TaxCategory",
-                    "TaxFreeItem",
-                    "TaxInclusive",
-                    "SearchKeywords",
-                    "ShortDescription",
-                    "Description",
-                    "Features",
-                    "Specifications",
-                    "Warranty",
-                    "eBayDescription",
-                    "TermsAndConditions",
-                    "ArtistOrAuthor",
-                    "Format",
-                    "ModelNumber",
-                    "Subtitle",
-                    "AvailabilityDescription",
-                    "Images",
-                    "ImageURL",
-                    "BrochureURL",
-                    "ProductURL",
-                    "DateAdded",
-                    "DateAddedLocal",
-                    "DateAddedUTC",
-                    "DateCreatedLocal",
-                    "DateCreatedUTC",
-                    "DateUpdated",
-                    "DateUpdatedLocal",
-                    "DateUpdatedUTC",
-                    "UPC",
-                    "UPC1",
-                    "UPC2",
-                    "UPC3",
-                    "Type",
-                    "SubType",
-                    "NumbersOfLabelsToPrint",
-                    "ReferenceNumber",
-                    "InternalNotes",
-                    "BarcodeHeight",
-                    "SupplierItemCode",
-                    "SplitForWarehousePicking",
-                    "DisplayTemplate",
-                    "EditableKitBundle",
-                    "RequiresPackaging",
-                    "IsAsset",
-                    "WhenToRepeatOnStandingOrders",
-                    "SerialTracking",
-                    "Group",
-                    "ShippingCategory",
-                    "MonthlySpendRequirement",
-                    "RestrictedToUserGroup",
-                    "IsInventoried",
-                    "IsBought",
-                    "IsSold",
-                    "ExpenseAccount",
-                    "PurchaseTaxCode",
-                    "CostOfSalesAccount",
-                    "IncomeAccount",
-                    "AssetAccount",
-                    "KitComponents",
-                    "SEOPageTitle",
-                    "SEOMetaKeywords",
-                    "SEOPageHeading",
-                    "SEOMetaDescription",
-                    "SEOCanonicalURL",
-                    "ItemURL",
-                    "AutomaticURL",
-                    "Job",
-                    "RelatedContents",
-                    "SalesChannels",
-                    "VariantInventoryIDs",
-                    "Misc01",
-                    "Misc02",
-                    "Misc03",
-                    "Misc04",
-                    "Misc05",
-                    "Misc06",
-                    "Misc07",
-                    "Misc08",
-                    "Misc09",
-                    "Misc10",
-                    "Misc11",
-                    "Misc12",
-                    "Misc13",
-                    "Misc14",
-                    "Misc15",
-                    "Misc16",
-                    "Misc17",
-                    "Misc18",
-                    "Misc19",
-                    "Misc20",
-                    "Misc21",
-                    "Misc22",
-                    "Misc23",
-                    "Misc24",
-                    "Misc25",
-                    "Misc26",
-                    "Misc27",
-                    "Misc28",
-                    "Misc29",
-                    "Misc30",
-                    "Misc31",
-                    "Misc32",
-                    "Misc33",
-                    "Misc34",
-                    "Misc35",
-                    "Misc36",
-                    "Misc37",
-                    "Misc38",
-                    "Misc39",
-                    "Misc40",
-                    "Misc41",
-                    "Misc42",
-                    "Misc43",
-                    "Misc44",
-                    "Misc45",
-                    "Misc46",
-                    "Misc47",
-                    "Misc48",
-                    "Misc49",
-                    "Misc50",
-                    "Misc51",
-                    "Misc52"
-                ]
-            }
-        }`,
-      });
-
-      console.log(`GET PRODUCT RESPONSE:`);
-      console.log(`${res.status} - ${res.statusText}`);
-
-      if (!res.ok || res.status !== 200) {
-        console.log(`issue with API call`);
-
-        if (res.statusText === "Unauthorized") {
-          needsRedirect = true;
-        } else {
-          // This will activate the closest `error.js` Error Boundary
-          throw new Error(`Failed to fetch data: ${res.statusText}`);
-        }
-      }
-
-      webstoreProduct = await res.json();
-      // console.log(`FETCH DATA:`);
-      // console.log(webstoreProduct);
-    } catch (e) {
-      return `Could not get webstore products. ${e}`;
-    }
-
-    if (needsRedirect) {
-      console.log(`token refreshing...`);
-      redirect(`/refresh?referrer=products%2F${sku}`);
-    } else {
-      return webstoreProduct;
-    }
-  } else {
-    console.log(`oauth error - redirecting to login`);
-    redirect(`/neto/login?type=webstore`);
+  const webstoreProduct = await res.json();
+  if (webstoreProduct.Ack === "Error") {
+    console.dir(webstoreProduct.Messages[0], { maxArrayLength: null });
   }
+  
+  return webstoreProduct;
 }
 
-*/
+export default cache(getProduct);

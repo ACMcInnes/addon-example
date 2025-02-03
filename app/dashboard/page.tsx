@@ -32,25 +32,25 @@ export default async function Dashboard() {
           {/* Bento 2 */}
           <div className="flex p-px lg:col-span-2">
             <div className="w-full overflow-hidden rounded-lg bg-white dark:bg-gray-800 ring-1 ring-black/5 dark:ring-white/15 lg:rounded-tr-[2rem]">
-              <ProductsSummary hash={session?.webstore_api_id as string} secret={session?.access_token as string} />
+              <ProductsSummary hash={session?.webstore_api_id as string} secret={session?.access_token as string} demo={false} />
             </div>
           </div>
           {/* Bento 3 */}
           <div className="flex p-px lg:col-span-3">
             <div className="w-full overflow-hidden rounded-lg bg-white dark:bg-gray-800 ring-1 ring-black/5 dark:ring-white/15">
-              <CustomersSummary hash={session?.webstore_api_id as string} secret={session?.access_token as string} />
+              <CustomersSummary hash={session?.webstore_api_id as string} secret={session?.access_token as string} demo={false} />
             </div>
           </div>
           {/* Bento 4 */}
           <div className="flex p-px lg:col-span-3">
             <div className="w-full overflow-hidden rounded-lg bg-white dark:bg-gray-800 ring-1 ring-black/5 dark:ring-white/15">
-              <ContentSummary hash={session?.webstore_api_id as string} secret={session?.access_token as string} />
+              <ContentSummary hash={session?.webstore_api_id as string} secret={session?.access_token as string} demo={false} />
             </div>
           </div>
           {/* Bento 5 */}
           <div className="flex p-px lg:col-span-2">
             <div className="w-full overflow-hidden rounded-lg bg-white dark:bg-gray-800 ring-1 ring-black/5 dark:ring-white/15 lg:rounded-bl-[2rem]">
-              <ProductFinderSummary hash={session?.webstore_api_id as string} secret={session?.access_token as string} />
+              <ProductFinderSummary hash={session?.webstore_api_id as string} secret={session?.access_token as string} demo={false} />
             </div>
           </div>
           {/* Bento 6 */}
