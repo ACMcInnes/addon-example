@@ -1,9 +1,9 @@
 const API_ENDPOINT = "https://api.netodev.com/v2/stores/";
 
-export default async function getContentTypes(webstore: string, secret: string) {
+export default async function getContentTypes(webstore: string, secret: string, content_code: string = '') {
   // webstore and secret passed from AuthJS
   // GET request should be cached automatically?
-  const res = await fetch(`${API_ENDPOINT}${webstore}/content-types`, {
+  const res = await fetch(`${API_ENDPOINT}${webstore}/content-types${content_code ? (`?code=${content_code}`) : ""}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${secret}`,
@@ -12,7 +12,7 @@ export default async function getContentTypes(webstore: string, secret: string) 
     //body: `{}`,
   });
  
-  console.log(`GET CONTENT TYPES RESPONSE:`);
+  console.log(`GET CONTENT ${content_code ? (`TYPE ${content_code.toUpperCase()}`) : "TYPES"} RESPONSE:`);
   console.log(`${res.status} - ${res.statusText}`);
 
   if (!res.ok || res.status !== 200) {

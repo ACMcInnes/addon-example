@@ -1,4 +1,4 @@
-import ThumbLoader from "@/components/dashboard/thumb-loader";
+import ThumbLoader from "@/components/dashboard/thumbs/thumb-loader";
 
 export default function Loading() {
   // You can add any UI inside Loading, including a Skeleton.

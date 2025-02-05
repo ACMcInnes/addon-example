@@ -5,8 +5,8 @@ import { auth } from "@/auth";
 import getWebstore from "@/components/helper/getWebstore";
 import getProductTotal from "@/components/helper/getProductTotal";
 import Pagination from "@/components/dashboard/pagination";
-import ProductThumbnail from "@/components/dashboard/productThumbnail";
-import ThumbLoader from "@/components/dashboard/thumb-loader";
+import ProductThumbnail from "@/components/dashboard/thumbs/productThumbnail";
+import ThumbLoader from "@/components/dashboard/thumbs/thumb-loader";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

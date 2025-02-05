@@ -1,4 +1,4 @@
-import ThumbLoader from "@/components/dashboard/thumb-loader";
+import ThumbLoader from "@/components/dashboard/thumbs/thumb-loader";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

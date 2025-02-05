@@ -3,8 +3,8 @@ import { Suspense } from "react";
 import { auth } from "@/auth";
 
 import getWebstore from "@/components/helper/getWebstore";
-import ContentThumbnail from "@/components/dashboard/contentThumbnail";
-import ThumbLoader from "@/components/dashboard/thumb-loader";
+import ContentThumbnail from "@/components/dashboard/thumbs/contentThumbnail";
+import ThumbLoader from "@/components/dashboard/thumbs/thumb-loader";
 import getContentProducts from "@/components/helper/getContentProducts";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

@@ -2,8 +2,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import getContentProducts from "@/components/helper/getContentProducts";
-import ContentThumbnail from "@/components/dashboard/contentThumbnail";
-import ThumbLoader from "@/components/dashboard/thumb-loader";
+import ContentThumbnail from "@/components/dashboard/thumbs/contentThumbnail";
+import ThumbLoader from "@/components/dashboard/thumbs/thumb-loader";
 import Pagination from "@/components/dashboard/pagination";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

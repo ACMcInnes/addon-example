@@ -2,11 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { auth } from "@/auth";
 
-import CustomersSummary from "@/components/dashboard/customersSummary";
-import ProductsSummary from "@/components/dashboard/productsSummary";
-import Profile from "@/components/dashboard/profile";
-import ProductFinderSummary from "@/components/dashboard/productfinderSummary";
-import ContentSummary from "@/components/dashboard/contentSummary";
+import CustomersSummary from "@/components/dashboard/grid/customersSummary";
+import ProductsSummary from "@/components/dashboard/grid/productsSummary";
+import Profile from "@/components/dashboard/grid/profile";
+import ProductFinderSummary from "@/components/dashboard/grid/productfinderSummary";
+import ContentSummary from "@/components/dashboard/grid/contentSummary";
 
 export default async function Dashboard() {
 

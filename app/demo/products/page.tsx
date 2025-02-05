@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Suspense, cache } from "react";
 
-import ThumbLoader from "@/components/dashboard/thumb-loader";
-import ProductThumbnail from "@/components/dashboard/productThumbnail";
+import ThumbLoader from "@/components/dashboard/thumbs/thumb-loader";
+import ProductThumbnail from "@/components/dashboard/thumbs/productThumbnail";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
