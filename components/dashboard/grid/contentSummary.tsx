@@ -54,8 +54,8 @@ export default async function ContentSummary({
 
     if (contentResponse.length) {
       return (
-        <div className="px-6 py-24 md:px-2 md:py-16 lg:px-4">
-          <div className="mx-auto max-w-2xl text-center">
+        <div className="h-full px-6 py-24 md:px-2 md:py-16 lg:px-4">
+          <div className="h-full flex flex-col justify-center mx-auto max-w-2xl text-center">
             <h2 className="mb-6 lg:mb-0 text-balance text-3xl font-semibold tracking-tight text-gray-800 dark:text-gray-200 sm:text-5xl">
               Content Synced:
             </h2>

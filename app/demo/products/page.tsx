@@ -17,7 +17,7 @@ export default async function DemoProducts() {
 
   if (productTotal) {
     return (
-      <section className="max-w-(--breakpoint-lg)">
+      <section className="mx-auto sm:px-6 lg:px-8">
         <h2 className="my-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
           Products
         </h2>
@@ -36,8 +36,8 @@ export default async function DemoProducts() {
           </Link>
         </p>
 
-        <div className="mt-16">
-          <div className="space-y-24">
+        <div className="mx-auto max-w-(--breakpoint-lg) mt-16">
+          <div className="space-y-8">
             {products.map(
               (
                 product: {

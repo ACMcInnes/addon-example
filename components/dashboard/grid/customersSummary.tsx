@@ -15,11 +15,12 @@ export default async function CustomersSummary({
     const customerData = await getCustomersCache(hash, secret, demo);
     const customerTotal = customerData.Customer.length;
     return (
-      <div className="px-6 py-24 md:px-2 md:py-16 lg:px-4">
-        <div className="mx-auto max-w-2xl text-center">
+      <div className="h-full px-6 py-24 md:px-2 md:py-16 lg:px-4">
+        <div className="h-full flex flex-col justify-center mx-auto max-w-2xl text-center">
           <h2 className="text-balance text-3xl font-semibold tracking-tight text-gray-800 dark:text-gray-200 sm:text-5xl">
             Customers Synced:
           </h2>
+          <div className="mx-0 my-auto">
           <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-indigo-600 dark:text-indigo-500 sm:text-5xl">
             {customerTotal}
           </h2>
@@ -35,6 +36,7 @@ export default async function CustomersSummary({
             >
               View Customers
             </Link>
+          </div>
           </div>
         </div>
       </div>

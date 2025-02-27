@@ -1,19 +1,23 @@
 import Link from "next/link";
 
-import { faArrowLeft, faEnvelope, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faEnvelope,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import getCustomersCache from "@/components/helper/getCustomersCache";
 import Avatar from "boring-avatars";
 
 export default async function DemoCustomers() {
-  const demoData = await getCustomersCache('', '', true);
+  const demoData = await getCustomersCache("", "", true);
   const customerTotal = demoData.Customer.length;
   const customers = demoData.Customer;
 
   if (customerTotal) {
     return (
-      <section className="max-w-(--breakpoint-lg)">
+      <section className="mx-auto sm:px-6 lg:px-8">
         <h2 className="my-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
           Customers
         </h2>
@@ -32,12 +36,12 @@ export default async function DemoCustomers() {
           </Link>
         </p>
 
-
-        <div className="py-12">
-          <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
+        <div className="mx-auto max-w-(--breakpoint-lg) py-12">
+          <div className="px-6 text-center lg:px-8">
             <div className="mx-auto max-w-2xl">
               <p className="mt-6 text-lg/8 text-balance text-gray-600 dark:text-gray-300">
-                These people signed up for a webstore account, bought something, or both! which is kinda cool. 
+                These people signed up for a webstore account, bought something,
+                or both! which is kinda cool.
               </p>
             </div>
             <ul
@@ -65,7 +69,8 @@ export default async function DemoCustomers() {
                       className="mx-auto size-56"
                     />
                     <h3 className="mt-6 text-base/7 font-semibold tracking-tight text-gray-900 dark:text-gray-100">
-                      {customer.BillingAddress.BillFirstName}{" "}{customer.BillingAddress.BillLastName}
+                      {customer.BillingAddress.BillFirstName}{" "}
+                      {customer.BillingAddress.BillLastName}
                     </h3>
                     <p className="text-sm/6 text-gray-600">
                       {customer.BillingAddress.BillCompany}
@@ -95,19 +100,18 @@ export default async function DemoCustomers() {
                 )
               )}
             </ul>
+            <div className="mt-16 text-start">
+              <p>
+                Return to{" "}
+                <Link
+                  href="/demo"
+                  className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+                >
+                  Demo Dashboard
+                </Link>
+              </p>
+            </div>
           </div>
-        </div>
-
-        <div className="my-8">
-          <p>
-            Return to{" "}
-            <Link
-              href="/demo"
-              className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
-            >
-              Demo Dashboard
-            </Link>
-          </p>
         </div>
       </section>
     );

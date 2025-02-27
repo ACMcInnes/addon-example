@@ -43,7 +43,7 @@ export default async function Products({
     // console.log(`results type: ${typeof products}`);
     if (currentProducts.length) {
       return (
-        <section className="max-w-(--breakpoint-lg)">
+        <section className="mx-auto sm:px-6 lg:px-8">
           <h2 className="my-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
             Products
           </h2>
@@ -82,8 +82,8 @@ export default async function Products({
 
           <p className="mt-2">{`${page ? page * limit : 1} - ${(page * limit + limit) > productTotal ? (`${productTotal}`) : (`${page * limit + limit}`)} shown of ${productTotal}`}</p>
 
-          <div className="mt-16">
-            <div className="space-y-24">
+          <div className="mx-auto max-w-(--breakpoint-lg) mt-16">
+            <div className="space-y-8">
               {currentProducts.map(
                 (
                   product: {

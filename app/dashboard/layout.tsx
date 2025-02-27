@@ -20,11 +20,10 @@ export default function DashboardLayout({
         <Banner/>
         <Nav/>
       </header>
-
       <main className="flex flex-col items-center px-5">
         <User />
-        <section className="align-start lg:px-24 pb-6 w-full max-w-(--breakpoint-xl)">
-          <h1 className="mx-auto max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8 text-base/7 font-semibold text-indigo-500 dark:text-indigo-400">Dashboard</h1>
+        <section className="align-start lg:px-12 xl:px-24 pb-6 w-full max-w-(--breakpoint-3xl)">
+          <h1 className="mx-auto w-full sm:px-6 lg:px-8 text-base/7 font-semibold text-indigo-500 dark:text-indigo-400">Dashboard</h1>
           {children}
         </section>
       </main>

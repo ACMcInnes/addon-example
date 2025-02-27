@@ -61,7 +61,7 @@ export default async function DemoProduct({
             <Images sku={results.SKU} images={results.Images} />
           </div>
           <div className="col-span-3 md:col-span-1">
-            <p className="text-4xl font-semibold">{results.Model}</p>
+            <p className="text-4xl font-semibold">{results.Name}</p>
             <p>SKU: {results.SKU}</p>
             {results.ParentSKU && (
               <Link
@@ -109,13 +109,24 @@ export default async function DemoProduct({
           </div>
           <div className="col-span-3 md:col-span-1 md:mt-4 md:text-right">
             <p>
-              <Link
-                href={`//${WEBSTORE}/${results.ItemURL}`}
-                className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
-              >
-                View On Webstore{" "}
-                <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-              </Link>
+              {results.Approved === "True" ? (
+                <Link
+                  href={`//${WEBSTORE}/${results.ItemURL}`}
+                  className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+                >
+                  View On Webstore{" "}
+                  <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  className="font-medium text-indigo-600 dark:text-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled
+                >
+                  View On Webstore{" "}
+                  <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                </button>
+              )}
             </p>
           </div>
         </section>

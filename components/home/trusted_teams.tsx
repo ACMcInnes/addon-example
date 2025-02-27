@@ -2,27 +2,27 @@ import Image from "next/image";
 
 const teams = [
   {
-    image: "https://tailwindui.com/plus/img/logos/158x48/transistor-logo-gray-900.svg",
+    image: "/am_logo.svg",
     alt: "Transistor",
   },
   {
-    image: "https://tailwindui.com/plus/img/logos/158x48/reform-logo-gray-900.svg",
+    image: "/am_logo.svg",
     alt: "Reform",
   },
   {
-    image: "https://tailwindui.com/plus/img/logos/158x48/tuple-logo-gray-900.svg",
+    image: "/am_logo.svg",
     alt: "Tuple",
   },
   {
-    image: "https://tailwindui.com/plus/img/logos/158x48/laravel-logo-gray-900.svg",
+    image: "/am_logo.svg",
     alt: "Laravel",
   },
   {
-    image: "https://tailwindui.com/plus/img/logos/158x48/savvycal-logo-gray-900.svg",
+    image: "/am_logo.svg",
     alt: "SavvyCal",
   },
   {
-    image: "https://tailwindui.com/plus/img/logos/158x48/statamic-logo-gray-900.svg",
+    image: "/am_logo.svg",
     alt: "Statamic",
   },
 ];

@@ -11,23 +11,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Pagination from "@/components/dashboard/pagination";
 
 export default async function ContentProducts({
-    params,
-    searchParams,
-  }: {
-    params: Promise<{ content: string }>;
-    searchParams: { [key: string]: string | string[] | undefined };
-  }) {
-    const { content } = await params;
+  params,
+  searchParams,
+}: {
+  params: Promise<{ content: string }>;
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  const { content } = await params;
 
   const session = await auth();
 
   if (session) {
+    console.log(`CONTENT PARAMS`);
+    console.log(content);
 
-    console.log(`CONTENT PARAMS`)
-    console.log(content)
-
-    const details = await getWebstore(session?.webstore_api_id as string, session?.access_token as string);
-    const webstoreProducts = await getContentProducts(session?.webstore_api_id as string, session?.access_token as string, content, false);
+    const details = await getWebstore(
+      session?.webstore_api_id as string,
+      session?.access_token as string
+    );
+    const webstoreProducts = await getContentProducts(
+      session?.webstore_api_id as string,
+      session?.access_token as string,
+      content,
+      false
+    );
     const webstore = details.result.domain;
     const productTotal = webstoreProducts.Item.length;
 
@@ -45,70 +52,86 @@ export default async function ContentProducts({
     // console.log(`results type: ${typeof products}`);
     if (currentProducts.length) {
       return (
-        <section className="max-w-(--breakpoint-lg)">
-        <h2 className="my-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
-          Content Products
-        </h2>
-        <p>
-          <Link
-            href="/dashboard"
-            className="pr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-r-2 border-indigo-600 dark:border-indigo-500"
-          >
-            <FontAwesomeIcon icon={faArrowLeft} /> Dashboard
-          </Link>
-          <Link
-            href="/dashboard/contents"
-            className="ml-2 pr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-r-2 border-indigo-600 dark:border-indigo-500"
-          >
-            Content
-          </Link>
-          <Link
-            href={`/dashboard/contents/${content}/products?page=0`}
-            className="ml-2 pr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-r-2 border-indigo-600 dark:border-indigo-500"
-          >
-            {content} - Products
-          </Link>
-          <Link
-            href={`/dashboard/content/${content}/products?page=${page}`}
-            className="ml-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
-          >
-            Page {page + 1}
-          </Link>
-        </p>
+        <section className="mx-auto sm:px-6 lg:px-8">
+          <h2 className="my-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
+            Content Products
+          </h2>
+          <p>
+            <Link
+              href="/dashboard"
+              className="pr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-r-2 border-indigo-600 dark:border-indigo-500"
+            >
+              <FontAwesomeIcon icon={faArrowLeft} /> Dashboard
+            </Link>
+            <Link
+              href="/dashboard/contents"
+              className="ml-2 pr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-r-2 border-indigo-600 dark:border-indigo-500"
+            >
+              Content
+            </Link>
+            <Link
+              href={`/dashboard/contents/${content}/products?page=0`}
+              className="ml-2 pr-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-r-2 border-indigo-600 dark:border-indigo-500"
+            >
+              {content} - Products
+            </Link>
+            <Link
+              href={`/dashboard/content/${content}/products?page=${page}`}
+              className="ml-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+            >
+              Page {page + 1}
+            </Link>
+          </p>
 
-        <p className="mt-2">{`${page ? page * limit : 1} - ${(page * limit + limit) > productTotal ? (`${productTotal}`) : (`${page * limit + limit}`)} shown of ${productTotal}`}</p>
+          <p className="mt-2">{`${page ? page * limit : 1} - ${
+            page * limit + limit > productTotal
+              ? `${productTotal}`
+              : `${page * limit + limit}`
+          } shown of ${productTotal}`}</p>
 
-        <div className="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-          {currentProducts.map(
-            (
-              product: {
-                InventoryID: string;
-                SKU: string;
-              },
-              index: number
-            ) => (
-              <Suspense key={`suspense-${index}`} fallback={ <ThumbLoader key={`fallback-${index}`} /> } >
-                <ContentThumbnail
-                  hash={session?.webstore_api_id as string}
-                  secret={session?.access_token as string}
-                  sku={product.SKU}
-                  webstore={webstore}
-                  demo={false}
-                />
-              </Suspense>
-            )
-          )}
-        </div>
+          <div className="mx-auto max-w-(--breakpoint-lg) mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+            {currentProducts.map(
+              (
+                product: {
+                  InventoryID: string;
+                  SKU: string;
+                },
+                index: number
+              ) => (
+                <Suspense
+                  key={`suspense-${index}`}
+                  fallback={<ThumbLoader key={`fallback-${index}`} />}
+                >
+                  <ContentThumbnail
+                    hash={session?.webstore_api_id as string}
+                    secret={session?.access_token as string}
+                    sku={product.SKU}
+                    webstore={webstore}
+                    demo={false}
+                  />
+                </Suspense>
+              )
+            )}
+          </div>
 
           <div className="my-8">
             <p>
               Return to{" "}
-              <Link href="/dashboard" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
+              <Link
+                href="/dashboard"
+                className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+              >
                 Dashboard
               </Link>
             </p>
           </div>
-          <Pagination currentPage={page} limit={limit} total={productTotal} demo={false} contents={content} />
+          <Pagination
+            currentPage={page}
+            limit={limit}
+            total={productTotal}
+            demo={false}
+            contents={content}
+          />
         </section>
       );
     } else {
@@ -123,7 +146,10 @@ export default async function ContentProducts({
               Go back
             </Link>{" "}
             or return to{" "}
-            <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
+            <Link
+              href="/"
+              className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+            >
               Home
             </Link>
           </p>
@@ -139,7 +165,10 @@ export default async function ContentProducts({
         <div className="flex flex-col items-center mt-6">
           <p>
             Return to{" "}
-            <Link href="/" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
+            <Link
+              href="/"
+              className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+            >
               Home
             </Link>
           </p>

@@ -39,7 +39,7 @@ export default async function DemoContentProducts({
 
   if (currentProducts.length) {
     return (
-      <section className="max-w-(--breakpoint-lg)">
+      <section className="mx-auto sm:px-6 lg:px-8">
         <h2 className="my-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
           Content Products
         </h2>
@@ -72,7 +72,7 @@ export default async function DemoContentProducts({
 
         <p className="mt-2">{`${page ? page * limit : 1} - ${(page * limit + limit) > productTotal ? (`${productTotal}`) : (`${page * limit + limit}`)} shown of ${productTotal}`}</p>
 
-        <div className="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+        <div className="mx-auto max-w-(--breakpoint-lg) mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {currentProducts.map(
             (
               product: {

@@ -1,6 +1,6 @@
 export default function ThumbLoader() {
   return (
-    <section className="flex flex-col md:flex-row w-full rounded-lg my-6 bg-slate-500/50 aspect-4/5 md:aspect-8/4 animate-pulse"></section>
+    <section className="flex flex-col md:flex-row w-full rounded-lg my-6 bg-slate-500/50 aspect-4/5 md:aspect-14/4 animate-pulse"></section>
   );
 }
 

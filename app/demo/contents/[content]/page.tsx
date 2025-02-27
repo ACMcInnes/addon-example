@@ -127,7 +127,7 @@ export default async function DemoContentsContent({
 
     if (contentResponse.length) {
       return (
-        <section className="max-w-(--breakpoint-lg)">
+        <section className="mx-auto sm:px-6 lg:px-8">
           <h2 className="my-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
             Content
           </h2>
@@ -147,7 +147,7 @@ export default async function DemoContentsContent({
           </p>
 
           {contentResponse.map((content) => (
-            <div key={content.name} className="py-12">
+            <div key={content.name} className="mx-auto max-w-(--breakpoint-lg) py-12">
               <div>
                 <div className="w-full text-center">
                   <p className="mt-6 text-xl/8 text-balance font-semibold text-gray-900 dark:text-gray-100">

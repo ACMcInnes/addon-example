@@ -12,6 +12,7 @@
     from 180deg at 50% 50%,
     var(--tw-gradient-stops)
   );
+  --breakpoint-3xl: 112rem;
 }
 
 /*

@@ -228,7 +228,7 @@ export default async function ContentList({
                       </td>
                       <td className="py-4 pl-3 pr-4 text-right text-sm text-nowrap font-medium sm:pr-0">
                         <Link
-                          href={`/demo/contents/${page.ContentID}/products?page=0`}
+                          href={`/${demo ? "demo" : "dashboard"}/contents/${page.ContentID}/products?page=0`}
                           className="pr-2 text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 border-r-2 border-indigo-600 dark:border-indigo-500"
                         >
                           View
@@ -254,7 +254,7 @@ export default async function ContentList({
             <div className="justify-self-end mt-4">
               {contentResponse.response.Content.length >= 10 ? (
                 <Link
-                  href={`/demo/contents/${contentResponse.code}`}
+                  href={`/${demo ? "demo" : "dashboard"}/contents/${contentResponse.code}`}
                   className="inline-block rounded-md bg-indigo-600 dark:bg-indigo-500 mx-2 px-3 py-2 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 dark:hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-600"
                 >
                   View All

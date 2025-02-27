@@ -55,7 +55,7 @@ const contentTypes = [
 
 export default async function DemoContent() {
   return (
-    <section className="max-w-(--breakpoint-lg)">
+    <section className="mx-auto sm:px-6 lg:px-8">
       <h2 className="my-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
         Content
       </h2>
@@ -74,7 +74,7 @@ export default async function DemoContent() {
         </Link>
       </p>
 
-      <div className="py-12">
+      <div className="mx-auto max-w-(--breakpoint-lg) py-12">
         <div>
           <div className="w-full text-center">
             <p className="mt-6 text-lg/8 text-balance text-gray-700 dark:text-gray-200">

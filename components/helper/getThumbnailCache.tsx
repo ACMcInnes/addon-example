@@ -18,7 +18,7 @@ async function getThumbnail(
                     "${sku}"
                   ],
                   "OutputSelector": [
-                    "Model",
+                    "Name",
                     "Brand",
                     "ShortDescription",
                     "DefaultPrice",
@@ -26,7 +26,9 @@ async function getThumbnail(
                     "ItemURL",
                     "ParentSKU",
                     "VariantInventoryIDs",
-                    "ItemSpecifics"
+                    "ItemSpecifics",
+                    "Approved",
+                    "IsActive"
                   ]
                 }
               }`;

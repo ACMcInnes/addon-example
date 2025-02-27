@@ -9,7 +9,7 @@ import ContentSummary from "@/components/dashboard/grid/contentSummary";
 export default async function Demo() {
   return (
     <>
-      <div className="mx-auto max-w-2xl sm:px-6 lg:max-w-7xl lg:px-8">
+      <div className="mx-auto sm:px-6 lg:px-8">
         <h2 className="mt-2 max-w-lg text-pretty text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
           Did somebody say &quot;sample data&quot;
         </h2>

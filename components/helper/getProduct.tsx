@@ -17,7 +17,7 @@ async function getProduct(hash: string, secret: string, sku: string, demo: boole
                       "ParentSKU",
                       "ID",
                       "Brand",
-                      "Model",
+                      "Name",
                       "Virtual",
                       "Name",
                       "PrimarySupplier",

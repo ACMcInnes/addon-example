@@ -60,7 +60,7 @@ export default async function Product({
           </div>
           <div>
             <p>SKU: {results.SKU}</p>
-            <p>Name: {results.Model}</p>
+            <p>Name: {results.Name}</p>
             {results.ParentSKU && (
               <Link
                 href={`/dashboard/products/${results.ParentSKU}`}
@@ -100,13 +100,24 @@ export default async function Product({
           </div>
           <div className="col-span-3 md:col-span-1 md:mt-4">
             <p>
-              <Link
-                href={`//${webstore}/${results.ItemURL}`}
-                className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
-              >
-                View On Webstore{" "}
-                <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-              </Link>
+              {results.Approved === "True" ? (
+                <Link
+                  href={`//${webstore}/${results.ItemURL}`}
+                  className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+                >
+                  View On Webstore{" "}
+                  <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  className="font-medium text-indigo-600 dark:text-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled
+                >
+                  View On Webstore{" "}
+                  <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                </button>
+              )}
             </p>
           </div>
         </section>
