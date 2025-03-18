@@ -10,14 +10,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const DEMO_WEBSTORE = "https://keylime.neto.com.au";
 
-export default async function DemoContentProducts({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ content: string }>;
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  const { content } = await params;
+export default async function DemoContentProducts(
+  props: {
+    params: Promise<{ content: string }>;
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  }
+) {
+  const searchParams = await props.searchParams;
+  const { content } = await props.params;
 
   console.log(`DEMO CONTENT PARAMS`);
   console.log(content);

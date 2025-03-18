@@ -14,11 +14,12 @@ import Variants from "@/components/product/variants";
 // consider generating these pages at build time using https://nextjs.org/docs/app/api-reference/functions/generate-static-params
 // generateStaticParams() has issues with current cookie setup being out of global scope (https://nextjs.org/docs/messages/next-dynamic-api-wrong-context)
 
-export default async function Product({
-  params,
-}: {
-  params: { product: string };
-}) {
+export default async function Product(
+  props: {
+    params: Promise<{ product: string }>;
+  }
+) {
+  const params = await props.params;
 
   const session = await auth();
 
@@ -153,5 +154,4 @@ export default async function Product({
       </>
     ); 
   }
-
 }

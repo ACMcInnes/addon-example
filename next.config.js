@@ -20,6 +20,11 @@ module.exports = nextConfig
 const withMarkdoc = require('@markdoc/next.js');
 
 module.exports = withMarkdoc(/* options */)({
+  experimental: {
+    turbo: {
+      // ...
+    },
+  },
   images: {
     remotePatterns: [
       {

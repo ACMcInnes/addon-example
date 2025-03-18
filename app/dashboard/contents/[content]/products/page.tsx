@@ -10,14 +10,14 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Pagination from "@/components/dashboard/pagination";
 
-export default async function ContentProducts({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ content: string }>;
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  const { content } = await params;
+export default async function ContentProducts(
+  props: {
+    params: Promise<{ content: string }>;
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  }
+) {
+  const searchParams = await props.searchParams;
+  const { content } = await props.params;
 
   const session = await auth();
 
