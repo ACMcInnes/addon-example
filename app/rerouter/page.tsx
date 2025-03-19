@@ -1,12 +1,13 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
-export default async function ReRouter({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  
+export default async function ReRouter(
+  props: {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  }
+) {
+  const searchParams = await props.searchParams;
+
   // used for initial login to ensure session exists before running through middleware
 
   const session = await auth();

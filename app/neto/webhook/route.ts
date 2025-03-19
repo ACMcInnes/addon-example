@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       console.log(`Webhook order status: ${jsText.Event.Order.OrderStatus}`);
 
       const order = jsText.Event.Order.OrderID;
-      const headersList = headers();
+      const headersList = await headers();
       const webstore_key = headersList.get("NETOAPI_KEY");
 
       if (webstore_key === process.env.KEYLIME_GLOBAL_KEY) {
