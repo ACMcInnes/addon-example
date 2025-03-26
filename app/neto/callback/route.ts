@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
 
       if (text.client_id === process.env.CLIENT_ID) {
         const deauthURL = `https://api.netodev.com/oauth/v2/token?version=2`;
-        const redirectURL = `https://addon-example.vercel.app/neto/callback`;
+        const redirectURL = `https://neto.mcinnes.design/neto/callback`;
         const localRedirectURL = `http://localhost:3000/neto/callback`;
         const params = new URLSearchParams();
 
