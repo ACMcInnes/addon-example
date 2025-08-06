@@ -2,10 +2,26 @@
 
 import Head from "next/head";
 import * as Sentry from "@sentry/nextjs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+class SentryExampleFrontendError extends Error {
+  constructor(message: string | undefined) {
+    super(message);
+    this.name = "SentryExampleFrontendError";
+  }
+}
 
 export default function Page() {
   const [hasSentError, setHasSentError] = useState(false);
+  const [isConnected, setIsConnected] = useState(true);
+  
+  useEffect(() => {
+    async function checkConnectivity() {
+      const result = await Sentry.diagnoseSdkConnectivity();
+      setIsConnected(result !== 'sentry-unreachable');
+    }
+    checkConnectivity();
+  }, []);
 
   return (
     <div>
@@ -25,23 +41,25 @@ export default function Page() {
 
         <p className="description">
           Click the button below, and view the sample error on the Sentry <a target="_blank" href="https://mcinnes-design.sentry.io/issues/?project=4509069397262336">Issues Page</a>.
-          For more details about setting up Sentry, <a target="_blank" href="https://docs.sentry.io/platforms/javascript/guides/nextjs/">read our docs</a>.
+          For more details about setting up Sentry, <a target="_blank"
+           href="https://docs.sentry.io/platforms/javascript/guides/nextjs/">read our docs</a>.
         </p>
 
         <button
           type="button"
           onClick={async () => {
             await Sentry.startSpan({
-              name: 'Example Frontend Span',
+              name: 'Example Frontend/Backend Span',
               op: 'test'
             }, async () => {
               const res = await fetch("/api/sentry-example-api");
               if (!res.ok) {
                 setHasSentError(true);
-                throw new Error("Sentry Example Frontend Error");
               }
             });
+            throw new SentryExampleFrontendError("This error is raised on the frontend of the example page.");
           }}
+          disabled={!isConnected}
         >
           <span>
             Throw Sample Error
@@ -50,16 +68,18 @@ export default function Page() {
 
         {hasSentError ? (
           <p className="success">
-            Sample error was sent to Sentry.
+            Error sent to Sentry.
           </p>
+        ) : !isConnected ? (
+          <div className="connectivity-error">
+            <p>It looks like network requests to Sentry are being blocked, which will prevent errors from being captured. Try disabling your ad-blocker to complete the test.</p>
+          </div>
         ) : (
           <div className="success_placeholder" />
         )}
 
         <div className="flex-spacer" />
-        <p className="description">
-          Adblockers will prevent errors from being sent to Sentry.
-        </p>
+      
       </main>
 
       <style>{`
@@ -126,6 +146,16 @@ export default function Page() {
           &:active > span {
             transform: translateY(0);
           }
+
+          &:disabled {
+	            cursor: not-allowed;
+	            opacity: 0.6;
+	
+	            & > span {
+	              transform: translateY(0);
+	              border: none
+	            }
+	          }
         }
 
         .description {
@@ -156,6 +186,22 @@ export default function Page() {
 
         .success_placeholder {
           height: 46px;
+        }
+
+        .connectivity-error {
+          padding: 12px 16px;
+          background-color: #E50045;
+          border-radius: 8px;
+          width: 500px;
+          color: #FFFFFF;
+          border: 1px solid #A80033;
+          text-align: center;
+          margin: 0;
+        }
+        
+        .connectivity-error a {
+          color: #FFFFFF;
+          text-decoration: underline;
         }
       `}</style>
     </div>

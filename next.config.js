@@ -16,14 +16,13 @@ const nextConfig = {
 
 module.exports = nextConfig
 */
-
+const path = require('path');
 const withMarkdoc = require('@markdoc/next.js');
 
 module.exports = withMarkdoc(/* options */)({
-  experimental: {
-    turbo: {
-      // ...
-    },
+  turbopack: {
+    root: path.join(__dirname, '..'),
+    // ...
   },
   images: {
     remotePatterns: [
