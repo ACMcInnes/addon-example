@@ -69,10 +69,18 @@ async function getContentProducts(
 
   const contentProducts = await res.json();
 
-  console.dir(contentProducts, { maxArrayLength: null });
-
   if (contentProducts.Ack === "Error") {
     console.dir(contentProducts.Messages[0], { maxArrayLength: null });
+
+    let errorMessage = "Failed to fetch data:";
+    contentProducts.Messages[0].Error.forEach(
+      (error: { SeverityCode: string; Message: string }) => {
+        errorMessage = errorMessage.concat(
+          `${error.SeverityCode}: ${error.Message}\n`
+        );
+      }
+    );
+    throw new Error(`${errorMessage}`);
   }
 
   return contentProducts;

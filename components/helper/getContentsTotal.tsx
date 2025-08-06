@@ -69,6 +69,16 @@ async function getContentsTotal(
 
   if (webstoreContentsTotal.Ack === "Error") {
     console.dir(webstoreContentsTotal.Messages[0], { maxArrayLength: null });
+
+    let errorMessage = "Failed to fetch data:";
+    webstoreContentsTotal.Messages[0].Error.forEach(
+      (error: { SeverityCode: string; Message: string }) => {
+        errorMessage = errorMessage.concat(
+          `${error.SeverityCode}: ${error.Message}\n`
+        );
+      }
+    );
+    throw new Error(`${errorMessage}`);
   }
 
   return webstoreContentsTotal;

@@ -83,8 +83,19 @@ async function getContentPage(hash: string, secret: string, id: string[], demo: 
   }
 
   const webstoreContent = await res.json();
+
   if (webstoreContent.Ack === "Error") {
     console.dir(webstoreContent.Messages[0], { maxArrayLength: null });
+
+    let errorMessage = "Failed to fetch data:";
+    webstoreContent.Messages[0].Error.forEach(
+      (error: { SeverityCode: string; Message: string }) => {
+        errorMessage = errorMessage.concat(
+          `${error.SeverityCode}: ${error.Message}\n`
+        );
+      }
+    );
+    throw new Error(`${errorMessage}`);
   }
   
   return webstoreContent;

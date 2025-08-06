@@ -78,6 +78,16 @@ async function getCustomers(hash: string, secret: string, demo: boolean) {
 
   if (webstoreCustomers.Ack === "Error") {
     console.dir(webstoreCustomers.Messages[0], { maxArrayLength: null });
+
+    let errorMessage = "Failed to fetch data:";
+    webstoreCustomers.Messages[0].Error.forEach(
+      (error: { SeverityCode: string; Message: string }) => {
+        errorMessage = errorMessage.concat(
+          `${error.SeverityCode}: ${error.Message}\n`
+        );
+      }
+    );
+    throw new Error(`${errorMessage}`);
   }
 
   return webstoreCustomers;

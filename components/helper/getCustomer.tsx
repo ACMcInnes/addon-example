@@ -107,9 +107,21 @@ async function getCustomer(
     // This will activate the closest `error.js` Error Boundary
     throw new Error(`Failed to fetch data: ${res.statusText}`);
   }
+  
   const webstoreCustomer = await res.json();
+
   if (webstoreCustomer.Ack === "Error") {
     console.dir(webstoreCustomer.Messages[0], { maxArrayLength: null });
+
+    let errorMessage = "Failed to fetch data:";
+    webstoreCustomer.Messages[0].Error.forEach(
+      (error: { SeverityCode: string; Message: string }) => {
+        errorMessage = errorMessage.concat(
+          `${error.SeverityCode}: ${error.Message}\n`
+        );
+      }
+    );
+    throw new Error(`${errorMessage}`);
   }
 
   return webstoreCustomer;

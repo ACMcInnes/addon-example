@@ -73,6 +73,16 @@ async function getProductTotal(hash: string, secret: string, demo: boolean) {
 
   if (webstoreProducts.Ack === "Error") {
     console.dir(webstoreProducts.Messages[0], { maxArrayLength: null });
+
+    let errorMessage = "Failed to fetch data:";
+    webstoreProducts.Messages[0].Error.forEach(
+      (error: { SeverityCode: string; Message: string }) => {
+        errorMessage = errorMessage.concat(
+          `${error.SeverityCode}: ${error.Message}\n`
+        );
+      }
+    );
+    throw new Error(`${errorMessage}`);
   }
 
   return webstoreProducts;

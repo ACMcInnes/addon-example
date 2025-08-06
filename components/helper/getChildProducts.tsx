@@ -68,8 +68,19 @@ export default async function getChildProducts(hash: string, secret: string, par
   }
 
   const childProducts = await res.json();
+
   if (childProducts.Ack === "Error") {
     console.dir(childProducts.Messages[0], { maxArrayLength: null });
+
+    let errorMessage = "Failed to fetch data:";
+    childProducts.Messages[0].Error.forEach(
+      (error: { SeverityCode: string; Message: string }) => {
+        errorMessage = errorMessage.concat(
+          `${error.SeverityCode}: ${error.Message}\n`
+        );
+      }
+    );
+    throw new Error(`${errorMessage}`);
   }
   
   return childProducts;

@@ -106,8 +106,19 @@ async function getProduct(hash: string, secret: string, sku: string, demo: boole
   }
 
   const webstoreProduct = await res.json();
+
   if (webstoreProduct.Ack === "Error") {
     console.dir(webstoreProduct.Messages[0], { maxArrayLength: null });
+
+    let errorMessage = "Failed to fetch data:";
+    webstoreProduct.Messages[0].Error.forEach(
+      (error: { SeverityCode: string; Message: string }) => {
+        errorMessage = errorMessage.concat(
+          `${error.SeverityCode}: ${error.Message}\n`
+        );
+      }
+    );
+    throw new Error(`${errorMessage}`);
   }
   
   return webstoreProduct;

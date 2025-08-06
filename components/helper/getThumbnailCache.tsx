@@ -78,6 +78,16 @@ async function getThumbnail(
 
   if (thumbnailContent.Ack === "Error") {
     console.dir(thumbnailContent.Messages[0], { maxArrayLength: null });
+
+    let errorMessage = "Failed to fetch data:";
+    thumbnailContent.Messages[0].Error.forEach(
+      (error: { SeverityCode: string; Message: string }) => {
+        errorMessage = errorMessage.concat(
+          `${error.SeverityCode}: ${error.Message}\n`
+        );
+      }
+    );
+    throw new Error(`${errorMessage}`);
   }
 
   return thumbnailContent;
