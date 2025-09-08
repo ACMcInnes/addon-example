@@ -12,7 +12,7 @@ async function getStatus() {
     }
   );
 
-  console.log(`GET STATUS RESPONSE:`);
+  console.log(`BETTERSTACK - GET STATUS RESPONSE:`);
   console.log(`${res.status} - ${res.statusText}`);
 
   if (!res.ok || res.status !== 200) {
