@@ -52,7 +52,6 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   console.log(`UNINSTALL POST RECEIVED:`);
-  console.log(request);
   try {
     // Process the webhook payload
     const text = await request.json();
