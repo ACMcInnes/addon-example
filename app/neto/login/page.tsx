@@ -30,7 +30,7 @@ export default async function Login() {
           <div className="flex flex-row w-full items-center justify-center bg-slate-800">
             <a
               className="pointer-events-none flex flex-row place-items-center gap-2 p-2 lg:pointer-events-auto"
-              href="https://acmcinnes.au/"
+              href="//andrew.mcinnes.design/"
               target="_blank"
               rel="noopener noreferrer"
             >

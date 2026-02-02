@@ -4,37 +4,37 @@ const sponsors = [
   {
     name: "McInnes Design",
     image: "/am_logo.svg",
-    url: "https://acmcinnes.au/",
+    url: "//andrew.mcinnes.design/",
     key: "AM1",
   },
   {
     name: "McInnes Design",
     image: "/am_logo.svg",
-    url: "https://acmcinnes.au/",
+    url: "//andrew.mcinnes.design/",
     key: "AM2",
   },
   {
     name: "McInnes Design",
     image: "/am_logo.svg",
-    url: "https://acmcinnes.au/",
+    url: "//andrew.mcinnes.design/",
     key: "AM3",
   },
   {
     name: "McInnes Design",
     image: "/am_logo.svg",
-    url: "https://acmcinnes.au/",
+    url: "//andrew.mcinnes.design/",
     key: "AM4",
   },
   {
     name: "McInnes Design",
     image: "/am_logo.svg",
-    url: "https://acmcinnes.au/",
+    url: "//andrew.mcinnes.design/",
     key: "AM5",
   },
   {
     name: "McInnes Design",
     image: "/am_logo.svg",
-    url: "https://acmcinnes.au/",
+    url: "//andrew.mcinnes.design/",
     key: "AM6",
   },
 ];

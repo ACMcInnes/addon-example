@@ -137,7 +137,7 @@ export default function Footer() {
         <p className="flex flex-col md:flex-row place-items-center gap-2 p-12 pb-2">
           By{" "}
           <a
-            href="https://acmcinnes.au/"
+            href="//andrew.mcinnes.design/"
             target="_blank"
             rel="noopener noreferrer"
           >
