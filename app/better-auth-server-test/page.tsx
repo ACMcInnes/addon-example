@@ -18,6 +18,7 @@ async function getAuthContext() {
       headers: {
         "Content-Type": "application/json",
         cookie,
+        origin: "https://neto.mcinnes.design",
       },
       body: JSON.stringify({ providerId: "neto" }),
       cache: "no-store",
