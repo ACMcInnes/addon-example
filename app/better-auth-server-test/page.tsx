@@ -1,22 +1,47 @@
-"use client";
-
+import { headers } from 'next/headers';
 import Image from "next/image";
 import { authClient } from '@/lib/auth-client';
 import Banner from '@/components/shared/banner';
 
-export default function getUser() {
 
-  const { data: session, isPending, error } = authClient.useSession();
+async function getAuthContext() {
+  const h = await headers();
+  const cookie = h.get("cookie") ?? "";
 
-  const accessToken = authClient.getAccessToken({
-    providerId: "neto",
-  });
+  const [sessionRes, tokenRes] = await Promise.all([
+    fetch("https://auth.mcinnes.design/api/auth/get-session", {
+      headers: { cookie },
+      cache: "no-store",
+    }),
+    fetch("https://auth.mcinnes.design/api/auth/get-access-token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        cookie,
+      },
+      body: JSON.stringify({ providerId: "your-provider" }),
+      cache: "no-store",
+    }),
+  ]);
+
+  return {
+    session: sessionRes.ok ? await sessionRes.json() : null,
+    token: tokenRes.ok ? await tokenRes.json() : null,
+  };
+}
+
+
+
+export default async function getServerUser() {
+
+  const { session, token } = await getAuthContext();
+
+  if (!session) {
+    return <div>Not authenticated</div>;
+  }
 
   console.log(`TOKEN`)
-  console.log(accessToken)
-
-  if (isPending) return <div>Loading…</div>;
-  if (error || !session) return <div>Signed out</div>;
+  console.log(token)
 
   return (
     <>
