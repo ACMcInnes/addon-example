@@ -19,7 +19,7 @@ async function getAuthContext() {
         "Content-Type": "application/json",
         cookie,
       },
-      body: JSON.stringify({ providerId: "your-provider" }),
+      body: JSON.stringify({ providerId: "neto" }),
       cache: "no-store",
     }),
   ]);
