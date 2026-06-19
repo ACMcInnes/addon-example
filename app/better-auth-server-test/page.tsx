@@ -24,6 +24,11 @@ async function getAuthContext() {
     }),
   ]);
 
+  console.log(`AUTH CONTEXT`)
+  console.log(sessionRes)
+  console.log(`---`)
+  console.log(tokenRes)
+
   return {
     session: sessionRes.ok ? await sessionRes.json() : null,
     token: tokenRes.ok ? await tokenRes.json() : null,
