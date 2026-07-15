@@ -1,6 +1,8 @@
 ---
-title: Get started with Markdoc
+title: Markdoc Baseline
+published: 2024-04-08
 description: How to get started with Markdoc
+icon: faNotdef
 ---
 
 # {% $markdoc.frontmatter.title %}
