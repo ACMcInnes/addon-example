@@ -13,8 +13,6 @@ Start syncing your Neto customers with this handy guide
 
 Customer data is currently loaded as needed, no need to wait for lengthy sync times!
 
-To access your Neto customer data, navigate to the [Neto Addon Example Dashboard](/dashboard) and locate the Customers Overview widget. If you are not currently logged into your Neto Account you will be prompted to do so first.
+To access your Neto customer data, navigate to the dashboard and locate the Customers Overview widget. If you are not currently logged into your Neto Account you will be prompted to do so first.
 
 The Customers Overview widget will list the number of customers currently synced. To view more information click the `View Customers` button.
-
-> Don't have a Neto Webstore, take a look at our [Demo Dashboard](/demo)

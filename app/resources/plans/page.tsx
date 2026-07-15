@@ -1,4 +1,4 @@
-import FeatureGrid from "@/components/plans/feature_grid";
+import FeatureGrid from "@/components/plans/feature-grid";
 
 export default function PlansPage() {
   return (

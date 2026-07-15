@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import Markdoc from "@markdoc/markdoc";
-import yaml from "js-yaml";
+import { load } from 'js-yaml'
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 type Metadata = {
@@ -19,7 +19,7 @@ type Metadata = {
 
 export const parseMarkdocFrontmatter = (ast: any) => {
   return ast.attributes.frontmatter
-    ? yaml.load(ast.attributes.frontmatter)
+    ? load(ast.attributes.frontmatter)
     : {};
 };
 

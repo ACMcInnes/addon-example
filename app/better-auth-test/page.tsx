@@ -8,13 +8,6 @@ export default function getUser() {
 
   const { data: session, isPending, error } = authClient.useSession();
 
-  const accessToken = authClient.getAccessToken({
-    providerId: "neto",
-  });
-
-  console.log(`TOKEN`)
-  console.log(accessToken)
-
   if (isPending) return <div>Loading…</div>;
   if (error || !session) return <div>Signed out</div>;
 

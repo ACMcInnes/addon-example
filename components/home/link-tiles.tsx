@@ -1,15 +1,15 @@
-import { faCode, faArrowRight, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { faLock, faCode, faArrowRight, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React from "react";
 
 const links = [
   {
-    url: "/dashboard",
-    label: "Dashboard",
-    icon: faArrowRight,
-    subtitle: "Access your dashboard",
-    external: false,
+    url: "//auth.mcinnes.design",
+    label: "Login",
+    icon: faLock,
+    subtitle: "Login to the McInnes Design app",
+    external: true,
   },
   {
     url: "/documentation",
@@ -26,7 +26,7 @@ const links = [
     external: false,
   },
   {
-    url: "https://developers.maropost.com/documentation/engineers/tutorials/",
+    url: "//developers.maropost.com/documentation/engineers/tutorials/",
     label: "Neto Tutorials",
     icon: faArrowUpRightFromSquare,
     subtitle: "Take a look at a similar Addon setup",

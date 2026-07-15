@@ -3,7 +3,7 @@ import Banner from "@/components/shared/banner";
 import Nav from "@/components/shared/nav";
 import Footer from "@/components/shared/footer";
 import Sidebar from "@/components/documentation/sidebar";
-import SidebarContent from "@/components/documentation/sidebar_content";
+import SidebarContent from "@/components/documentation/sidebar-content";
 
 export const metadata: Metadata = {
   title: "Documentation",

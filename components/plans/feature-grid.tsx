@@ -113,7 +113,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+export default function FeatureGrid() {
   return (
     <div className="mt-2 w-full max-w-(--breakpoint-xl)">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">

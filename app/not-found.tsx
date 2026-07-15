@@ -15,68 +15,26 @@ export default function NotFound() {
         <Nav/>
       </header>
       <main className="flex flex-col items-center px-5">
-      <div className="relative flex place-items-center pb-8">
-        <h1 className="text-3xl text-center font-semibold">404 | We could not find the page you are looking for. <br/> Take me <Link href="/" className="text-sky-500">Home</Link>.</h1>
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <Link 
-          href="/dashboard"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 dark:hover:border-neutral-700 dark:hover:bg-neutral-800/30"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Dashboard{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Access your dashboard
+        <div className="text-center">
+          <p className="text-base font-semibold text-indigo-600 dark:text-indigo-400">404</p>
+          <h1 className="mt-4 text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl dark:text-white">
+            Page not found
+          </h1>
+          <p className="mt-6 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8 dark:text-gray-400">
+            Sorry, we couldn&apos;t find the page you&apos;re looking for.
           </p>
-        </Link>
-        <Link 
-          href="/neto/login?type=webstore"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 dark:hover:border-neutral-700 dark:hover:bg-neutral-800/30"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Login{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Don&apos;t have access? Login first
-          </p>
-        </Link>
-        <a
-          href="https://developers.maropost.com/documentation/engineers/api-documentation/introduction-and-getting-started/api-best-practices/"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 dark:hover:border-neutral-700 dark:hover:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Best Practices{" "}
-            <FontAwesomeIcon className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none" icon={faArrowUpRightFromSquare} />
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Working with our API efficiently.
-          </p>
-        </a>
-        <a
-          href="https://developers.maropost.com/documentation/engineers/tutorials/"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 dark:hover:border-neutral-700 dark:hover:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Tutorials{" "}
-            <FontAwesomeIcon className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none" icon={faArrowUpRightFromSquare} />
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Take a look at a similar Addon setup.
-          </p>
-        </a>
-      </div>
+          <div className="mt-10 flex items-center justify-center gap-x-6">
+            <a
+              href="/"
+              className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500"
+            >
+              Go back home
+            </a>
+            <a href="/contact" className="text-sm font-semibold text-gray-900 dark:text-white">
+              Contact
+            </a>
+          </div>
+        </div>
       </main>
       <Footer/>
     </>

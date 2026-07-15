@@ -35,7 +35,6 @@ export default function Footer() {
               Menu
             </li>
             {[
-              ["Dashboard", "/dashboard"],
               ["About Us", "/about-us"],
               ["FAQ", "/faq"],
               ["Contact", "/contact"],

@@ -54,7 +54,6 @@ export default function Nav() {
       </Link>
       <ul className="hidden md:flex md:flex-row md:gap-8">
         {[
-          ["Dashboard", "/dashboard"],
           ["About Us", "/about-us"],
           ["Contact", "/contact"],
           ["Assets", "/resources/assets"],
@@ -98,7 +97,6 @@ export default function Nav() {
             Menu
           </li>
           {[
-            ["Dashboard", "/dashboard"],
             ["About Us", "/about-us"],
             ["FAQ", "/faq"],
             ["Contact", "/contact"],

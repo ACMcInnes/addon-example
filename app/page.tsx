@@ -1,11 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import Banner from "@/components/shared/banner";
 import Footer from "@/components/shared/footer";
 import Nav from "@/components/shared/nav";
-import LinkTiles from "@/components/home/link_tiles";
-import TrustedTeams from "@/components/home/trusted_teams";
+import LinkTiles from "@/components/home/link-tiles";
+import TrustedTeams from "@/components/home/trusted-teams";
 import Features from "@/components/home/features";
 import Sponsors from "@/components/home/sponsors";
 import Plans from "@/components/home/plans";
@@ -34,12 +33,6 @@ export default function Home() {
         </div>
 
         <LinkTiles />
-
-        <div className="relative flex flex-col text-center text-balance place-items-center mt-8 pb-8">
-          <p>Don&apos;t have a Neto Webstore? Take a look around using our demo data</p>
-          <Link href={`/demo`} className="block mt-4 py-2 px-4 rounded-md text-gray-100 bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 border-transparent">Demo Dashboard</Link>
-        </div>
-
 
         <h2 className="mt-12 w-full max-w-(--breakpoint-xl) text-base/7 text-left font-semibold text-indigo-600 dark:text-indigo-500">
             What is the Neto Addon Example?
