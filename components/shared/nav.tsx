@@ -46,9 +46,9 @@ export default function Nav() {
         <Image
           src="/am_logo.svg"
           alt="AM Logo"
-          className="invert ml-4"
-          width={100}
-          height={24}
+          className="invert ml-4 w-[100px] h-auto"
+          width={1024}
+          height={494}
           priority
         />
       </Link>

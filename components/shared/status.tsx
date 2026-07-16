@@ -1,7 +1,9 @@
+'use server';
+
 import Link from "next/link";
 
 async function getStatus() {
-  // webstore and secret passed from AuthJS
+  'use cache'
   const res = await fetch(
     `https://uptime.betterstack.com/api/v2/monitors/3030029`,
     {

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Suspense } from 'react'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,6 +8,7 @@ import {
   faLocationDot,
   faPhone,
   faPlus,
+  faCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faYoutube,
@@ -22,7 +24,13 @@ import OfficeHours from "@/components/shared/office-hours";
 import Status from "@/components/shared/status";
 import MobileTop from "@/components/shared/mobile-top";
 
-export default function Footer() {
+
+async function getCurrentYear() {
+  'use cache'
+  return new Date().getFullYear()
+}
+
+export default async function Footer() {
   return (
     <footer className="mt-24 text-white bg-linear-to-b from-indigo-800 from-40% to-indigo-600 dark:from-indigo-900 dark:to-indigo-950">
       <section className="flex flex-col md:flex-row max-w-(--breakpoint-xl) mx-auto xl:border-b border-white/25">
@@ -113,7 +121,10 @@ export default function Footer() {
             Brisbane &#124; Meanjin, Australia
           </p>
 
-          <OfficeHours />
+          <Suspense fallback={<p><FontAwesomeIcon icon={faCircle} className="text-gray-500" /> unavailable</p>}>
+            <OfficeHours />
+          </Suspense>
+          
 
           <p className="flex justify-center gap-1">
             <FontAwesomeIcon icon={faPhone} className="text-xl" /> 1800 975 709
@@ -143,9 +154,9 @@ export default function Footer() {
             <Image
               src="/am_logo.svg"
               alt="AM Logo"
-              className="invert"
-              width={200}
-              height={48}
+              className="invert w-[200px] h-auto"
+              width={1024}
+              height={494}
             />
           </a>
         </p>
@@ -157,11 +168,11 @@ export default function Footer() {
             rel="noopener noreferrer"
           >
             <Image
-              className="invert"
+              className="invert w-[100px] h-auto"
               src="/next.svg"
               alt="Next.js Logo"
-              width={100}
-              height={24}
+              width={394}
+              height={80}
             />
           </a>
           <FontAwesomeIcon icon={faPlus} size="lg" className="mx-6" />
@@ -171,11 +182,11 @@ export default function Footer() {
             rel="noopener noreferrer"
           >
             <Image
-              className="invert"
+              className="invert w-[100px] h-auto"
               src="/vercel.svg"
               alt="Vercel Logo"
-              width={100}
-              height={24}
+              width={283}
+              height={64}
             />
           </a>
         </div>
@@ -199,17 +210,21 @@ export default function Footer() {
           </div>
         </div>
 
-        <Status />
+        <Suspense fallback={<p className="text-xs"><FontAwesomeIcon icon={faCircle} className="text-gray-500 mr-[10px]" /> System Status</p>}>
+          <Status />
+        </Suspense>
+
         <div className="flex flex-col w-full pt-4 md:pb-4 items-center justify-center">
-          <p>&copy; {new Date().getFullYear()} &#124; McInnes Design</p>
+          <p>&copy; {await getCurrentYear()} &#124; McInnes Design</p>
         </div>
+
         <div className="md:hidden max-h-24 overflow-hidden flex flex-col w-full items-center justify-start">
           <Image
             src="/am_logo.svg"
             alt="AM Logo"
-            className="invert"
-            width={414}
-            height={200}
+            className="invert w-[414px] h-auto"
+            width={1024}
+            height={494}
           />
         </div>
       </div>

@@ -32,7 +32,7 @@ export default function Cta() {
               <Link href={`/documentation/getting-started`} className="block py-2 px-4 rounded-md text-gray-100 bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 border-transparent">Get Started</Link>
             </div>
             <div className="justify-items-center -mt-6 sm:justify-items-start sm:mt-0">
-              <Link href={`/neto/login?type=webstore`} className="block py-2 px-4 rounded-md text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-transparent">Login</Link>
+              <Link href={`#`} className="block py-2 px-4 rounded-md text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-transparent">Naa</Link>
             </div>
           </dl>
         </div>

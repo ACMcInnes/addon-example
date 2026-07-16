@@ -21,10 +21,12 @@ export async function getAuthContext() {
     }),
   ]);
 
-  console.log(`AUTH CONTEXT`)
-  console.log(sessionRes)
-  console.log(`---`)
-  console.log(tokenRes)
+  if(process.env.VERCEL_ENV === "development" || process.env.NODE_ENV === "development") {
+    console.log(`AUTH CONTEXT`)
+    console.log(sessionRes)
+    console.log(`---`)
+    console.log(tokenRes)
+  }
 
   return {
     session: sessionRes.ok ? await sessionRes.json() : null,

@@ -23,6 +23,7 @@ module.exports = nextConfig
 const withMarkdoc = require('@markdoc/next.js');
 
 module.exports = withMarkdoc(/* options */)({
+  cacheComponents: true,
   outputFileTracingRoot: __dirname,
   turbopack: {
     root: __dirname,
