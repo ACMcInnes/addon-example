@@ -1,8 +1,8 @@
 'use server'
+import { cache } from 'react';
 import { headers } from 'next/headers';
 
-export async function getAuthContext() {
-  'use cache'
+export const getAuthContext = cache(async () => {
   const h = await headers();
   const cookie = h.get("cookie") ?? "";
 
@@ -34,7 +34,7 @@ export async function getAuthContext() {
     session: sessionRes.ok ? await sessionRes.json() : null,
     token: tokenRes.ok ? await tokenRes.json() : null,
   };
-}
+})
 
 export async function isAuth() {
   const context = await getAuthContext();
