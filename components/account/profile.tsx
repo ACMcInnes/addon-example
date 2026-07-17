@@ -1,19 +1,12 @@
-import { getAuthContext } from "@/components/auth/get-auth-context";
+import { getUser } from '@/data/user';
 
 export default async function Profile() {
 
-  const { session, token } = await getAuthContext();
-
-  if (!session) {
-    return <p>Not authenticated</p>;
-  }
-
-  console.log(`TOKEN`)
-  console.log(token)
+  const user = await getUser();
 
   return (
     <div className="flex flex-col place-items-center pb-8">
-      <p>G&apos;day {session.user.name}</p>
+      <p>G&apos;day {user.name} {user.email}</p>
     </div>
   );
 }

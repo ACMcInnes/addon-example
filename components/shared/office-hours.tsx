@@ -3,7 +3,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle} from "@fortawesome/free-solid-svg-icons";
 import {faCircle as faCircleR} from "@fortawesome/free-regular-svg-icons";
-import { Suspense } from 'react'
 
 export default function OfficeHours() {
 

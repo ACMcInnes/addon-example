@@ -61,7 +61,8 @@ export function getMarkdoc() {
   return getMDData(path.join(process.cwd(), "app", "documentation", "markdoc"));
 }
 
-export function formatDate(date: Date, includeRelative = false) {
+export async function formatDate(date: Date, includeRelative = false) {
+  'use cache'
   let currentDate = new Date();
   //if (!date.includes("T")) {
   //  date = `${date}T00:00:00`;
