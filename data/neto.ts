@@ -6,9 +6,12 @@ export const getTokenContext = async () => {
   const h = await headers();
   const cookie = h.get("cookie") ?? "";
 
-  const tokenRes = await fetch(
-    "https://auth.mcinnes.design/api/auth/get-access-token", 
-    {
+  const [accountRes, tokenRes] = await Promise.all([
+    fetch("https://auth.mcinnes.design/api/auth/account-info", {
+      headers: { cookie },
+      cache: "no-store",
+    }),
+    fetch("https://auth.mcinnes.design/api/auth/get-access-token", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -17,16 +20,23 @@ export const getTokenContext = async () => {
       },
       body: JSON.stringify({ providerId: "neto" }),
       cache: "no-store",
-    }
-  );
+    }),
+  ]);
 
-  return tokenRes.ok ? await tokenRes.json() : null;
+  return {
+    account: accountRes.ok ? await accountRes.json() : null,
+    token: tokenRes.ok ? await tokenRes.json() : null,
+  };
 }
 
 export async function pollNeto() {
   const auth = await isAuth(); // if not authorised, will error out - don't need to handle here
-  const token = await getTokenContext();
+  const { account, token } = await getTokenContext();
 
+  console.log(`SESSION`)
+  console.log(auth)
+  console.log(`ACCOUNT`)
+  console.log(account)
   console.log(`TOKEN`)
   console.log(token)
 
