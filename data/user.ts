@@ -1,14 +1,33 @@
 'use server'
 import { isAuth } from "./auth"
 
+type Auth = {
+  session: {
+    expiresAt: Date,
+    token: string,
+    createdAt: Date,
+    updatedAt: Date,
+    ipAddress: string,
+    userAgent: string,
+    userId: string,
+    id: string
+  },
+  user: {
+    name: string,
+    email: string,
+    emailVerified: boolean,
+    image: string | null,
+    createdAt: Date,
+    updatedAt: Date,
+    id: string
+  }
+}
+
 export async function getUser() {
-  const session = await isAuth();
+  const auth = await isAuth() as Auth;
 
-  console.log(`SESSION`)
-  console.log(session)
-
-  return session.map((data: { user: { id: string; name: string; email: string; emailVerified: boolean; image: string; createdAt: string; updatedAt: string }; }) => ({
-    name: data.user.name,
-    email: data.user.email
-  }))
+  return {
+    name: auth.user.name,
+    email: auth.user.email
+  }
 } 
