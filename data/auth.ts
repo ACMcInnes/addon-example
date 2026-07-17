@@ -2,44 +2,25 @@
 import { cache } from 'react';
 import { headers } from 'next/headers';
 
-export const getAuthContext = cache(async () => {
+export const getSessionContext = cache(async () => {
   const h = await headers();
   const cookie = h.get("cookie") ?? "";
 
-  const [sessionRes, tokenRes] = await Promise.all([
-    fetch("https://auth.mcinnes.design/api/auth/get-session", {
+  const sessionRes = await fetch(
+    "https://auth.mcinnes.design/api/auth/get-session", 
+    {
       headers: { cookie },
       cache: "no-store",
-    }),
-    fetch("https://auth.mcinnes.design/api/auth/get-access-token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        cookie,
-        origin: "https://neto.mcinnes.design",
-      },
-      body: JSON.stringify({ providerId: "neto" }),
-      cache: "no-store",
-    }),
-  ]);
+    }
+  );
 
-  if(process.env.VERCEL_ENV === "development" || process.env.NODE_ENV === "development") {
-    console.log(`AUTH CONTEXT`)
-    console.log(sessionRes)
-    console.log(`---`)
-    console.log(tokenRes)
-  }
-
-  return {
-    session: sessionRes.ok ? await sessionRes.json() : null,
-    token: tokenRes.ok ? await tokenRes.json() : null,
-  };
+  return sessionRes.ok ? await sessionRes.json() : null;
 })
 
 export async function isAuth() {
-  const context = await getAuthContext();
-  if (!context.session) {
+  const session = await getSessionContext();
+  if (!session) {
     throw new Error("Unauthorised: Account session expired or missing")
   }
-  return context.session
+  return session
 }
