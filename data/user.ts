@@ -19,6 +19,7 @@ type Auth = {
     image: string | null,
     createdAt: Date,
     updatedAt: Date,
+    subject: string,
     id: string
   }
 }
@@ -28,6 +29,7 @@ export async function getUser() {
 
   return {
     name: auth.user.name,
-    email: auth.user.email
+    email: auth.user.email,
+    username: auth.user.subject.split(':')[1]
   }
 } 
