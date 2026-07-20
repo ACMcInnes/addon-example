@@ -71,7 +71,7 @@ export async function netoRequest({request, data, filter}: {request: string, dat
   const endpoint = ENDPOINTS[request]
 
   const netoRes = await fetch(
-    `https://api.netodev.com/${endpoint.version}/stores/${endpoint.url}${filter ? filter : ''}`, 
+    `https://api.netodev.com/${endpoint.version}/stores${endpoint.url}${filter ? filter : ''}`, 
     {
       method: endpoint.version === 'v1' ? "POST" : "GET",
       headers: {
@@ -84,7 +84,7 @@ export async function netoRequest({request, data, filter}: {request: string, dat
     }
   );
 
-  console.log(`NETO`)
+  console.log(`NETO ${endpoint.name.toUpperCase()}`)
   console.log(netoRes)
   
   return netoRes.ok ? await netoRes.json() : null;
