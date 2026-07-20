@@ -77,9 +77,9 @@ export async function netoRequest({request, data, filter}: {request: string, dat
       headers: {
         "Authorization": `Bearer ${token.accessToken}`,
         "Content-Type": "application/json",
-        ...(endpoint.version === 'v1' && { "NETO_ACTION": `${endpoint.name}` })
+        ...(endpoint.version === 'v1' && { "NETOAPI_ACTION": `${endpoint.name}` })
       },
-      ...(data && {body: data}),
+      ...(data && { body: data }),
       next: { revalidate: 600 } // cache for 10
     }
   );
