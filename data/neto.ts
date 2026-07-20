@@ -71,7 +71,7 @@ export async function netoRequest({request, data, filter}: {request: string, dat
   const endpoint = ENDPOINTS[request]
 
   const netoRes = await fetch(
-    `https://api.netodev.com/${endpoint.version}/stores${endpoint.url}${filter ? filter : ''}`, 
+    `https://api.netodev.com/${endpoint.version}/stores/${apiId}${endpoint.url}${filter ? filter : ''}`, 
     {
       method: endpoint.version === 'v1' ? "POST" : "GET",
       headers: {
