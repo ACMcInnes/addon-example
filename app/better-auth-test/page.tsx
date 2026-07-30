@@ -2,7 +2,7 @@
 
 import { authClient } from '@/lib/auth-client';
 
-export default function getUser() {
+export default function ClientUser() {
 
   const { data: session, isPending, error } = authClient.useSession();
 

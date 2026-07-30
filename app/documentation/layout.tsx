@@ -5,6 +5,11 @@ import Footer from "@/components/shared/footer";
 import Sidebar from "@/components/documentation/sidebar";
 import SidebarContent from "@/components/documentation/sidebar-content";
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faArrowsRotate, faCode, faNotdef, faRocket } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faArrowsRotate, faCode, faRocket, faNotdef);
+
 export const metadata: Metadata = {
   title: "Documentation",
   description: "Addon Documentation",

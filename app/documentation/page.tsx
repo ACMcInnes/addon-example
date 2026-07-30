@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { formatDate, getMarkdoc } from "app/documentation/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRocket } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 export default async function Documentation() {
   let pages = getMarkdoc();
@@ -25,11 +25,7 @@ export default async function Documentation() {
           className="relative flex items-center space-x-3 rounded-lg border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-6 py-5 shadow-xs hover:border-gray-400 dark:hover:border-slate-500"
         >
           <div className="shrink-0">
-            {/* 
-              https://docs.fontawesome.com/web/use-with/react/add-icons#typescript-and-custom-icons-issue 
-              <FontAwesomeIcon icon={page.metadata.icon} className="size-10"/>
-            */}
-            <FontAwesomeIcon icon={faRocket} className="size-10"/>
+            <FontAwesomeIcon icon={['fas', page.metadata.icon] as IconProp} className="size-10"/>
           </div>
           <div className="min-w-0 flex-1">
             <Link href={`/documentation/${page.slug}`} className="focus:outline-hidden">

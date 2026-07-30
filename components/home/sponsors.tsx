@@ -61,9 +61,9 @@ export default function Sponsors() {
               <Image
                 src={sponsor.image}
                 alt={sponsor.name}
-                className="dark:invert w-full h-auto mx-auto"
-                width={200}
-                height={48}
+                className="dark:invert w-[200px] h-auto mx-auto my-2"
+                width={1024}
+                height={494}
               />
             </a>
           ))}

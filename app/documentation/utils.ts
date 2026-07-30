@@ -9,7 +9,7 @@ type Metadata = {
   published: Date;
   description: string;
   image?: string;
-  icon: IconProp;
+  icon: string;
 };
 
 

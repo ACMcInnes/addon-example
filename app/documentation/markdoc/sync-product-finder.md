@@ -2,7 +2,7 @@
 title: Sync your Neto Product Finder
 published: 2025-01-12
 description: How to sync your Neto Product Finder content to this application
-icon: faNotdef
+icon: arrows-rotate
 ---
 
 Start loading your Neto Product Finder content with this handy guide

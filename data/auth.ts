@@ -1,6 +1,7 @@
 'use server'
 import { cache } from 'react';
 import { headers } from 'next/headers';
+import { redirect } from "next/navigation";
 
 export const getSessionContext = cache(async () => {
   const h = await headers();
@@ -20,7 +21,8 @@ export const getSessionContext = cache(async () => {
 export async function isAuth() {
   const session = await getSessionContext();
   if (!session) {
-    throw new Error("Unauthorised: Account session expired or missing")
+    console.log(`Account session missing: redirect to login`);
+    redirect(`/login`);
   }
   return session
 }

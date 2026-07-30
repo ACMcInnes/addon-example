@@ -2,7 +2,7 @@
 title: Sync your Neto Content Types
 published: 2025-01-14
 description: How to sync your Neto Content Types to this application
-icon: faNotdef
+icon: arrows-rotate
 ---
 
 Start loading your Neto Content Types with this handy guide

@@ -40,10 +40,10 @@ export default function TrustedTeams() {
         {teams.map((team) => (
           <Image
             src={team.image}
-            width={158}
-            height={48}
+            width={1024}
+            height={494}
             alt={team.alt}
-            className="col-span-1 max-h-12 w-full object-contain dark:invert"
+            className="col-span-1 max-h-12 w-full object-contain dark:invert w-[158px] h-auto"
             key={team.alt}
           />
         ))}

@@ -2,7 +2,7 @@
 title: Working With Your Neto Data
 published: 2024-04-08
 description: How to setup your Neto data for this application
-icon: faNotdef
+icon: notdef
 ---
 
 Utilise powerful automations and reporting that work with your Neto Webstore data to streamline processes and uncover areas for improvement.

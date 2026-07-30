@@ -2,8 +2,6 @@ import Banner from "@/components/shared/banner";
 import Footer from "@/components/shared/footer";
 import Nav from "@/components/shared/nav";
 import Link from 'next/link'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 
 export default function NotFound() {
   return (

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function TermsOfUse() {
   return (
     <section className="px-3 lg:px-24 pb-6 w-full max-w-(--breakpoint-xl)">
@@ -21,11 +23,19 @@ export default function TermsOfUse() {
         </li>
       </ul>
       <p className="mt-6 text-base">
-        Any data entered is only stored for the length of the browser session
-        and is not shared with any 3rd parties. If you do not agree with these
-        terms do not enter any personal or identifiable information into this
-        application. By navigating and/or visiting this application some usage
-        data may be recorded.
+        Data is stored for as long as the users account remains active, and is not shared with any 3rd parties. If you do not agree with these
+        terms do not enter any personal or identifiable information into this application. Or, delete your account{" "}
+        <Link
+          className="hover:underline hover:underline-offset-4 font-semibold whitespace-nowrap text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
+          href="//auth.mcinnes.design/account#danger-zone"
+          target="_blank"
+        >
+          here
+        </Link>
+        .
+      </p> 
+      <p className="mt-2">  
+        By navigating and/or visiting this application some usage data may be recorded.
       </p>
     </section>
   );

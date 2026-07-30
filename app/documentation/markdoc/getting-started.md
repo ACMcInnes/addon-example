@@ -2,7 +2,7 @@
 title: Getting Started
 published: 2024-11-11
 description: Get started with the Neto Addon Example application
-icon: faRocket
+icon: rocket
 ---
 
 This guide outlines the initial steps required to setup the Neto Addon Example application. After completing this guide you will have connected your Neto webstore and be able to start syncing your data across.

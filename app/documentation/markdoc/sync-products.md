@@ -2,7 +2,7 @@
 title: Sync your Neto Products
 published: 2024-10-20
 description: How to sync your Neto Products to this application
-icon: faNotdef
+icon: arrows-rotate
 ---
 
 Start loading your Neto products with this handy guide

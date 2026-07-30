@@ -39,31 +39,31 @@ export default function Cta() {
         <div className="grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8">
           <Image
             src={`/am_logo.svg`}
-            width={248}
-            height={120}
+            width={1024}
+            height={494}
             alt="CTA 1"
-            className={`w-full rounded-lg bg-neutral-100 dark:bg-[rgb(225_214_196)] px-4 py-20 dark:invert`}
+            className={`w-full rounded-lg bg-neutral-100 dark:bg-[rgb(225_214_196)] px-4 py-20 dark:invert w-[248px] h-auto`}
           />
           <Image
             src={`/am_logo.svg`}
-            width={248}
-            height={120}
+            width={1024}
+            height={494}
             alt="CTA 2"
-            className={`w-full rounded-lg bg-neutral-100 dark:bg-[rgb(225_214_196)] px-4 py-20 dark:invert`}
+            className={`w-full rounded-lg bg-neutral-100 dark:bg-[rgb(225_214_196)] px-4 py-20 dark:invert w-[248px] h-auto`}
           />
           <Image
             src={`/am_logo.svg`}
-            width={248}
-            height={120}
+            width={1024}
+            height={494}
             alt="CTA 3"
-            className={`w-full rounded-lg bg-neutral-100 dark:bg-[rgb(225_214_196)] px-4 py-20 dark:invert`}
+            className={`w-full rounded-lg bg-neutral-100 dark:bg-[rgb(225_214_196)] px-4 py-20 dark:invert w-[248px] h-auto`}
           />
           <Image
             src={`/am_logo.svg`}
-            width={248}
-            height={120}
+            width={1024}
+            height={494}
             alt="CTA 4"
-            className={`w-full rounded-lg bg-neutral-100 dark:bg-[rgb(225_214_196)] px-4 py-20 dark:invert`}
+            className={`w-full rounded-lg bg-neutral-100 dark:bg-[rgb(225_214_196)] px-4 py-20 dark:invert w-[248px] h-auto`}
           />
         </div>
       </div>

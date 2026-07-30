@@ -2,7 +2,7 @@
 title: Markdoc Baseline
 published: 2024-04-08
 description: How to get started with Markdoc
-icon: faNotdef
+icon: code
 ---
 
 # {% $markdoc.frontmatter.title %}
