@@ -23,13 +23,13 @@ export default async function Profile() {
   return (
     <div className="flex flex-col place-items-center pb-8">
       <div className="max-w-4xl">
-        <div className="grid mx-auto mt-2">
+        <div className="grid place-items-center my-2">
           <Avatar
             name={user.name}
             colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
             className="col-start-1 col-span-1 row-start-1 row-span-1 size-56"
           />
-          <p className="col-start-1 col-span-1 row-start-1 row-span-1 place-self-center text-7xl">{initials}</p>
+          <p className="col-start-1 col-span-1 row-start-1 row-span-1 text-7xl">{initials}</p>
         </div>
         <h2 className="mx-auto text-center mt-2 mb-8 max-w-xs sm:max-w-md md:max-w-xl lg:max-w-3xl text-balance text-4xl font-semibold text-gray-900 dark:text-gray-100 sm:text-5xl">
           <strong className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-2 py-0.5 rounded wrap-break-word">
