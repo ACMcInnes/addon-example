@@ -23,7 +23,7 @@ export default async function Profile() {
   return (
     <div className="flex flex-col place-items-center pb-8">
       <div className="max-w-4xl">
-        <div className="grid place-items-center my-2">
+        <div className="grid place-items-center my-6">
           <Avatar
             name={user.name}
             colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
