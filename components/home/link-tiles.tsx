@@ -1,40 +1,48 @@
-import { faLock, faCode, faArrowRight, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+"use client";
+
+import { authClient } from '@/lib/auth-client';
+import { faLock, faUser, faCode, faArrowRight, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React from "react";
 
-const links = [
-  {
-    url: "//auth.mcinnes.design",
-    label: "Login",
-    icon: faLock,
-    subtitle: "Login to the McInnes Design app",
-    external: true,
-  },
-  {
-    url: "/documentation",
-    label: "Documentation",
-    icon: faCode,
-    subtitle: "Learn how to setup the Neto Addon",
-    external: false,
-  },
-  {
-    url: "/faq",
-    label: "FAQs",
-    icon: faArrowRight,
-    subtitle: "Have a question? We have you covered",
-    external: false,
-  },
-  {
-    url: "//developers.maropost.com/documentation/engineers/tutorials/",
-    label: "Neto Tutorials",
-    icon: faArrowUpRightFromSquare,
-    subtitle: "Take a look at a similar Addon setup",
-    external: true,
-  },
-];
-
 export default function LinkTiles() {
+
+  const { data: session, isPending } = authClient.useSession();
+
+  const links = [
+    {
+      url: session ? "/account" :"//auth.mcinnes.design",
+      label: session ? "Account" : "Login",
+      icon: session ? faUser : faLock,
+      subtitle: session ? "View your Account" : "Login to the McInnes Design app",
+      external: session ? false : true,
+    },
+    {
+      url: "/documentation",
+      label: "Documentation",
+      icon: faCode,
+      subtitle: "Learn how to setup the Neto Addon",
+      external: false,
+    },
+    {
+      url: "/faq",
+      label: "FAQs",
+      icon: faArrowRight,
+      subtitle: "Have a question? We have you covered",
+      external: false,
+    },
+    {
+      url: "//developers.maropost.com/documentation/engineers/tutorials/",
+      label: "Neto Tutorials",
+      icon: faArrowUpRightFromSquare,
+      subtitle: "Take a look at a similar Addon setup",
+      external: true,
+    },
+  ];
+
+  if (isPending) return <p>Loading…</p>;
+
   return (
     <div className="mb-4 grid text-center lg:grid-cols-2 lg:max-w-5xl lg:w-full lg:mb-0 xl:grid-cols-4 xl:text-left">
       {links.map((link) => (

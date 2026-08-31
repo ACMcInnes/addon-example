@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Your details",
 };
 
-export default function BetterAuthServerTestLayout({
+export default function AccountLayout({
   children,
 }: {
   children: React.ReactNode;

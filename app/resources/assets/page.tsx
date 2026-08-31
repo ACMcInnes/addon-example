@@ -12,7 +12,7 @@ const assets = [
     imageHeight: 128,
     icon: null,
     styling: "h-12 rounded-md",
-    href: "https://boringavatars.com/",
+    href: "//boringavatars.com/",
   },
   {
     name: "Font Awesome",
@@ -23,18 +23,18 @@ const assets = [
     imageHeight: null,
     icon: faFontAwesome,
     styling: "text-[rgb(83_141_215)] text-5xl",
-    href: "https://fontawesome.com/",
+    href: "//fontawesome.com/",
   },
   {
-    name: "Auth.js",
-    showLabel: true,
-    role: "API Authentication",
-    imageUrl: "/authjs-icon.webp",
-    imageWidth: 327,
-    imageHeight: 361,
+    name: "Better Auth",
+    showLabel: false,
+    role: "Authentication",
+    imageUrl: "/better-auth-icon.svg",
+    imageWidth: 400,
+    imageHeight: 51.657,
     icon: null,
     styling: "h-12",
-    href: "https://authjs.dev/",
+    href: "//better-auth.com/",
   },
   {
     name: "Markdoc",
@@ -45,19 +45,30 @@ const assets = [
     imageHeight: 37,
     icon: null,
     styling: "h-12",
-    href: "https://markdoc.dev/",
+    href: "//markdoc.dev/",
   },
   {
-    name: "Tailwind UI",
+    name: "Tailwind Plus",
     showLabel: false,
     role: "Component Library",
-    imageUrl: "/tailwindui-icon.svg",
-    imageWidth: 160,
-    imageHeight: 24,
+    imageUrl: "/tailwindplus-icon.svg",
+    imageWidth: 176,
+    imageHeight: 21,
     icon: null,
     styling: "h-9 my-auto",
-    href: "https://tailwindui.com/",
+    href: "//tailwindcss.com/plus",
   },
+  {
+    name: "Headless UI",
+    showLabel: false,
+    role: "UI Components",
+    imageUrl: "/headlessui-icon.svg",
+    imageWidth: 174,
+    imageHeight: 32,
+    icon: null,
+    styling: "h-9 my-auto",
+    href: "//headlessui.com/",
+  },  
   {
     name: "Formspree",
     showLabel: false,
@@ -67,7 +78,7 @@ const assets = [
     imageHeight: 128,
     icon: null,
     styling: "h-9 my-auto",
-    href: "https://formspree.io/",
+    href: "//formspree.io/",
   },
 ];
 
@@ -100,7 +111,7 @@ export default function Assets() {
                   {/* SVG styling not applied in Safari :( */}
                   {asset.icon ? (
                     <FontAwesomeIcon
-                      className={`size-12 flex-none ${asset.styling}`}
+                      className={`size-12 -ml-2 flex-none ${asset.styling}`}
                       icon={asset.icon}
                     />
                   ) : (
@@ -109,14 +120,14 @@ export default function Assets() {
                       width={asset.imageWidth}
                       height={asset.imageHeight}
                       alt={`${asset.name} logo`}
-                      className={`w-auto flex-none ${asset.styling}`}
+                      className={`w-auto max-w-64 flex-none ${asset.styling}`}
                     />
                   )}
 
                   <div className="min-w-0 flex-auto content-center">
                     <p className="text-2xl/6 text-gray-900 dark:text-gray-100">
                       {asset.showLabel && asset.name}
-                      <a href={asset.href}>
+                      <a href={asset.href} target="_blank">
                         <span className="absolute inset-x-0 -top-px bottom-0" />
                       </a>
                     </p>
