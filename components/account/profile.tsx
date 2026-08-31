@@ -1,5 +1,7 @@
 import { getUser } from '@/data/user';
 import { netoRequest } from '@/data/neto';
+import { faArrowLeft, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from 'next/link';
 import Avatar from 'boring-avatars';
 
@@ -8,7 +10,7 @@ export default async function Profile() {
   const user = await getUser();
   const staff = await netoRequest({request: 'users', filter: `?username=${user.username}`});
   const webstore = await netoRequest({request: 'properties'});
-  const items = await netoRequest({request: 'getitem', data:'{ "Filter": { "Visible": ["True"], "IsActive": ["True"], "Page": "0", "Limit": "100", "OutputSelector": ["Model"] }}'});
+  const items = await netoRequest({request: 'getitem', data:'{ "Filter": { "Approved": ["True"], "IsActive": ["True"], "ParentSKU": "" }}'});
   const initials = user.name.match(/\b(\w)/g)?.join('').toUpperCase() || "";
 
   console.log(`STAFF`)
@@ -79,6 +81,36 @@ export default async function Profile() {
                   {user.username}
                 </dd>
               </div>
+              {webstore && (
+                <>
+                  <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+                      Business
+                    </dt>
+                    <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0 dark:text-gray-400">
+                      {webstore.result.business_name}
+                    </dd>
+                  </div>
+                  <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+                      Domain
+                    </dt>
+                    <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0 dark:text-gray-400">
+                      {webstore.result.domain}
+                    </dd>
+                  </div>
+                </>
+              )}
+              {items && (
+                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                  <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+                    Products
+                  </dt>
+                  <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0 dark:text-gray-400">
+                    {items.Item.length}
+                  </dd>
+                </div>
+              )}              
               <div className="px-4 py-6 grid grid-cols-3 gap-4 sm:px-0">
                 <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
                   Manage Account
@@ -89,11 +121,21 @@ export default async function Profile() {
                     href="//auth.mcinnes.design/account"
                     target="_blank"
                   >
-                    View Account
+                    View Account{" "}
+                    <FontAwesomeIcon
+                      className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none"
+                      icon={faArrowUpRightFromSquare}
+                    />
                   </Link>
                 </dd>
               </div>
             </dl>
+          </div>
+          <div className="px-4 sm:px-0 mt-12">
+            <Link href={`/`} className="group block py-2 px-4 rounded-md text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-transparent">
+              <FontAwesomeIcon className="inline-block transition-transform group-hover:-translate-x-2 motion-reduce:transform-none" icon={faArrowLeft} />
+              {" "}Home
+            </Link>
           </div>
         </div>
       </div>

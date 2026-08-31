@@ -12,8 +12,6 @@ export default function Login() {
 
   if (isPending) return <p>Loading…</p>;
   if (session) redirect('/better-auth-server-test');
-    
-const test = "Andrew McInnes" as string
 
   return (
     <div className="flex flex-col place-items-center pb-8">

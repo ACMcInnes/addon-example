@@ -84,7 +84,7 @@ export async function netoRequest({request, data, filter}: {request: string, dat
     }
   );
 
-  console.log(`NETO ${endpoint.name.toUpperCase()}`)
+  console.log(`NETO ${endpoint.name}`)
   console.log(netoRes)
   
   return netoRes.ok ? await netoRes.json() : null;
