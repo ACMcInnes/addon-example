@@ -117,7 +117,7 @@ export default async function Profile() {
                 </dt>
                 <dd className="mt-1 text-sm/6 text-gray-700 col-span-2 mt-0 dark:text-gray-400 text-right">
                   <Link
-                    className="rounded-md bg-indigo-600 ml-5 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500"
+                    className="group rounded-md bg-indigo-600 ml-5 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500"
                     href="//auth.mcinnes.design/account"
                     target="_blank"
                   >
@@ -132,7 +132,7 @@ export default async function Profile() {
             </dl>
           </div>
           <div className="px-4 sm:px-0 mt-12">
-            <Link href={`/`} className="group block py-2 px-4 rounded-md text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-transparent">
+            <Link href={`/`} className="group p-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-transparent">
               <FontAwesomeIcon className="inline-block transition-transform group-hover:-translate-x-2 motion-reduce:transform-none" icon={faArrowLeft} />
               {" "}Home
             </Link>

@@ -16,7 +16,7 @@ export default function LinkTiles() {
       label: session ? "Account" : "Login",
       icon: session ? faUser : faLock,
       subtitle: session ? "View your Account" : "Login to the McInnes Design app",
-      external: session ? false : true,
+      external: false,
     },
     {
       url: "/documentation",
