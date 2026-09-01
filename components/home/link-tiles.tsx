@@ -41,7 +41,28 @@ export default function LinkTiles() {
     },
   ];
 
-  if (isPending) return <p>Loading…</p>;
+  if (isPending) return (
+    <div className="mb-4 grid text-center lg:grid-cols-2 lg:max-w-5xl lg:w-full lg:mb-0 xl:grid-cols-4 xl:text-left">
+      {links.map((link) => (
+        <React.Fragment key={`${link.label} SK`}>
+          <div
+            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 dark:hover:border-neutral-700 dark:hover:bg-neutral-800/30"
+          >
+            <h2 className={`mb-3 text-2xl`}>
+              <strong className="bg-current">
+                Placeholder
+              </strong>
+            </h2>
+            <p className={`m-0 text-sm opacity-50`}>
+              <span className="bg-current opacity-50">
+                I'm loading...<br/> me too!
+              </span>
+            </p>
+          </div>
+        </React.Fragment>
+      ))}
+    </div>
+  );
 
   return (
     <div className="mb-4 grid text-center lg:grid-cols-2 lg:max-w-5xl lg:w-full lg:mb-0 xl:grid-cols-4 xl:text-left">

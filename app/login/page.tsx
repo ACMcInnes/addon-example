@@ -11,7 +11,7 @@ export default function Login() {
   const { data: session, isPending, error } = authClient.useSession();
 
   if (isPending) return <p>Loading…</p>;
-  if (session) redirect('/better-auth-server-test');
+  if (session) redirect('/account');
 
   return (
     <div className="flex flex-col place-items-center pb-8">
