@@ -14,8 +14,8 @@ config.autoAddCss = false;
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Addon Example',
-  description: 'A webstore addon example',
+  title: 'Commerce Sommelier',
+  description: 'Meet Gustave, a shopping experience curator ready to push your products to the customers that need them the most',
 }
 
 export default function RootLayout({

@@ -38,7 +38,7 @@ export const getTokenContext = async () => {
       headers: {
         "Content-Type": "application/json",
         cookie,
-        origin: "https://neto.mcinnes.design",
+        origin: "https://commerce.mcinnes.design",
       },
       body: JSON.stringify({ providerId: "neto" }),
       cache: "no-store",

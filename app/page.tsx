@@ -39,7 +39,7 @@ export default function Home() {
               Gus offers customers a curated shopping experience by analyzing shopping habits and offering highly personalised product catalogues.
             </p>
             <p className="mt-6 text-lg md:text-xl lg:text-2xl text-balance font-semibold">
-              Every fine dining establishment needs a Sommelier for wine pairings, so shouldn&apos;t your webstore have a Sommelier for pairing your products to your.
+              Every fine dining establishment needs a Sommelier for wine pairings, so shouldn&apos;t your webstore have a Sommelier for product pairings.
             </p>
             <p className="mt-6 text-lg md:text-xl lg:text-2xl text-balance font-semibold">
               Your own personal &quot;Comm Somm&quot;
