@@ -85,12 +85,12 @@ const assets = [
 export default function Assets() {
   return (
     <section className="w-full max-w-(--breakpoint-xl)">
-      <h1 className="mx-auto text-center mt-2 text-balance text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
+      <h1 className="mx-auto text-center mt-2 text-balance text-4xl font-semibold tracking-tight text-indigo-600 dark:text-indigo-500 sm:text-5xl">
         Assets
       </h1>
 
       <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg text-gray-700 dark:text-gray-300 sm:text-xl/8">
-        Wondering how the Neto Addon Example does something? This application
+        Wondering how Commerce Sommelier does something? This application
         uses a combination of bespoke code along with various 3rd party services
         to build out functionality &#40;why reinvent the wheel right?&#41;
       </p>
@@ -127,7 +127,7 @@ export default function Assets() {
                   <div className="min-w-0 flex-auto content-center">
                     <p className="text-2xl/6 text-gray-900 dark:text-gray-100">
                       {asset.showLabel && asset.name}
-                      <a href={asset.href} target="_blank">
+                      <a href={asset.href} target="_blank" rel="noopener noreferrer">
                         <span className="absolute inset-x-0 -top-px bottom-0" />
                       </a>
                     </p>

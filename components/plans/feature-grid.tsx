@@ -21,15 +21,15 @@ interface planSections {
 
 const tiers = [
   {
-    name: "Hobby",
-    id: "tier-hobby",
+    name: "Basic",
+    id: "tier-Basic",
     href: "#get-started",
     priceMonthly: "$0",
     mostPopular: false,
   } as planTiers,
   {
-    name: "Enterprise",
-    id: "tier-enterprise",
+    name: "Advanced",
+    id: "tier-Advanced",
     href: "#get-started",
     priceMonthly: "$29",
     mostPopular: true,
@@ -49,19 +49,15 @@ const sections = [
     features: [
       {
         name: "Secure API Connection",
-        tiers: { Hobby: true, Enterprise: true, Custom: true },
+        tiers: { Basic: true, Advanced: true, Custom: true },
       },
       {
         name: "Product Limit",
-        tiers: { Hobby: "10,000", Enterprise: "100,000", Custom: "Unlimited" },
+        tiers: { Basic: "10,000", Advanced: "100,000", Custom: "Unlimited" },
       },
       {
         name: "Sync Time",
-        tiers: { Hobby: "Daily", Enterprise: "Hourly", Custom: "Every 15 mins" },
-      },
-      {
-        name: "Data Automations",
-        tiers: { Hobby: false, Enterprise: false, Custom: true },
+        tiers: { Basic: "Daily", Advanced: "Hourly", Custom: "Every 15 mins" },
       },
     ],
   } as planSections,
@@ -69,20 +65,20 @@ const sections = [
     name: "Addons",
     features: [
       {
-        name: "Basic Reporting",
-        tiers: { Hobby: true, Enterprise: true, Custom: true },
+        name: "Basic Personalisation",
+        tiers: { Basic: true, Advanced: true, Custom: true },
       },      
       {
-        name: "Advanced Analytics",
-        tiers: { Hobby: false, Enterprise: true, Custom: true },
+        name: "Advanced Personalisation",
+        tiers: { Basic: false, Advanced: true, Custom: true },
       },
       {
-        name: "Custom Integrations",
-        tiers: { Hobby: false, Enterprise: true, Custom: true },
+        name: "Integrations",
+        tiers: { Basic: false, Advanced: true, Custom: true },
       },
       {
-        name: "Data backup",
-        tiers: { Hobby: false, Enterprise: false, Custom: true },
+        name: "Data Backup",
+        tiers: { Basic: false, Advanced: false, Custom: true },
       },
     ],
   } as planSections,
@@ -91,19 +87,15 @@ const sections = [
     features: [
       {
         name: "General Support",
-        tiers: { Hobby: true, Enterprise: true, Custom: true },
+        tiers: { Basic: true, Advanced: true, Custom: true },
       },
       {
-        name: "Enterprise Support",
-        tiers: { Hobby: false, Enterprise: true, Custom: true },
+        name: "Advanced Support",
+        tiers: { Basic: false, Advanced: true, Custom: true },
       },
       {
-        name: "Priority phone support",
-        tiers: { Hobby: false, Enterprise: false, Custom: true },
-      },
-      {
-        name: "Dedicated support agent",
-        tiers: { Hobby: false, Enterprise: false, Custom: true },
+        name: "Dedicated Support Agent",
+        tiers: { Basic: false, Advanced: false, Custom: true },
       },
     ],
   } as planSections,
@@ -133,7 +125,7 @@ export default function FeatureGrid() {
                 id={tier.id}
                 className="text-sm/6 font-semibold text-gray-900 dark:text-gray-100"
               >
-                {tier.name}
+                {tier.name} Seller
               </h3>
               <p className="mt-2 flex items-baseline gap-x-1 text-gray-900 dark:text-gray-100">
                 <span className="text-4xl font-semibold">
@@ -223,7 +215,7 @@ export default function FeatureGrid() {
                       className="px-6 pt-6 xl:px-8 xl:pt-8"
                     >
                       <div className="text-sm/7 font-semibold text-gray-900 dark:text-gray-100">
-                        {tier.name}
+                        {tier.name} Seller
                       </div>
                     </th>
                   ))}
@@ -330,12 +322,12 @@ export default function FeatureGrid() {
             Beta Program Application
           </h3>
           <p className="mt-2 text-base/7 text-gray-600 dark:text-gray-300">
-            While in development only Hobby plan features will be available, and
-            these will be rolled out in stages. Log in with your Neto
+            While in development only Basic Seller features will be available, and
+            these will be rolled out in stages. Log in with your ecommerce platform
             credentials to see what is currently available.
           </p>
           <p className="mt-1 text-base/7 text-gray-600 dark:text-gray-400">
-          <span className="align-top">*</span> No payment details required
+          <span className="align-top">*</span> No payment details required, only Neto login supported
           </p>
         </div>
         <Link

@@ -13,7 +13,7 @@ export default async function SlimFooter() {
           className="pointer-events-none flex flex-row place-items-center gap-2 p-2 lg:pointer-events-auto"
           href="//andrew.mcinnes.design/"
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener"
         >
           By{" "}
           <Image

@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from '@/lib/auth-client';
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
@@ -7,11 +8,13 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark, faBars, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faXmark, faBars } from "@fortawesome/free-solid-svg-icons";
 import { faYoutube, faInstagram, faLinkedinIn, faBluesky, faGithub, faMastodon } from "@fortawesome/free-brands-svg-icons";
 import OfficeHours from "@/components/shared/office-hours";
 
 export default function Nav() {
+  const { data: session, isPending } = authClient.useSession();
+
   const pathname = usePathname();
   const [nav, setNav] = useState(false);
 
@@ -42,7 +45,7 @@ export default function Nav() {
 
   return (
     <nav className="w-full items-center justify-between md:justify-center gap-8 mb-12 py-2 text-sm flex bg-slate-800 text-white">
-      <Link href="/">
+      <Link href="/" aria-label="Home">
         <Image
           src="/am_logo.svg"
           alt="AM Logo"
@@ -57,6 +60,8 @@ export default function Nav() {
           ["About Us", "/about-us"],
           ["Contact", "/contact"],
           ["Assets", "/resources/assets"],
+          ["Connect", "/connect"],
+          [`${session ? "Account" : "Login"}`, `${session ? "/account" : "/login"}`],
         ].map(([title, url], index) => (
           <li key={`d-menu-${index}`}>
             <Link
@@ -94,7 +99,7 @@ export default function Nav() {
             key="m-menu-heading"
             className="text-lg border-b-2 mb-2 w-full pt-20"
           >
-            Menu
+            Company
           </li>
           {[
             ["About Us", "/about-us"],
@@ -105,7 +110,7 @@ export default function Nav() {
               key={`m-menu-${index}`}
               className={`self-end py-2 index-${index}`}
             >
-              <Link className="text-sky-400" href={url}>
+              <Link className="text-sky-400" href={url} onClick={() => setNav(!nav)}>
                 {title}
               </Link>
             </li>
@@ -124,29 +129,29 @@ export default function Nav() {
             ["Documentation", "/documentation"],
           ].map(([title, url], index) => (
             <li key={`m-res-${index}`} className="self-end py-2">
-              <Link className="text-sky-400" href={url}>
+              <Link className="text-sky-400" href={url} onClick={() => setNav(!nav)}>
                 {title}
               </Link>
             </li>
           ))}
 
           <li
-            key="m-neto-heading"
+            key="m-plat-heading"
             className="text-lg border-b-2 mb-2 w-full"
           >
-            Neto
+            Connect
           </li>
           {[
-            ["What is Neto", "//maropost.com/platform/neto-by-maropost/"],
-            [
-              "API Documentation",
-              "//developers.maropost.com/documentation/engineers/api-documentation",
-            ],
-            ["Status", "//status.netohq.com/"],
+            ["Neto", "/connect#neto"],
+            ["Shopify", "/connect#shopify"],
+            ["Wix", "/connect#wix"],
+            ["Squarespace", "/connect#squarespace"],
+            ["WooCommerce", "/connect#woo"],
+            ["BigCommerce", "/connect#big"],
           ].map(([title, url], index) => (
-            <li key={`m-neto-${index}`} className="self-end py-2">
-              <Link className="text-sky-400" href={url} target="_blank">
-                {title} <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+            <li key={`m-plat-${index}`} className="self-end py-2">
+              <Link className="text-sky-400" href={url} onClick={() => setNav(!nav)}>
+                {title}
               </Link>
             </li>
           ))}
@@ -160,6 +165,10 @@ export default function Nav() {
             <FontAwesomeIcon icon={faMastodon} className="w-[24px] h-[24px]!" />
             <FontAwesomeIcon icon={faBluesky} className="w-[24px] h-[24px]!" />
             <FontAwesomeIcon icon={faGithub} className="w-[24px] h-[24px]!" />
+            <Link className="text-base text-sky-400 ml-auto" href={session ? "/account" : "/login"} onClick={() => setNav(!nav)}>
+              <FontAwesomeIcon icon={faUser} className="text-xl w-[24px] h-[24px]!" />
+            </Link>
+            
           </li>
           <li key="header-open">
             <OfficeHours />

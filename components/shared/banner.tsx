@@ -4,11 +4,11 @@ export default function Banner() {
       <div className="galaxy-bg flex w-full justify-center pb-3 pt-4">
         <a
           className="pointer-events-none lg:pointer-events-auto text-white"
-          href="https://developers.maropost.com/"
+          href="//mcinnes.design/"
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener"
         >
-          Built for Neto
+          A McInnes Design Product
         </a>
       </div>
     </div>

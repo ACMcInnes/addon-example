@@ -11,9 +11,8 @@ export default function NotFound() {
         <Banner/>
         <Nav/>
       </header>
-      <main className="flex flex-col items-center px-5">
+      <main className="flex flex-col items-center px-5 py-24 sm:py-32">
         <div className="text-center">
-          <p className="text-base font-semibold text-indigo-600 dark:text-indigo-400">404</p>
           <h1 className="mt-4 text-5xl font-semibold tracking-tight text-balance text-gray-900 sm:text-7xl dark:text-white">
             Page not found
           </h1>

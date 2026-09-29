@@ -26,7 +26,6 @@ export default function DocumentationLayout({
         <Banner/>
         <Nav/>
       </header>
-      <h2 className="w-full text-center text-base/7 font-semibold text-indigo-600 dark:text-indigo-500">Documentation</h2>
       <main className="flex flex-wrap lg:flex-nowrap items-center px-5 w-full mx-auto max-w-(--breakpoint-xl)">
         <Sidebar>
           <SidebarContent />

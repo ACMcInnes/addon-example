@@ -40,7 +40,7 @@ export default async function Footer() {
               key="f-menu-heading"
               className="text-lg border-b-2 border-inherit mb-2"
             >
-              Menu
+              Company
             </li>
             {[
               ["About Us", "/about-us"],
@@ -88,32 +88,34 @@ export default async function Footer() {
           </ul>
           <ul className="flex flex-col w-full flex-auto lg:flex-initial lg:basis-44 gap-x-8 gap-y-2">
             <li
-              key="f-neto-heading"
+              key="f-plat-heading"
               className="text-lg border-b-2 border-inherit mb-2"
             >
-              Neto
+              Connect
             </li>
             {[
-              ["What is Neto", "//maropost.com/platform/neto-by-maropost/"],
-              ["API Documentation", "//developers.maropost.com/documentation/engineers/api-documentation"],
-              ["Status", "//status.netohq.com/"],
+              ["Neto", "/connect#neto"],
+              ["Shopify", "/connect#shopify"],
+              ["Wix", "/connect#wix"],
+              ["Squarespace", "/connect#squarespace"],
+              ["WooCommerce", "/connect#woo"],
+              ["BigCommerce", "/connect#big"],
             ].map(([title, url], index) => (
               <li
-                key={`f-neto-${index}`}
+                key={`f-plat-${index}`}
                 className="self-end lg:self-auto py-2 md:py-0.5"
               >
                 <Link
                   className="text-slate-200 hover:text-indigo-300"
                   href={url}
-                  target="_blank"
                 >
-                  {title} <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                  {title}
                 </Link>
               </li>
             ))}
           </ul>
         </nav>
-        <section className="w-full md:w-6/12 flex flex-col items-end justify-center gap-2 md:mt-12 p-12 md:p-8 text-sm">
+        <section className="w-full md:w-6/12 flex flex-col items-end gap-2 md:mt-12 p-12 md:p-8 text-sm">
           <SubscriberForm />
 
           <p className="mt-4 flex justify-center gap-1">
@@ -149,7 +151,8 @@ export default async function Footer() {
           <a
             href="//andrew.mcinnes.design/"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
+            aria-label="Andrew McInnes"
           >
             <Image
               src="/am_logo.svg"
@@ -195,7 +198,7 @@ export default async function Footer() {
           <div className="h-64 lg:h-80 w-11/12 md:w-8/12 lg:w-9/12 max-w-(--breakpoint-xl) my-8 mx-2">
             <div className="galaxy-bg flex flex-col items-center justify-center size-full! rounded-2xl">
               <p className="text-lg md:text-2xl">
-                Connect your Neto webstore today
+                Connect your webstore today
               </p>
               <Link
                 href={`/documentation/getting-started`}

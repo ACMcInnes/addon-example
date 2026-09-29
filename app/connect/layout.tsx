@@ -4,11 +4,11 @@ import Nav from "@/components/shared/nav";
 import Footer from "@/components/shared/footer";
 
 export const metadata: Metadata = {
-  title: "Addon Contact",
-  description: "Contact Us Form",
+  title: "Platforms",
+  description: "Learn how to connect your ecommerce platform to the Commerce Sommelier",
 };
 
-export default function ContactLayout({
+export default function FaqLayout({
   children,
 }: {
   children: React.ReactNode;

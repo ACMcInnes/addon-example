@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Avatar from 'boring-avatars';
@@ -75,19 +73,20 @@ const people = [
 export default function About() {
   return (
     <section>
-      <h1 className="mx-auto text-center mt-2 text-balance text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
+      <h1 className="mx-auto text-center mt-2 text-balance text-4xl font-semibold tracking-tight text-indigo-600 dark:text-indigo-500 sm:text-5xl">
         About Us
       </h1>
       <p className="mt-10">
-        McInnes Design is a boutique design and development agency based in Brisbane, Australia. Starting off as a passion project, founder Andrew McInnes quickly got to work growing the team and expanding the business.
-        Bringing in the best of the best was critical to their initial success.
+        Commerce Sommelier is designed and built by{" "}
+        <span className="font-bold">McInnes Design</span>, a boutique design and
+        development agency based in Brisbane &#124; Meanjin, Australia. McInnes
+        Design is a small but dedicated team that saw a gap, that AI quickly
+        filled, but that hasn&apos;t stopped us from building Gus.
       </p>
-      <p className="mt-4">  
-        Working with clients of all shapes and sizes McInnes Design quickly established itself as a key player in the Brisbane market.
-        From there, global fame and renown followed. Then...
-      </p>
-      <p className="mt-4 text-gray-500 dark:text-gray-400">
-        <span className="align-top">*</span> I Actually haven&apos;t founded anything. This <span className="italic">is</span> a passion project of mine, buts it&apos;s something being done in my spare time.
+      <p className="mt-4">
+        As Frankenstein needed to build their monster, we needed to build
+        Gustave. Then we got to know him a bit, and affectionately started refer
+        to him as &quot;Gus&quot; and now we can&apos;t stop!
       </p>
 
       <h2 className="text-2xl font-semibold mt-12 mb-2">Meet The Team</h2>
@@ -96,14 +95,26 @@ export default function About() {
         {people.map((person) => (
           <li key={person.email} className="flex justify-between gap-x-6 py-5">
             <div className="flex min-w-0 gap-x-4">
-              <Avatar name={person.avatar} variant="beam" size={50} colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]} className="flex-none" />
+              <Avatar
+                name={person.avatar}
+                variant="beam"
+                size={50}
+                colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
+                className="flex-none"
+              />
               <div className="min-w-0 flex-auto">
-                <p className="text-sm/6 font-semibold text-gray-800 dark:text-gray-100">{person.name}</p>
-                <p className="hidden md:block mt-1 truncate text-xs/5 text-gray-500 dark:text-gray-400">{person.note}</p>
+                <p className="text-sm/6 font-semibold text-gray-800 dark:text-gray-100">
+                  {person.name}
+                </p>
+                <p className="hidden md:block mt-1 truncate text-xs/5 text-gray-500 dark:text-gray-400">
+                  {person.note}
+                </p>
               </div>
             </div>
             <div className="shrink-0 flex flex-col items-end">
-              <p className="text-sm/6 text-gray-800 dark:text-gray-100">{person.role}</p>
+              <p className="text-sm/6 text-gray-800 dark:text-gray-100">
+                {person.role}
+              </p>
               <p className="mt-1 text-xs/5 text-gray-500">{person.email}</p>
             </div>
           </li>
@@ -111,22 +122,43 @@ export default function About() {
       </ul>
 
       <div className="mt-12 px-12 py-32 text-white text-center bg-linear-to-br from-indigo-800 from-40% to-indigo-600 dark:from-indigo-900 dark:to-indigo-950 rounded-2xl">
-        <p className="text-lg font-semibold">&quot;I&apos;ll kidnap a thousand children before I let this company die&quot;</p>
+        <p className="text-lg font-semibold text-balance">
+          <span className="align-super">&quot;</span>{" "}
+          I&apos;ll kidnap a thousand children before I let this company die
+          {" "}<span className="align-super">&quot;</span>
+        </p>
         <p className="mt-3">Henry J. Waternoose III</p>
-        <p className="text-sm/5 text-gray-300">&#40;Inspirational quote of the day&#41;</p>
+        <p className="text-sm/5 text-gray-300">
+          &#40;Gus&apos;s Inspirational quote of the day&#41;
+        </p>
       </div>
 
       <h2 className="text-2xl font-semibold mt-16 mb-8">Endorsements</h2>
 
-      <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <ul
+        role="list"
+        className="grid gap-x-8 gap-y-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      >
         {people.map((person) => (
           <li key={person.avatar}>
             <div className="flex flex-col items-center gap-x-6">
-            <Avatar name={person.avatar} variant="beam" colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]} square className="flex-none size-8/12 sm:size-full rounded-2xl" />
+              <Avatar
+                name={person.avatar}
+                variant="beam"
+                colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
+                square
+                className="flex-none size-8/12 sm:size-full rounded-2xl"
+              />
               <div className="text-center">
-                <h3 className="mt-4 text-base/7 font-semibold tracking-tight">{person.name}</h3>
-                <p className="text-sm/6 font-semibold text-gray-500">{person.role}</p>
-                <p className="mt-3 text-sm/6 text-balance text-gray-700 dark:text-gray-300">&quot;{person.endorsement}&quot;</p>
+                <h3 className="mt-4 text-base/7 font-semibold tracking-tight">
+                  {person.name}
+                </h3>
+                <p className="text-sm/6 font-semibold text-gray-500">
+                  {person.role}
+                </p>
+                <p className="mt-3 text-sm/6 text-balance text-gray-700 dark:text-gray-300">
+                  &quot;{person.endorsement}&quot;
+                </p>
               </div>
             </div>
           </li>
@@ -134,18 +166,27 @@ export default function About() {
       </ul>
 
       <p className="mt-16 pt-8 text-lg text-center text-balance border-t-2 border-indigo-600 dark:border-indigo-500">
-        A Neto integration developed by{" "}
-        <Link href="//andrew.mcinnes.design/" target="_blank" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
+        Commerce Sommelier is developed by McInnes Design, a.k.a{" "}
+        <a
+          href="//andrew.mcinnes.design/"
+          target="_blank"
+          rel="noopener"
+          className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+        >
           Andrew McInnes <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-        </Link>
+        </a>
       </p>
 
       <p className="mt-8 text-center">
-        <Link href="https://github.com/ACMcInnes/addon-example" target="_blank" className="text-[#24292f] dark:text-white">
+        <a
+          href="https://github.com/ACMcInnes/addon-example"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#24292f] dark:text-white"
+        >
           <FontAwesomeIcon icon={faGithub} className="size-24!" />
-        </Link>
+        </a>
       </p>
-      
     </section>
   );
 }

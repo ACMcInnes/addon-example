@@ -18,7 +18,7 @@ export default function AccountLayout({
         <Banner/>
       </header>
       <main className="flex flex-col items-center px-5">
-        <h2 className="text-base/7 font-semibold text-indigo-600 dark:text-indigo-500">Account</h2>
+        <h2 className="text-base/7 font-semibold text-indigo-600 dark:text-indigo-500">Seller Account</h2>
         {children}
       </main>
       <Footer/>

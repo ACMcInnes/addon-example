@@ -4,9 +4,9 @@ import Banner from "@/components/shared/banner";
 import Footer from "@/components/shared/footer";
 import Nav from "@/components/shared/nav";
 import LinkTiles from "@/components/home/link-tiles";
-import TrustedTeams from "@/components/home/trusted-teams";
+import Team from "@/components/home/team";
 import Features from "@/components/home/features";
-import Sponsors from "@/components/home/sponsors";
+import Connectors from "@/components/home/connectors";
 import Plans from "@/components/home/plans";
 import Cta from "@/components/home/cta";
 
@@ -18,50 +18,57 @@ export default function Home() {
         <Nav />
       </header>
       <main className="flex flex-col items-center justify-between p-6 lg:p-24">
-        <div className="relative flex flex-col place-items-center pb-8">
-          <h1 className="text-5xl lg:text-6xl text-center font-semibold">
-            A Neto Addon Example
-          </h1>
-          <p className="mt-2 sm:mt-1 text-xs text-gray-500">*currently in development</p>
-          <Link href={`/documentation/getting-started`} className="group block mt-8 mb-4 py-3 px-8 rounded-md bg-indigo-600 text-white dark:bg-indigo-500 border-transparent">
-            Get Started{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-2 motion-reduce:transform-none">-&gt;</span>
-          </Link>
-          <h2 className="mt-16 lg:mb-24 text-lg md:text-xl lg:text-2xl font-semibold">
-            or select an option below
+        <div className="@container w-full max-w-(--breakpoint-xl)">
+          <p className="text-lg font-medium text-pretty text-gray-700 sm:text-xl/8 dark:text-gray-300">
+            Say hello to
+          </p>
+          <h2 className="text-[22cqw] leading-none font-semibold tracking-tight">
+            GUSTAVE
           </h2>
         </div>
 
-        <LinkTiles />
-
-        <h2 className="mt-12 w-full max-w-(--breakpoint-xl) text-base/7 text-left font-semibold text-indigo-600 dark:text-indigo-500">
-            What is the Neto Addon Example?
-        </h2>
-        <p className="w-full max-w-(--breakpoint-xl) text-left mt-2 text-pretty text-3xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl lg:text-balance">
-          The Neto Addon Example outlines how an integration with the Neto eCommerce platform might function.
-        </p>
-        <div className="w-full max-w-(--breakpoint-xl) mt-6 px-6 lg:px-12 py-8 text-white text-center bg-linear-to-br from-indigo-800 from-40% to-indigo-600 dark:from-indigo-900 dark:to-indigo-950 rounded-2xl">
-          <p className="mt-3 text-pretty text-lg">
-            From a technical standpoint, the Neto Addon Example shows a method of completing the OAuth authentication flow required to access the Neto API.
-            It also shows some of the ways the Neto API can be polled and that data used at an application level. This application is just an example and does
-            not outline any requirements for a Neto integration - these should be discussed with Neto directly.
+        <div className="w-full max-w-(--breakpoint-xl) flex flex-col place-items-start pb-8">
+          <p className="text-lg font-medium text-pretty text-gray-700 sm:text-xl/8 dark:text-gray-300">
+            your customers very own
           </p>
-          <p className="mt-6 text-pretty text-lg">
-            From a feature standpoint, the Neto Addon Example lets you connect to your Neto webstore and retreive your control panel data.
-            Currently this is limited to product data, to show a list of thumbnails, then a main product page - similar to a Neto webstore frontend.
-            Additional functionality will be added over time.
-          </p>
+          <h1 className="text-5xl lg:text-6xl font-semibold">
+            Commerce Sommelier
+          </h1>
+          <div className="mt-6 px-6 lg:px-12 py-8 text-white text-center bg-linear-to-br from-indigo-800 from-40% to-indigo-600 dark:from-indigo-900 dark:to-indigo-950 rounded-2xl">
+            <p className="mt-3 text-lg md:text-xl lg:text-2xl text-balance font-semibold">
+              Gus offers customers a curated shopping experience by analyzing shopping habits and offering highly personalised product catalogues.
+            </p>
+            <p className="mt-6 text-lg md:text-xl lg:text-2xl text-balance font-semibold">
+              Every fine dining establishment needs a Sommelier for wine pairings, so shouldn&apos;t your webstore have a Sommelier for pairing your products to your.
+            </p>
+            <p className="mt-6 text-lg md:text-xl lg:text-2xl text-balance font-semibold">
+              Your own personal &quot;Comm Somm&quot;
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              <Link
+                href={`/documentation/getting-started`}
+                className="group block mx-auto mb-2 py-3 px-8 rounded-md bg-white text-black mix-blend-screen dark:bg-white border-transparent"
+              >
+                Get Started{" "}
+                <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                  -&gt;
+                </span>
+              </Link>
+            </div>
+            <p className="text-xs text-gray-200">*currently in development</p>
+          </div>
         </div>
 
+        <p className="text-lg font-medium text-pretty sm:text-xl/8 text-gray-700 dark:text-gray-300">
+          or select an option below
+        </p>
+        <LinkTiles />
+
         <Features />
-
-        <Sponsors />
-
+        <Connectors />
         <Plans />
-
         <Cta />
-
-        <TrustedTeams />
+        <Team />
 
       </main>
       <Footer/>

@@ -26,7 +26,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
       */}
       <div className="hidden lg:flex lg:flex-col h-full max-w-md p-2 pr-4 border-r-2 border-neutral-200 dark:border-slate-800">
         <div className={`flex flex-row ${sidebar ? 'justify-between items-center' : 'justify-end'}`}>
-          <p className={`${sidebar ? '' : 'hidden'}`}>Addon Documentation</p>
+          <p className={`text-balance ${sidebar ? '' : 'hidden'}`}>Commerce Sommelier Seller Documentation</p>
           <button
             title="Toggle Sidebar"
             className="text-xl text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"

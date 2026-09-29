@@ -22,7 +22,7 @@ export default function MobileTop() {
     className={`flex items-center align-center mt-4 md:hidden`}
   >
    Back to top{" "}
-   <FontAwesomeIcon icon={faArrowTurnUp} className="ml-2 py-2 px-4 rounded-md bg-blue-500 text-lg text-white" />
+   <FontAwesomeIcon icon={faArrowTurnUp} className="ml-2 py-2 px-4 rounded-md text-lg bg-white hover:bg-indigo-50 text-indigo-800 dark:text-indigo-900" />
   </button>
   );
 }

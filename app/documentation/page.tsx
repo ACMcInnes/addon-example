@@ -7,15 +7,14 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
 export default async function Documentation() {
   let pages = getMarkdoc();
   return (
-    <>
-      <h1 className="mx-auto mt-6 mb-8 text-balance text-4xl font-semibold text-gray-900 dark:text-gray-100 sm:text-5xl">
-        Neto Addon Example Documentation
+    <section>
+      <h1 className="mx-auto mt-6 mb-8 text-balance text-4xl font-semibold text-indigo-600 dark:text-indigo-500 sm:text-5xl">
+        Commerce Sommelier Seller Documentation
       </h1>
-
-      <p>The following guides outline the features and functionality of the Neto Addon Example application. If you are new here the &apos;Get Started&apos; guide is a great first step. If anything isn&apos;t super clear or you have further questions please contact us.</p>
-
+      <p>Looking to become a seller? The following guides outline the features and functionality of the Commerce Sommelier application. If you are new here the &apos;Get Started&apos; guide is a great first step. If anything isn&apos;t super clear or you have further questions please contact us.</p>
+      <p className="mt-4">If you are a buyer you do not need an account.</p>
       <p className="mt-8 text-2xl font-semibold">
-        Guides
+        Seller Guides
       </p>
 
       <div className="m-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -54,6 +53,6 @@ export default async function Documentation() {
       <p className="mt-4">content content content</p>
       <p className="mt-4">content content content</p>
       <p className="mt-4">content content content</p>
-    </>
+    </section>
   );
 }

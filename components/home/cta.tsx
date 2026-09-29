@@ -1,70 +1,42 @@
 import Link from "next/link";
-import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChartSimple, faDollarSign, faEarthOceania, faRocket } from "@fortawesome/free-solid-svg-icons";
 
 const ctas = [
-  { name: 'Australian Based', description: 'Locally grown and sourced by a Brisbane based developer' },
-  { name: 'No Upfront Cost', description: 'Free to use while application is in beta' },
-  { name: 'Lighting Fast', description: 'Access your content quick' },
-  { name: 'You\'re still reading this?', description: 'Click one of the buttons below or keep on scrolling then' },
+  { name: 'Australian Based', description: 'Locally grown and sourced by a Brisbane | Meanjin based developer', icon: faEarthOceania },
+  { name: 'No Upfront Cost', description: 'Free to use while application is in beta', icon: faDollarSign },
+  { name: 'Lighting Fast', description: 'Access your content quick', icon: faRocket },
+  { name: 'Your Data', description: 'We won\'t sell your data, run it through AI, or laugh at anything awkward we see', icon: faChartSimple },
 ]
   
 export default function Cta() {
   return (
-    <div className="mt-12 w-full max-w-(--breakpoint-xl)">
-      <div className="mx-auto grid max-w-2xl grid-cols-1 items-center gap-x-8 gap-y-16 px-0 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
-        <div>
-          <h2 className="text-base/7 text-left font-semibold text-indigo-600 dark:text-indigo-500">
-            You&apos;re still here?
-          </h2>
-          <p className="text-3xl mt-2 font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">Get Connected</p>
-          <p className="mt-4 text-gray-500 dark:text-gray-400">
-            If you are reading this you either scrolled down really quickly and don&apos;t know whats going on, or you&apos;re very interested in the Neto Addon Example application.
-            That&apos;s great! Lets keep this good thing going and create your account.
-          </p>
-          <dl className="mt-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-12 lg:gap-x-8">
+    <div className="py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+          <div className="col-span-2">
+            <h2 className="mt-2 text-4xl font-semibold tracking-tight text-pretty sm:text-5xl text-indigo-600 dark:text-indigo-500">
+              Why a Commerce Sommelier
+            </h2>
+            <p className="mt-6 text-base/7 text-gray-700 dark:text-gray-300">
+              Stop making customers search for what they want, instead ask them what they want. Just &quot;Ask Gus&quot;.
+            </p>
+          </div>
+          <dl className="col-span-3 grid grid-cols-1 gap-x-8 gap-y-10 text-base/7 text-gray-600 sm:grid-cols-2 lg:gap-y-16 dark:text-gray-400">
             {ctas.map((cta) => (
-              <div key={cta.name} className="border-t border-gray-200 pt-4">
-                <dt className="font-medium text-gray-900 dark:text-gray-100">{cta.name}</dt>
-                <dd className="mt-2 text-sm text-pretty text-gray-500 dark:text-gray-400">{cta.description}</dd>
+              <div key={cta.name} className="relative pl-9">
+                <dt className="font-semibold text-gray-900 dark:text-white">
+                  <FontAwesomeIcon
+                    aria-hidden="true"
+                    className="absolute top-1 left-0 !size-5 text-indigo-500 dark:text-indigo-400"
+                    icon={cta.icon}
+                  />
+                  {cta.name}
+                </dt>
+                <dd className="mt-2">{cta.description}</dd>
               </div>
             ))}
-            <div className="justify-items-center sm:justify-items-end">
-              <Link href={`/documentation/getting-started`} className="block py-2 px-4 rounded-md text-gray-100 bg-indigo-600 hover:bg-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-400 border-transparent">Get Started</Link>
-            </div>
-            <div className="justify-items-center -mt-6 sm:justify-items-start sm:mt-0">
-              <Link href={`#`} className="block py-2 px-4 rounded-md text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-transparent">Naa</Link>
-            </div>
           </dl>
-        </div>
-        <div className="grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8">
-          <Image
-            src={`/am_logo.svg`}
-            width={1024}
-            height={494}
-            alt="CTA 1"
-            className={`w-full rounded-lg bg-neutral-100 dark:bg-[rgb(225_214_196)] px-4 py-20 dark:invert w-[248px] h-auto`}
-          />
-          <Image
-            src={`/am_logo.svg`}
-            width={1024}
-            height={494}
-            alt="CTA 2"
-            className={`w-full rounded-lg bg-neutral-100 dark:bg-[rgb(225_214_196)] px-4 py-20 dark:invert w-[248px] h-auto`}
-          />
-          <Image
-            src={`/am_logo.svg`}
-            width={1024}
-            height={494}
-            alt="CTA 3"
-            className={`w-full rounded-lg bg-neutral-100 dark:bg-[rgb(225_214_196)] px-4 py-20 dark:invert w-[248px] h-auto`}
-          />
-          <Image
-            src={`/am_logo.svg`}
-            width={1024}
-            height={494}
-            alt="CTA 4"
-            className={`w-full rounded-lg bg-neutral-100 dark:bg-[rgb(225_214_196)] px-4 py-20 dark:invert w-[248px] h-auto`}
-          />
         </div>
       </div>
     </div>

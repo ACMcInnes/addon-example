@@ -3,36 +3,36 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const plans = [
     {
-      name: 'Hobby',
+      name: 'Basic Seller',
       id: 'plan-hobby',
       href: '/resources/plans',
       priceMonthly: '$0',
-      description: "The perfect plan for casual users or if you're just getting started with our product.",
-      features: ['10,000 product limit', 'Daily syncs', 'Basic analytics', 'General support available'],
+      description: "The perfect plan for casual users or if you're just getting started with Commerce Sommelier.",
+      features: ['List 10,000 products', 'Daily syncs', 'Basic personalisation', 'General support available'],
       featured: false,
     },
     {
-      name: 'Enterprise',
+      name: 'Advanced Seller',
       id: 'plan-enterprise',
       href: '/resources/plans',
       priceMonthly: '$29',
-      description: 'Ready to take things to the next level, our Enterprise plan unlocks a number of powerful features',
+      description: 'Level up Gustave, unlock advanced personalisation, enable recommendations, and integration support',
       features: [
-        '100,000 product limit',
+        'List 100,000 products',
         'Hourly syncs',
-        'Advanced analytics',
+        'Advanced personalisation',
         'Enterpise level support',
-        'Unlock powerful automations',
-        'Custom integrations',
+        'Personalisation suggestions',
+        'Integration support',
       ],
       featured: true,
     },
     {
-        name: 'Custom',
+        name: 'Custom Seller',
         id: 'plan-custom',
         href: '/resources/plans',
         priceMonthly: '$99+',
-        description: "Need something bespoke, reach out and we'll discuss your options",
+        description: "Need Gus to work for you, reach out and we'll discuss your options",
         features: ['Unlimited products', 'Syncs your data every 15 minutes', 'Dedicated support agent', 'Plus all Enterprise plan features'],
         featured: false,
       },    
@@ -46,14 +46,13 @@ const plans = [
     return (
       <div className="mt-20 w-full max-w-(--breakpoint-xl)">
         <div className="mx-auto text-center">
-          <h2 className="text-base/7 font-semibold text-indigo-600 dark:text-indigo-500">Pricing</h2>
-          <p className="mt-2 text-balance text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
-            Choose the right plan for you
-          </p>
+          <h2 className="mt-2 text-balance text-4xl font-semibold tracking-tight text-indigo-600 dark:text-indigo-500 sm:text-5xl">
+            Create a Seller Account
+          </h2>
         </div>
-        <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg text-gray-600 dark:text-gray-400 sm:text-xl/8">
-          Choose an affordable plan that&apos;s packed with the best features for engaging your audience, creating customer
-          loyalty, and driving sales.
+        <p className="mx-auto mt-6 max-w-2xl text-pretty text-center text-lg text-gray-700 dark:text-gray-300 sm:text-xl/8">
+          Allow your webstore catalogue, or a selection of approved products to be recommended by Gustave. 
+          Buyers will be funneled towards your products if they match the buyers intent.
         </p>
         <div className="mx-auto mt-16 grid w-full grid-cols-1 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:grid-cols-3">
           {plans.map((plan, planIdx) => (
@@ -114,13 +113,13 @@ const plans = [
                   'mt-8 block rounded-md px-3.5 py-2.5 text-center text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:mt-10',
                 )}
               >
-                Get started today
+                Become a Seller
               </a>
             </div>
           ))}
         </div>
         <p className="mt-4 text-sm text-center text-gray-500 dark:text-gray-400">
-          <span className="align-top">*</span> while the Neto Addon Example is in beta, all accounts will use the &apos;Hobby&apos; plan
+          <span className="align-top">*</span> while Commerce Sommelier is in beta, all accounts will use the &apos;Basic Seller&apos; plan
         </p>
       </div>
     )

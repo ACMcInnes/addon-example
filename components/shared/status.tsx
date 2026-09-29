@@ -1,7 +1,5 @@
 'use server';
 
-import Link from "next/link";
-
 async function getStatus() {
   'use cache'
   const res = await fetch(
@@ -59,10 +57,11 @@ export default async function Status() {
   if (betterstack) {
     let status = betterstack.data.attributes.status as string;
     return (
-      <Link
+      <a
         href={statusPage}
         className="flex items-center justify-end gap-x-2 sm:justify-start"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <div
           className={`hover:animate-pulse ${statuses[status].style} flex-none rounded-full p-1`}
@@ -70,14 +69,15 @@ export default async function Status() {
           <div className="size-3 rounded-full bg-current" />
         </div>
         <div className="text-white text-xs">{statuses[status].text}</div>
-      </Link>
+      </a>
     );
   } else {
     return (
-      <Link
+      <a
         href={statusPage}
         className="flex items-center justify-end gap-x-2 sm:justify-start"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <div
           className={`hover:animate-pulse text-green-400 bg-green-400/10 flex-none rounded-full p-1`}
@@ -85,7 +85,7 @@ export default async function Status() {
           <div className="size-3 rounded-full bg-current" />
         </div>
         <div className="text-white text-xs">System Status</div>
-      </Link>
+      </a>
     );
   }
 }
