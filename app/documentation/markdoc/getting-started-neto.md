@@ -33,9 +33,3 @@ Your seller account will then be created and you will be redirected back to the 
 
 You have now successfully connected the Commerce Sommelier to your Neto Webstore. Continue working through the documentation to learn how to sync and start using your data.
 
----
-
-### Next Steps
-
-- [Sync your Neto Products](/documentation/sync-products)
-- [Sync your Neto Customers](/documentation/sync-customers)

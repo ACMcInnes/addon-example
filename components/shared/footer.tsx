@@ -200,7 +200,7 @@ export default async function Footer() {
                 Connect your webstore today
               </p>
               <Link
-                href={`/documentation/getting-started`}
+                href={`/documentation`}
                 className="group block mt-2 py-2 px-4 rounded-md bg-white text-black mix-blend-screen dark:bg-white border-transparent"
               >
                 Get Started{" "}

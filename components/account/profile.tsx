@@ -31,21 +31,24 @@ export default async function Profile() {
             colors={["#FFBF00", "#F53BAD", "#03B6FC", "#18D256"]}
             className="col-start-1 col-span-1 row-start-1 row-span-1 size-56"
           />
-          <p className="col-start-1 col-span-1 row-start-1 row-span-1 text-7xl">{initials}</p>
+          <p className="col-start-1 col-span-1 row-start-1 row-span-1 text-7xl text-white">
+            {initials}
+          </p>
         </div>
         <h2 className="mx-auto text-center mt-2 mb-8 max-w-xs sm:max-w-md md:max-w-xl lg:max-w-3xl text-balance text-4xl font-semibold text-gray-900 dark:text-gray-100 sm:text-5xl">
-          <strong className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-2 py-0.5 rounded wrap-break-word">
+          <strong className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-2 py-0.5 rounded wrap-break-word leading-16 box-decoration-clone">
             G&apos;day {user.name}
           </strong>
         </h2>
         <div>
           <div className="px-4 sm:px-0">
             <h3 className="text-base/7 font-semibold text-gray-900 dark:text-white">
-              McInnes Design &lt;&gt; Neto
+              Account Details
             </h3>
             <p className="mt-1 max-w-2xl text-sm/6 text-gray-500 dark:text-gray-400">
-              See what Neto data the McInnes Design application has access
-              too. For details around how this is used, refer to our{" "}
+              These details are synced directly from your commerce platform, to
+              make any changes update them there then log back into Commerce
+              Sommelier. For details around how this data is used, refer to our{" "}
               <Link
                 className="hover:underline hover:underline-offset-4 font-semibold whitespace-nowrap text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
                 href="/resources/terms-of-use"
@@ -53,6 +56,9 @@ export default async function Profile() {
                 terms &amp; conditions
               </Link>
               .
+            </p>
+            <p className="mt-4 max-w-2xl text-sm/6 text-gray-500 dark:text-gray-400">
+              To update your seller account status, see &apos;Manage Account&apos; below.
             </p>
           </div>
           <div className="mt-6 border-t border-gray-100 dark:border-white/10">
@@ -110,7 +116,7 @@ export default async function Profile() {
                     {items.Item.length}
                   </dd>
                 </div>
-              )}              
+              )}
               <div className="px-4 py-6 grid grid-cols-3 gap-4 sm:px-0">
                 <dt className="text-sm/6 font-medium text-gray-900 dark:text-gray-100">
                   Manage Account
@@ -133,9 +139,15 @@ export default async function Profile() {
             </dl>
           </div>
           <div className="px-4 sm:px-0 mt-12">
-            <Link href={`/`} className="group p-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-transparent">
-              <FontAwesomeIcon className="inline-block transition-transform group-hover:-translate-x-2 motion-reduce:transform-none" icon={faArrowLeft} />
-              {" "}Home
+            <Link
+              href={`/`}
+              className="group p-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-transparent"
+            >
+              <FontAwesomeIcon
+                className="inline-block transition-transform group-hover:-translate-x-2 motion-reduce:transform-none"
+                icon={faArrowLeft}
+              />{" "}
+              Home
             </Link>
           </div>
         </div>

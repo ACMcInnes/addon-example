@@ -63,7 +63,7 @@ Doesn't render HTML tags in markdown anymore...
 
 <span>sad</span>
 
-{% link href="/documentation/getting-started" %}
+{% link href="/documentation" %}
 Getting started
 {% /link %}
 

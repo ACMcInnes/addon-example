@@ -45,7 +45,7 @@ export default function TrustedTeams() {
               No complex AI prompt required, get setup instantly by linking your webstore, Gus will do the rest
             </p>
             <div className="mt-4 flex items-center justify-center gap-x-6">
-              <Link href={`/documentation/getting-started`} className=" group block py-3 px-8 rounded-md bg-indigo-600 text-white dark:bg-indigo-500 border-transparent">
+              <Link href={`/documentation`} className=" group block py-3 px-8 rounded-md bg-indigo-600 text-white dark:bg-indigo-500 border-transparent">
                 Get Started{" "}
                 <span className="inline-block transition-transform group-hover:translate-x-2 motion-reduce:transform-none">-&gt;</span>
               </Link>

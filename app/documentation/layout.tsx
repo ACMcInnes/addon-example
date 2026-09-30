@@ -11,8 +11,8 @@ import { faArrowsRotate, faCode, faNotdef, faRocket } from '@fortawesome/free-so
 library.add(faArrowsRotate, faCode, faRocket, faNotdef);
 
 export const metadata: Metadata = {
-  title: "Documentation",
-  description: "Addon Documentation",
+  title: "Seller Documentation",
+  description: "Commerce Sommelier Seller Documentation",
 };
 
 export default function DocumentationLayout({

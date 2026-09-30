@@ -46,7 +46,7 @@ export default function Home() {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
-                href={`/documentation/getting-started`}
+                href={`/documentation`}
                 className="group block mx-auto mb-2 py-3 px-8 rounded-md bg-white text-black mix-blend-screen dark:bg-white border-transparent"
               >
                 Get Started{" "}

@@ -1,51 +1,61 @@
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+
 const platforms = [
   {
     name: 'Neto',
     anchor: 'neto',
     description:
-      'Neto neto neto neto.',
+      'Allows Commerce Sommelier to automatically sync with your Neto product catalogue.',
     imageSrc: '/neto.svg',
     imageAlt: 'Neto platform logo',
+    live: true,
   },
   {
     name: 'Shopify',
     anchor: 'shopify',
     description:
-      'Shopify shopify shopify',
+      'Allows Commerce Sommelier to automatically sync with your Shopify product catalogue.',
     imageSrc: '/shopify.svg',
     imageAlt: 'Shopify platform logo',
+    live: false,
   },
   {
     name: 'Wix',
     anchor: 'wix',
     description:
-      'Wix wix wix wix',
+      'Allows Commerce Sommelier to automatically sync with your Wix product catalogue.',
     imageSrc: '/wix.svg',
     imageAlt: 'Wix platform logo',
+    live: false,
   },
   {
     name: 'Squarespace',
     anchor: 'squarespace',
     description:
-      'Squarespace squarespace squarespace',
+      'Allows Commerce Sommelier to automatically sync with your Squarespace product catalogue.',
     imageSrc: '/squarespace.svg',
     imageAlt: 'Squarespace platform logo',
+    live: false,
   },
   {
     name: 'WooCommerce',
     anchor: 'woo',
     description:
-      'WooCommerce woo woo woo',
+      'Allows Commerce Sommelier to automatically sync with your WooCommerce product catalogue.',
     imageSrc: '/woo.svg',
     imageAlt: 'WooCommerce platform logo',
+    live: false,
   },
   {
     name: 'BigCommerce',
     anchor: 'big',
     description:
-      'BigCommerce woo woo woo',
+      'Allows Commerce Sommelier to automatically sync with your BigCommerce product catalogue.',
     imageSrc: '/bigcommerce.svg',
     imageAlt: 'BigCommerce platform logo',
+    live: false,
   },  
 ]
 
@@ -66,28 +76,42 @@ export default function Connect() {
         </div>
 
         <div className="mt-12 space-y-12">
-          {platforms.map((feature, featureIdx) => (
+          {platforms.map((platform, index) => (
             <div
-              key={feature.name}
-              id={feature.anchor}
+              key={platform.name}
+              id={platform.anchor}
               className="pt-4 flex flex-col-reverse lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-8"
             >
               <div
-                className={`${featureIdx % 2 === 0 ? "lg:col-start-7" : "lg:col-start-1"} mt-6 lg:col-span-6 lg:row-start-1 lg:mt-0`}
+                className={`${index % 2 === 0 ? "lg:col-start-7" : "lg:col-start-1"} mt-6 lg:col-span-6 lg:row-start-1 lg:mt-0`}
               >
-                <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                  {feature.name}
-                </h3>
-                <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
-                  {feature.description}
+                <h2 className="text-2xl font-medium text-gray-900 dark:text-gray-100">
+                  {platform.name}
+                </h2>
+                <p className="my-2 text-sm text-gray-700 dark:text-gray-300">
+                  {platform.description}
                 </p>
+                {platform.live ? (
+                  <Link
+                    href={`/documentation/getting-started-${platform.anchor}`}
+                    className="group mt-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-transparent"
+                  >
+                    Connect Neto{" "}
+                    <FontAwesomeIcon
+                      className="inline-block transition-transform group-hover:translate-x-2 motion-reduce:transform-none"
+                      icon={faArrowRight}
+                    />
+                  </Link>
+                ) : (
+                  <p className="mt-2 text-sm text-gray-500 dark:text-gray-400"><span className="align-top">*</span>Coming Soon</p>
+                )}
               </div>
               <div
-                className={`${featureIdx % 2 === 0 ? "lg:col-start-1" : "lg:col-start-7"} flex-auto lg:col-span-6 lg:row-start-1 bg-neutral-100 dark:bg-slate-800 rounded-lg`}
+                className={`${index % 2 === 0 ? "lg:col-start-1" : "lg:col-start-7"} flex-auto lg:col-span-6 lg:row-start-1 bg-neutral-100 dark:bg-slate-800 rounded-lg`}
               >
                 <img
-                  alt={feature.imageAlt}
-                  src={feature.imageSrc}
+                  alt={platform.imageAlt}
+                  src={platform.imageSrc}
                   className="aspect-video sm:aspect-2/1 w-full px-6 dark:invert object-fit"
                 />
               </div>

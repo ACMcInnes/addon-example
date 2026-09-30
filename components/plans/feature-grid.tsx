@@ -331,7 +331,7 @@ export default function FeatureGrid() {
           </p>
         </div>
         <Link
-          href={`/documentation/getting-started`}
+          href={`/documentation`}
           className="group block mt-8 mb-4 py-3 px-8 rounded-md bg-indigo-600 text-white dark:bg-indigo-500 border-transparent"
         >
           Get Started{" "}
