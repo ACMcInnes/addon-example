@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { formatDate, getMarkdoc } from "app/documentation/utils";
+import { formatDate, getMarkdoc } from "@/app/documentation/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 

@@ -36,7 +36,7 @@ export default async function Profile() {
           </p>
         </div>
         <h2 className="mx-auto text-center mt-2 mb-8 max-w-xs sm:max-w-md md:max-w-xl lg:max-w-3xl text-balance text-4xl font-semibold text-gray-900 dark:text-gray-100 sm:text-5xl">
-          <strong className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-2 py-0.5 rounded wrap-break-word leading-16 box-decoration-clone">
+          <strong className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-2 py-0.5 rounded wrap-break-word leading-12 sm:leading-16 box-decoration-clone">
             G&apos;day {user.name}
           </strong>
         </h2>

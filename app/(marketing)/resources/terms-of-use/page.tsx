@@ -1,3 +1,10 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms | Resources",
+  description: "Commerce Sommelier terms of use",
+};
+
 export default function TermsOfUse() {
   return (
     <section className="px-3 lg:px-24 pb-6 w-full max-w-(--breakpoint-xl)">
@@ -9,12 +16,12 @@ export default function TermsOfUse() {
         or identifiable information you consent to said information being used
         for the purposes and functions of this application.
       </p>
-      <p className="mt-2">This includes but is not limited to:</p>
+      <p className="mt-4">This includes but is not limited to:</p>
 
       <ul className="list-disc list-inside mt-2 ml-2">
-        <li key="usage-0">Generating and storing API access credentials</li>
+        <li key="usage-0">Generating and storing API access credentials for any commerce platform you connect</li>
         <li key="usage-1">
-          Accessing additional webstore information via the Neto API
+          Accessing additional webstore information via the commerce platforms API
         </li>
         <li key="usage-2">
           Displaying and using that data within this application
@@ -33,7 +40,7 @@ export default function TermsOfUse() {
         </a>
         .
       </p> 
-      <p className="mt-2">  
+      <p className="mt-4">  
         By navigating and/or visiting this application some usage data may be recorded.
       </p>
     </section>

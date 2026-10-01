@@ -1,4 +1,10 @@
 import FeatureGrid from "@/components/plans/feature-grid";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Plans | Resources",
+  description: "Find the right Commerce Sommelier seller plan for your business",
+};
 
 export default function PlansPage() {
   return (

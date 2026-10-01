@@ -4,11 +4,14 @@ import Nav from "@/components/shared/nav";
 import Footer from "@/components/shared/footer";
 
 export const metadata: Metadata = {
-  title: "Platforms",
-  description: "Learn how to connect your ecommerce platform to the Commerce Sommelier",
+  title: {
+    template: '%s | Commerce Sommelier',
+    default: 'Commerce Sommelier'
+  },
+  description: "Meet Gustave, a shopping experience curator ready to push your products to the customers that need them the most",
 };
 
-export default function FaqLayout({
+export default function ResourcesLayout({
   children,
 }: {
   children: React.ReactNode;

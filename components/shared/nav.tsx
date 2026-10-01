@@ -45,7 +45,7 @@ export default function Nav() {
 
   return (
     <nav className="w-full items-center justify-between md:justify-center gap-8 mb-12 py-2 text-sm flex bg-slate-800 text-white">
-      <Link href="/" aria-label="Home">
+      <Link className="mr-auto" href="/" aria-label="Home">
         <Image
           src="/am_logo.svg"
           alt="AM Logo"
@@ -58,10 +58,10 @@ export default function Nav() {
       <ul className="hidden md:flex md:flex-row md:gap-8">
         {[
           ["About Us", "/about-us"],
-          ["Contact", "/contact"],
-          ["Assets", "/resources/assets"],
           ["Connect", "/connect"],
-          [`${session ? "Account" : "Login"}`, `${session ? "/account" : "/login"}`],
+          ["Plans", "/resources/plans"],
+          ["Documentation", "/documentation"],
+          ["Contact", "/contact"],
         ].map(([title, url], index) => (
           <li key={`d-menu-${index}`}>
             <Link
@@ -75,6 +75,12 @@ export default function Nav() {
           </li>
         ))}
       </ul>
+      <Link
+        className={`ml-auto mr-4 hidden md:flex md:flex-row md:gap-2 md:items-center hover:underline hover:underline-offset-4`}
+        href={`${session ? "/account" : "/login"}`}
+      >
+        {session ? "Account" : "Login"} <FontAwesomeIcon icon={faUser} className="text-xl w-[24px] h-[24px]!" />
+      </Link>
 
       <div
         onClick={() => setNav(!nav)}

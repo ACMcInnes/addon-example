@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { formatDate, getMarkdoc } from 'app/documentation/utils'
+import { formatDate, getMarkdoc } from '@/app/documentation/utils'
 import Markdoc from '@markdoc/markdoc'
 import React from 'react'
 import { IconProp } from '@fortawesome/fontawesome-svg-core'

@@ -1,7 +1,13 @@
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
+import { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: "FAQ",
+  description: "Answers for all Seller and Buyer common questions regarding Commerce Sommelier",
+};
 
 const seller = [
   {

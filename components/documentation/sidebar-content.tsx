@@ -1,4 +1,4 @@
-import { getMarkdoc } from "app/documentation/utils";
+import { getMarkdoc } from "@/app/documentation/utils";
 import { CloseButton } from "@headlessui/react";
 import { PopoverLink } from "./popover-link";
 
@@ -9,7 +9,7 @@ export default function SidebarContent() {
       <li key={`documentation`}>
         <CloseButton as={PopoverLink}
           href="/documentation"
-          className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+          className="hover:underline hover:underline-offset-4 font-semibold whitespace-nowrap text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
         >
           Home
         </CloseButton>
@@ -18,7 +18,7 @@ export default function SidebarContent() {
         <li key={`${page.slug}`}>
           <CloseButton as={PopoverLink}
             href={`/documentation/${page.slug}`}
-            className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+            className="hover:underline hover:underline-offset-4 font-semibold whitespace-nowrap text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
           >
             {page.metadata.title}
           </CloseButton>

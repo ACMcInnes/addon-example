@@ -1,7 +1,13 @@
-import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Avatar from 'boring-avatars';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description: "Learn about the team behind the Commerce Sommlier",
+};
 
 const people = [
   {
@@ -72,7 +78,7 @@ const people = [
 
 export default function About() {
   return (
-    <section>
+    <section className="align-start px-3 lg:px-24 pb-6 w-full max-w-(--breakpoint-xl)">
       <h1 className="mx-auto text-center mt-2 text-balance text-4xl font-semibold tracking-tight text-indigo-600 dark:text-indigo-500 sm:text-5xl">
         About Us
       </h1>
@@ -171,9 +177,9 @@ export default function About() {
           href="//andrew.mcinnes.design/"
           target="_blank"
           rel="noopener"
-          className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+          className="hover:underline hover:underline-offset-4 font-semibold whitespace-nowrap text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
         >
-          Andrew McInnes <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          Andrew McInnes{" "}<FontAwesomeIcon className="!align-super !size-3 rotate-45" icon={faArrowUp} />
         </a>
       </p>
 

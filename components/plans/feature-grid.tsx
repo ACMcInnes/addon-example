@@ -139,7 +139,7 @@ export default function FeatureGrid() {
                 className={classNames(
                   tier.mostPopular
                     ? "bg-indigo-600 text-white hover:bg-indigo-500"
-                    : "text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300",
+                    : "text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300",
                   "mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 )}
               >
@@ -239,7 +239,7 @@ export default function FeatureGrid() {
                         className={classNames(
                           tier.mostPopular
                             ? "bg-indigo-600 text-white hover:bg-indigo-500"
-                            : "text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300",
+                            : "text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300",
                           "mt-8 block rounded-md px-3 py-2 text-center text-sm/6 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         )}
                       >

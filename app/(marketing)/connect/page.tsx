@@ -1,6 +1,12 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Connect",
+  description: "Learn how to connect your ecommerce platform to the Commerce Sommelier",
+};
 
 const platforms = [
   {
@@ -94,7 +100,7 @@ export default function Connect() {
                 {platform.live ? (
                   <Link
                     href={`/documentation/getting-started-${platform.anchor}`}
-                    className="group mt-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400 border-transparent"
+                    className="group mt-2 text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 border-transparent"
                   >
                     Connect Neto{" "}
                     <FontAwesomeIcon

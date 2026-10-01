@@ -1,4 +1,4 @@
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,10 +27,10 @@ export default function TrustedTeams() {
                   href="//mcinnes.design/"
                   target="_blank"
                   rel="noopener"
-                  className="text-sm/6 font-semibold text-indigo-600 hover:text-indigo-300 dark:text-indigo-400 dark:hover:text-indigo-300"
+                  className="hover:underline hover:underline-offset-4 font-semibold whitespace-nowrap text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
                 >
                   Check out our other stuff{" "}
-                  <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                  <FontAwesomeIcon className="!align-super !size-3 rotate-45" icon={faArrowUp} />
                 </a>
               </div>
             </div>

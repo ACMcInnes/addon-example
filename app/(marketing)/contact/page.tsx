@@ -1,5 +1,12 @@
 import Link from 'next/link'
 import ContactForm from "@/components/shared/contact-form";
+import { Metadata } from 'next';
+
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Have a question? We are here to help",
+};
 
 export default function Contact() {
   return (
@@ -14,7 +21,7 @@ export default function Contact() {
           Check out our{" "}
           <Link
             href="/faq"
-            className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400"
+            className="hover:underline hover:underline-offset-4 font-semibold whitespace-nowrap text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300"
           >
             FAQs
           </Link>{" "}

@@ -1,6 +1,12 @@
 import { faArrowUpRightFromSquare, faFontAwesome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Assets | Resources",
+  description: "See how Commerce Sommelier was built",
+};
 
 const assets = [
   {

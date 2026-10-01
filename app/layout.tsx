@@ -14,7 +14,10 @@ config.autoAddCss = false;
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Commerce Sommelier',
+  title: {
+    template: '%s | Commerce Sommelier',
+    default: 'Commerce Sommelier'
+  },
   description: 'Meet Gustave, a shopping experience curator ready to push your products to the customers that need them the most',
 }
 
