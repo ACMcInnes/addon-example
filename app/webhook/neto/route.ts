@@ -1,6 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { XMLParser } from "fast-xml-parser";
+import crypto from "crypto";
+import minifyXML from "minify-xml";
+
+export function verifySignature(
+  data: string,
+  signatureBase64: string,
+  publicKey: string
+): boolean {
+  const dataBuffer = Buffer.from(minifyXML(data));
+  const signatureBuffer = Buffer.from(signatureBase64, 'base64');
+  const isVerified = crypto.verify(
+    'sha256',
+    dataBuffer,
+    {
+        key: publicKey,
+        padding: crypto.constants.RSA_PKCS1_PADDING // Match the padding used during signing (e.g., PSS or PKCS1)
+    },
+    signatureBuffer
+  );
+
+  return isVerified;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,24 +38,55 @@ export async function POST(request: NextRequest) {
       console.log(text);
 
       const parser = new XMLParser();
-      let jsText = parser.parse(text);
+      let webhook = parser.parse(text);
       console.log(`WEBHOOK TEST JSON:`);
-      console.log(jsText);
+      console.log(webhook);
 
-      console.log(`Webhook received: ${jsText.Event.CurrentTime}`);
-      console.log(`Webhook order: ${jsText.Event.Order.OrderID}`);
-      console.log(`Webhook order status: ${jsText.Event.Order.OrderStatus}`);
+      console.log(`Webhook received: ${webhook.Event.CurrentTime}`);
+      console.log(`Webhook order: ${webhook.Event.Order.OrderID}`);
+      console.log(`Webhook order status: ${webhook.Event.Order.OrderStatus}`);
 
-      const order = jsText.Event.Order.OrderID;
+      const order = webhook.Event.Order.OrderID;
       const headersList = await headers();
       console.log(`HEADERS`)
       headersList.forEach((value, key) => {
         console.log(`${key} ==> ${value}`);
       });
 
-      const webstore_key = headersList.get("NETOAPI_KEY");
+      const webstoreKey = headersList.get("NETOAPI_KEY");
+      const eventType = headersList.get("NETO_NOTIFICATION");
+      const webstoreHash = headersList.get("X-Neto-Store-Id");
+      const eventSignature = headersList.get("X-Neto-Signature") || '';
+      const signatureError = headersList.get("X-Neto-Signature-Error");
+      const publicKey = process.env.KEYLIME_RSA_PUBLIC_KEY!.replace(/\\n/g, '\n');
 
-      if (webstore_key === process.env.KEYLIME_WEBHOOK_TOKEN) {
+      if (webstoreHash) {
+        console.log(`Webhook signature supplied, checking...`)
+        /*
+          // don't need to create a key object, 'verify' method handles key as a string
+          const pubKeyObject = crypto.createPublicKey({
+            key: publicKey,
+            format: 'pem',
+            type: 'pkcs1',
+          });
+
+          const publicKeyPem = pubKeyObject.export({
+            type: 'pkcs1',
+            format: 'pem',
+          });
+
+          console.log(publicKeyPem);
+        */
+
+
+        const validWebhook = verifySignature(text, eventSignature, publicKey)
+        console.log('Signature valid:', validWebhook);
+
+
+
+      }
+
+      if (webstoreKey === process.env.KEYLIME_WEBHOOK_TOKEN) {
         console.log(`FETCHING WEBHOOK ORDER VIA API`);
         const res = await fetch(`https://keylime.neto.com.au/do/WS/NetoAPI`, {
           method: "POST",
