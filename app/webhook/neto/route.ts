@@ -34,27 +34,35 @@ export async function POST(request: NextRequest) {
       // console.log(`WEBHOOK FULL REQUEST:`);
       // console.log(request);
 
-      console.log(`WEBHOOK TEXT:`);
+      // console.log(`WEBHOOK TEXT:`);
       console.log(text);
 
       const parser = new XMLParser();
       let webhook = parser.parse(text);
-      console.log(`WEBHOOK TEST JSON:`);
-      console.log(webhook);
+      // console.log(`WEBHOOK TEST JSON:`);
+      // console.log(webhook);
+
+      let eventSubtype = webhook.Event.EventSubtype || 'OrderStatus';
 
       console.log(`Webhook received: ${webhook.Event.CurrentTime}`);
       console.log(`Webhook order: ${webhook.Event.Order.OrderID}`);
-      console.log(`Webhook order status: ${webhook.Event.Order.OrderStatus}`);
+      console.log(`Webhook order ${eventSubtype}: ${webhook.Event.Order[eventSubtype]}`);
 
       const order = webhook.Event.Order.OrderID;
       const headersList = await headers();
+      
+
+  return new NextResponse("200 OK", {
+    status: 200,
+  });
+
       console.log(`HEADERS`)
       headersList.forEach((value, key) => {
         console.log(`${key} ==> ${value}`);
       });
 
       const webstoreKey = headersList.get("NETOAPI_KEY");
-      const eventType = headersList.get("NETO_NOTIFICATION");
+      const eventType = headersList.get("NETO_NOTIFICATION"); // can use if Neto expands the webhook events they trigger
       const webstoreHash = headersList.get("X-Neto-Store-Id");
       const eventSignature = headersList.get("X-Neto-Signature") || '';
       const signatureError = headersList.get("X-Neto-Signature-Error");
@@ -69,20 +77,23 @@ export async function POST(request: NextRequest) {
             format: 'pem',
             type: 'pkcs1',
           });
-
           const publicKeyPem = pubKeyObject.export({
             type: 'pkcs1',
             format: 'pem',
           });
-
           console.log(publicKeyPem);
         */
-
-
+        if (signatureError) {
+          console.log("Failed to verify webhook source");
+          console.log(signatureError)
+          return new NextResponse(`Webhook error: ${signatureError}`, {
+            status: 400,
+          });
+        }
         const validWebhook = verifySignature(text, eventSignature, publicKey)
         console.log('Signature valid:', validWebhook);
 
-
+        // perform update actions here as webhook source is authentic
 
       }
 
@@ -144,7 +155,7 @@ export async function POST(request: NextRequest) {
       status: 400,
     });
   }
-
+  // let Neto know we received the webhook
   return new NextResponse("200 OK", {
     status: 200,
   });
