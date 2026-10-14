@@ -51,11 +51,6 @@ export async function POST(request: NextRequest) {
       const order = webhook.Event.Order.OrderID;
       const headersList = await headers();
       
-
-  return new NextResponse("200 OK", {
-    status: 200,
-  });
-
       console.log(`HEADERS`)
       headersList.forEach((value, key) => {
         console.log(`${key} ==> ${value}`);
